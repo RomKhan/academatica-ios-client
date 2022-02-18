@@ -1,0 +1,16 @@
+PODS:
+  - CalendarHeatmap (0.1.3)
+
+DEPENDENCIES:
+  - CalendarHeatmap
+
+SPEC REPOS:
+  trunk:
+    - CalendarHeatmap
+
+SPEC CHECKSUMS:
+  CalendarHeatmap: 91034b0eead341a8a8d29b4a460b8b3a176fa36c
+
+PODFILE CHECKSUM: 2a6c1766b69bfe1e7cf4b747a4fac7b46d9bc6a9
+
+COCOAPODS: 1.11.2

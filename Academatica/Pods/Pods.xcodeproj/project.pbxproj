@@ -1,0 +1,636 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 52;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0DDDA96FFA71BA55DC2EF7132CB60D61 /* CalendarHeatmapData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF87B307794E06285AA51315CA7A535E /* CalendarHeatmapData.swift */; };
+		210E734D69E6561C8B43C2F356532386 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB6F611E86A4758835A715E4B4184F6 /* Foundation.framework */; };
+		234FF8A341987155F73875CF0393F494 /* CalendarHeatmapConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC7CE8FA233E8BD4AEFA94F8F18EA0C0 /* CalendarHeatmapConfig.swift */; };
+		23C7A8E645DC270239499151F011B4DC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAB6F611E86A4758835A715E4B4184F6 /* Foundation.framework */; };
+		25F02BDAB9903A045AF1A7DFC82226B6 /* CalendarHeatmap-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 82160906CF5D7BD1B594D4E6F163392B /* CalendarHeatmap-dummy.m */; };
+		55B73EDCBED9F9CD62A0B1968F7F7CD0 /* CalendarHeatmap-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D1494BBB131963F50CA8D578FFC240B5 /* CalendarHeatmap-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		58F7C0A5BB630BB2748967EAA2F95D17 /* WeekDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEE745CE6AFB5DB1CC36DB2298D31F0 /* WeekDayView.swift */; };
+		60793C8637A79CD50F62847B68AA6AC8 /* MonthHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032CE7E1D819E5B88A77C5BDD09AF497 /* MonthHeaderView.swift */; };
+		B6B209BA68FC66FDA3266F5102A2FDF9 /* Pods-Academatica-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = FE168F5DF0FCCFAD8D2CC2DEC3CA7478 /* Pods-Academatica-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BE254F5E905FA8248AD4EB92374D7493 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D245E0514AAC1A2B9A6D5EA2F383E90F /* UIKit.framework */; };
+		CED2D75F0098742473620D6F9E386916 /* CalendarHeatmapCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C49BA9F6B1ED3DF1D528433FA6C126CF /* CalendarHeatmapCell.swift */; };
+		D9B0A5339DFF60912CBDE8243171C56B /* CalendarHeatmap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 082981D912A32C553D2FA5D9B6FD9808 /* CalendarHeatmap.swift */; };
+		E65F005E93C0D74E278F631D9B8E3969 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEF88BC729DDA5E0DAFB5D3F0B734C34 /* Extensions.swift */; };
+		ECCD7988A1191D307A6E2C99DA4B000B /* Pods-Academatica-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8999D2FD16474C20311D4AF71CF6B3AD /* Pods-Academatica-dummy.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		146A25F89F09F33E7E2BFA002BB1CE6A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0021023150C6F27C41CA8300983D1909;
+			remoteInfo = CalendarHeatmap;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		032CE7E1D819E5B88A77C5BDD09AF497 /* MonthHeaderView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MonthHeaderView.swift; path = CalendarHeatmap/Classes/MonthHeaderView.swift; sourceTree = "<group>"; };
+		06187A5E7BE5F276B4CDB85AB6AFC815 /* CalendarHeatmap-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CalendarHeatmap-prefix.pch"; sourceTree = "<group>"; };
+		082981D912A32C553D2FA5D9B6FD9808 /* CalendarHeatmap.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CalendarHeatmap.swift; path = CalendarHeatmap/Classes/CalendarHeatmap.swift; sourceTree = "<group>"; };
+		0A275A07619DA5D8DD280072A44EB2D4 /* CalendarHeatmap-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "CalendarHeatmap-Info.plist"; sourceTree = "<group>"; };
+		2D5DB20342B3374A55DD1862B1D8F08D /* Pods-Academatica-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Academatica-Info.plist"; sourceTree = "<group>"; };
+		30594D4ADDEC0A71C0B0744150DC8DAA /* Pods-Academatica.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Academatica.debug.xcconfig"; sourceTree = "<group>"; };
+		39025180D9CB36667C96CBC288A5D574 /* CalendarHeatmap */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = CalendarHeatmap; path = CalendarHeatmap.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4361C989E7E1E8F41330D2FED9770A2F /* Pods-Academatica-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Academatica-acknowledgements.markdown"; sourceTree = "<group>"; };
+		6608462811EBAF32B5C0D2C2096DE929 /* CalendarHeatmap.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = CalendarHeatmap.modulemap; sourceTree = "<group>"; };
+		82160906CF5D7BD1B594D4E6F163392B /* CalendarHeatmap-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "CalendarHeatmap-dummy.m"; sourceTree = "<group>"; };
+		8999D2FD16474C20311D4AF71CF6B3AD /* Pods-Academatica-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Academatica-dummy.m"; sourceTree = "<group>"; };
+		94D120F35723EDBEA933527C50C72835 /* CalendarHeatmap.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = CalendarHeatmap.release.xcconfig; sourceTree = "<group>"; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		AEF88BC729DDA5E0DAFB5D3F0B734C34 /* Extensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Extensions.swift; path = CalendarHeatmap/Classes/Extensions.swift; sourceTree = "<group>"; };
+		BC5A9567207D4712B14E631E7F96D0DB /* Pods-Academatica-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Academatica-frameworks.sh"; sourceTree = "<group>"; };
+		BCEE745CE6AFB5DB1CC36DB2298D31F0 /* WeekDayView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = WeekDayView.swift; path = CalendarHeatmap/Classes/WeekDayView.swift; sourceTree = "<group>"; };
+		BF2E95DC0C3A339B70B6165D2A6030D6 /* Pods-Academatica-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Academatica-acknowledgements.plist"; sourceTree = "<group>"; };
+		BF87B307794E06285AA51315CA7A535E /* CalendarHeatmapData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CalendarHeatmapData.swift; path = CalendarHeatmap/Classes/CalendarHeatmapData.swift; sourceTree = "<group>"; };
+		C49BA9F6B1ED3DF1D528433FA6C126CF /* CalendarHeatmapCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CalendarHeatmapCell.swift; path = CalendarHeatmap/Classes/CalendarHeatmapCell.swift; sourceTree = "<group>"; };
+		D1494BBB131963F50CA8D578FFC240B5 /* CalendarHeatmap-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CalendarHeatmap-umbrella.h"; sourceTree = "<group>"; };
+		D245E0514AAC1A2B9A6D5EA2F383E90F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		DC7CE8FA233E8BD4AEFA94F8F18EA0C0 /* CalendarHeatmapConfig.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CalendarHeatmapConfig.swift; path = CalendarHeatmap/Classes/CalendarHeatmapConfig.swift; sourceTree = "<group>"; };
+		E3351089C9F1F0CE73B4AAA66C529518 /* Pods-Academatica.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Academatica.modulemap"; sourceTree = "<group>"; };
+		EA157D49FCCD87C52482F315768AF8AC /* CalendarHeatmap.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = CalendarHeatmap.debug.xcconfig; sourceTree = "<group>"; };
+		EAB6F611E86A4758835A715E4B4184F6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		EB8A77590DF5243EA7BDC5FB7F806D73 /* Pods-Academatica */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-Academatica"; path = Pods_Academatica.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F4CFCE96F3602E87C779A81C72D319C6 /* Pods-Academatica.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Academatica.release.xcconfig"; sourceTree = "<group>"; };
+		FE168F5DF0FCCFAD8D2CC2DEC3CA7478 /* Pods-Academatica-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Academatica-umbrella.h"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DE5D834E6FEE5F9FF5B098371DEBD01A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				210E734D69E6561C8B43C2F356532386 /* Foundation.framework in Frameworks */,
+				BE254F5E905FA8248AD4EB92374D7493 /* UIKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E0D7C64E5C09194CAC284DC02AB7B0D7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				23C7A8E645DC270239499151F011B4DC /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1628BF05B4CAFDCC3549A101F5A10A17 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				59DA5C1F72E1D5BABC43EACBA672C3BA /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2B2BDF46A275B68C6C51C94A8DA5EDC8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9027C228B666FAEDB79EA6E4D1CCA496 /* CalendarHeatmap */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		59DA5C1F72E1D5BABC43EACBA672C3BA /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				EAB6F611E86A4758835A715E4B4184F6 /* Foundation.framework */,
+				D245E0514AAC1A2B9A6D5EA2F383E90F /* UIKit.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		9027C228B666FAEDB79EA6E4D1CCA496 /* CalendarHeatmap */ = {
+			isa = PBXGroup;
+			children = (
+				082981D912A32C553D2FA5D9B6FD9808 /* CalendarHeatmap.swift */,
+				C49BA9F6B1ED3DF1D528433FA6C126CF /* CalendarHeatmapCell.swift */,
+				DC7CE8FA233E8BD4AEFA94F8F18EA0C0 /* CalendarHeatmapConfig.swift */,
+				BF87B307794E06285AA51315CA7A535E /* CalendarHeatmapData.swift */,
+				AEF88BC729DDA5E0DAFB5D3F0B734C34 /* Extensions.swift */,
+				032CE7E1D819E5B88A77C5BDD09AF497 /* MonthHeaderView.swift */,
+				BCEE745CE6AFB5DB1CC36DB2298D31F0 /* WeekDayView.swift */,
+				9E67CDDCACAE1E4B8002F0434660C392 /* Support Files */,
+			);
+			name = CalendarHeatmap;
+			path = CalendarHeatmap;
+			sourceTree = "<group>";
+		};
+		9E67CDDCACAE1E4B8002F0434660C392 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				6608462811EBAF32B5C0D2C2096DE929 /* CalendarHeatmap.modulemap */,
+				82160906CF5D7BD1B594D4E6F163392B /* CalendarHeatmap-dummy.m */,
+				0A275A07619DA5D8DD280072A44EB2D4 /* CalendarHeatmap-Info.plist */,
+				06187A5E7BE5F276B4CDB85AB6AFC815 /* CalendarHeatmap-prefix.pch */,
+				D1494BBB131963F50CA8D578FFC240B5 /* CalendarHeatmap-umbrella.h */,
+				EA157D49FCCD87C52482F315768AF8AC /* CalendarHeatmap.debug.xcconfig */,
+				94D120F35723EDBEA933527C50C72835 /* CalendarHeatmap.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/CalendarHeatmap";
+			sourceTree = "<group>";
+		};
+		A8175625EFF702BDB0F5C5D78D687CF6 /* Pods-Academatica */ = {
+			isa = PBXGroup;
+			children = (
+				E3351089C9F1F0CE73B4AAA66C529518 /* Pods-Academatica.modulemap */,
+				4361C989E7E1E8F41330D2FED9770A2F /* Pods-Academatica-acknowledgements.markdown */,
+				BF2E95DC0C3A339B70B6165D2A6030D6 /* Pods-Academatica-acknowledgements.plist */,
+				8999D2FD16474C20311D4AF71CF6B3AD /* Pods-Academatica-dummy.m */,
+				BC5A9567207D4712B14E631E7F96D0DB /* Pods-Academatica-frameworks.sh */,
+				2D5DB20342B3374A55DD1862B1D8F08D /* Pods-Academatica-Info.plist */,
+				FE168F5DF0FCCFAD8D2CC2DEC3CA7478 /* Pods-Academatica-umbrella.h */,
+				30594D4ADDEC0A71C0B0744150DC8DAA /* Pods-Academatica.debug.xcconfig */,
+				F4CFCE96F3602E87C779A81C72D319C6 /* Pods-Academatica.release.xcconfig */,
+			);
+			name = "Pods-Academatica";
+			path = "Target Support Files/Pods-Academatica";
+			sourceTree = "<group>";
+		};
+		AEC32929E0785CEC431E31D66A1F83F5 /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				A8175625EFF702BDB0F5C5D78D687CF6 /* Pods-Academatica */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		B617B5DD5F7FAA3029EE6CA91D3CB049 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				39025180D9CB36667C96CBC288A5D574 /* CalendarHeatmap */,
+				EB8A77590DF5243EA7BDC5FB7F806D73 /* Pods-Academatica */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CF1408CF629C7361332E53B88F7BD30C = {
+			isa = PBXGroup;
+			children = (
+				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
+				1628BF05B4CAFDCC3549A101F5A10A17 /* Frameworks */,
+				2B2BDF46A275B68C6C51C94A8DA5EDC8 /* Pods */,
+				B617B5DD5F7FAA3029EE6CA91D3CB049 /* Products */,
+				AEC32929E0785CEC431E31D66A1F83F5 /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		8A1370BB1EB032467CBBA1FE794DAA47 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B6B209BA68FC66FDA3266F5102A2FDF9 /* Pods-Academatica-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DC3B7D1D891788160D2C4D2CA35CF979 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55B73EDCBED9F9CD62A0B1968F7F7CD0 /* CalendarHeatmap-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		0021023150C6F27C41CA8300983D1909 /* CalendarHeatmap */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 63E5D863C894BFF04C6284BFD88161C6 /* Build configuration list for PBXNativeTarget "CalendarHeatmap" */;
+			buildPhases = (
+				DC3B7D1D891788160D2C4D2CA35CF979 /* Headers */,
+				135361652054249A283F78F81C086172 /* Sources */,
+				DE5D834E6FEE5F9FF5B098371DEBD01A /* Frameworks */,
+				5CA39AFB53915728F86FECA8BA0037E5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CalendarHeatmap;
+			productName = CalendarHeatmap;
+			productReference = 39025180D9CB36667C96CBC288A5D574 /* CalendarHeatmap */;
+			productType = "com.apple.product-type.framework";
+		};
+		0C704C4CB66E8061CB846956C489154F /* Pods-Academatica */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 75DA12D5575D4C5BB20652BDD2B82A11 /* Build configuration list for PBXNativeTarget "Pods-Academatica" */;
+			buildPhases = (
+				8A1370BB1EB032467CBBA1FE794DAA47 /* Headers */,
+				E2A4D0794580B4AF5E724BA460C12BF9 /* Sources */,
+				E0D7C64E5C09194CAC284DC02AB7B0D7 /* Frameworks */,
+				A88F8F7E6A65903D687B2EC73887C50B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				957151135D560F81E8E513D8E196F318 /* PBXTargetDependency */,
+			);
+			name = "Pods-Academatica";
+			productName = Pods_Academatica;
+			productReference = EB8A77590DF5243EA7BDC5FB7F806D73 /* Pods-Academatica */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BFDFE7DC352907FC980B868725387E98 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1240;
+				LastUpgradeCheck = 1240;
+			};
+			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 11.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
+			productRefGroup = B617B5DD5F7FAA3029EE6CA91D3CB049 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0021023150C6F27C41CA8300983D1909 /* CalendarHeatmap */,
+				0C704C4CB66E8061CB846956C489154F /* Pods-Academatica */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		5CA39AFB53915728F86FECA8BA0037E5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A88F8F7E6A65903D687B2EC73887C50B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		135361652054249A283F78F81C086172 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D9B0A5339DFF60912CBDE8243171C56B /* CalendarHeatmap.swift in Sources */,
+				25F02BDAB9903A045AF1A7DFC82226B6 /* CalendarHeatmap-dummy.m in Sources */,
+				CED2D75F0098742473620D6F9E386916 /* CalendarHeatmapCell.swift in Sources */,
+				234FF8A341987155F73875CF0393F494 /* CalendarHeatmapConfig.swift in Sources */,
+				0DDDA96FFA71BA55DC2EF7132CB60D61 /* CalendarHeatmapData.swift in Sources */,
+				E65F005E93C0D74E278F631D9B8E3969 /* Extensions.swift in Sources */,
+				60793C8637A79CD50F62847B68AA6AC8 /* MonthHeaderView.swift in Sources */,
+				58F7C0A5BB630BB2748967EAA2F95D17 /* WeekDayView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E2A4D0794580B4AF5E724BA460C12BF9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ECCD7988A1191D307A6E2C99DA4B000B /* Pods-Academatica-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		957151135D560F81E8E513D8E196F318 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CalendarHeatmap;
+			target = 0021023150C6F27C41CA8300983D1909 /* CalendarHeatmap */;
+			targetProxy = 146A25F89F09F33E7E2BFA002BB1CE6A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		15728B39C92D0376D3E6ACC05D0B7046 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 94D120F35723EDBEA933527C50C72835 /* CalendarHeatmap.release.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/CalendarHeatmap/CalendarHeatmap-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/CalendarHeatmap/CalendarHeatmap-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/CalendarHeatmap/CalendarHeatmap.modulemap";
+				PRODUCT_MODULE_NAME = CalendarHeatmap;
+				PRODUCT_NAME = CalendarHeatmap;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		3497B8EBF36235AE479AA9CDE624D494 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EA157D49FCCD87C52482F315768AF8AC /* CalendarHeatmap.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/CalendarHeatmap/CalendarHeatmap-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/CalendarHeatmap/CalendarHeatmap-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/CalendarHeatmap/CalendarHeatmap.modulemap";
+				PRODUCT_MODULE_NAME = CalendarHeatmap;
+				PRODUCT_NAME = CalendarHeatmap;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		900205A90CB2C9B4FFFCC5BA59086013 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 30594D4ADDEC0A71C0B0744150DC8DAA /* Pods-Academatica.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-Academatica/Pods-Academatica-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-Academatica/Pods-Academatica.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		90D4D09BCB6A4660E43ACBE9ECB6FE9A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		9553C89E183877A5CB2F3C6801BEC129 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Release;
+		};
+		F871C16AF9F61048706DAA05ECED5930 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F4CFCE96F3602E87C779A81C72D319C6 /* Pods-Academatica.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-Academatica/Pods-Academatica-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-Academatica/Pods-Academatica.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				90D4D09BCB6A4660E43ACBE9ECB6FE9A /* Debug */,
+				9553C89E183877A5CB2F3C6801BEC129 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		63E5D863C894BFF04C6284BFD88161C6 /* Build configuration list for PBXNativeTarget "CalendarHeatmap" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3497B8EBF36235AE479AA9CDE624D494 /* Debug */,
+				15728B39C92D0376D3E6ACC05D0B7046 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		75DA12D5575D4C5BB20652BDD2B82A11 /* Build configuration list for PBXNativeTarget "Pods-Academatica" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				900205A90CB2C9B4FFFCC5BA59086013 /* Debug */,
+				F871C16AF9F61048706DAA05ECED5930 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+}
