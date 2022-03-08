@@ -82,9 +82,9 @@ struct ProfileView: View {
                         .shadow(color: .black.opacity(0.25), radius: 10, x: 0, y: 0)
                         .blendMode(.overlay)
                     VStack(alignment: .leading, spacing: 5) {
-                        Text("\(viewModel.userModel.firstName) \(viewModel.userModel.lastName)")
+                        Text("\(viewModel.userModel.firstName!) \(viewModel.userModel.lastName!)")
                             .font(.system(size: 18, weight: .heavy))
-                        Text("@\(viewModel.userModel.userName)")
+                        Text("@\(viewModel.userModel.userName!)")
                             .font(.system(size: 14, weight: .thin))
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)

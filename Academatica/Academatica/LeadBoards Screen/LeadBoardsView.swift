@@ -41,25 +41,40 @@ struct LeadBoardsView: View {
                             ProfileView(viewModel: ProfileViewModel(), isOtherAccount: true)
                         } label: {
                             HStack {
-                                Text(Int(userModel.id) ?? 0 < 99 ? "\(userModel.id)" : "99+")
+                                //                                Text(Int(userModel.id) ?? 0 < 99 ? "\(userModel.id)" : "99+")
+                                Text(Int(0) ?? 0 < 99 ? "\(0)" : "99+")
                                     .font(.system(size: 18, weight: .bold))
                                     .foregroundColor(.white)
                                     .frame(maxWidth: 36)
-                                Image(userModel.profilePicURL)
-                                    .resizable()
-                                    .scaledToFill()
-                                    .background(Color.gray)
-                                    .mask(Circle())
-                                    .frame(width: 60)
-                                    .padding(5)
-                                    .padding(.leading, -5)
+                                AsyncImage(url: userModel.profilePicURL,         transaction: Transaction(animation: .easeInOut))
+                                { phase in
+                                    switch phase {
+                                    case .empty:
+                                        Rectangle().fill(.gray)
+                                    case .success(let image):
+                                        image
+                                            .resizable()
+                                            .scaledToFit()
+                                            .background(Color.gray)
+                                            .mask(Circle())
+                                            .frame(width: 60)
+                                            .padding(5)
+                                            .padding(.leading, -5)
+                                            .transition(.scale(scale: 0.1, anchor: .center))
+                                    case .failure:
+                                        Image(systemName: "wifi.slash")
+                                    @unknown default:
+                                        EmptyView()
+                                    }
+                                }
+                                    
                                 VStack(alignment: .leading) {
                                     
-                                    Text("\(userModel.firstName) \(userModel.lastName)")
+                                    Text("\(userModel.firstName!) \(userModel.lastName!)")
                                         .foregroundColor(.white)
                                         .font(.system(size: 16, weight: .bold))
                                         .padding(.bottom, -5)
-                                    Text("@\(userModel.userName)")
+                                    Text("@\(userModel.userName!)")
                                         .foregroundColor(viewModel.colors[3])
                                         .font(.system(size: 13))
                                     
@@ -74,7 +89,7 @@ struct LeadBoardsView: View {
                                             .blendMode(.overlay)
                                     )
                                     .cornerRadius(10)
-                        }
+                            }
                         }
                         .onAppear {
                             viewModel.loadMoreUsersIfNeeded(currentItem: userModel)

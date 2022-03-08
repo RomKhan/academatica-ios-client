@@ -18,11 +18,11 @@ enum practiceType {
 struct HomeView: View {
     @ObservedObject var viewModel = HomeViewModel()
     @State private var heightOfset: CGFloat = 0
-    //    @State var state: ResizableSheetState = .hidden
     @State var selectedDetentIdentifier: UISheetPresentationController.Detent.Identifier? = .medium
     @State var state: Bool = false
     @State var practiceType: PracticeSheetState = .byCompletedLessons
     @State private var showConstructor = false
+//    @Binding var practiceShow: Bool
     @Binding var selected: ScreenType
     var body: some View {
         ZStack(alignment: .top) {
@@ -35,7 +35,6 @@ struct HomeView: View {
                             .init(color: Color(#colorLiteral(red: 0.8598107696, green: 0, blue: 0.999384582, alpha: 1)), location: 0.6)]),
                     startPoint: .topTrailing,
                     endPoint: .bottomLeading)).ignoresSafeArea()
-            
             TrackableScrollView(showIndicators: false, contentOffset: $heightOfset) {
                 HStack(alignment: .top) {
                     BuoysLeftCounter()
@@ -45,7 +44,27 @@ struct HomeView: View {
                         Button {
                             selected = .profile
                         } label: {
-                            Image(uiImage: viewModel.userImage).resizable().scaledToFill().frame(width: 45, height: 45).cornerRadius(15)
+                            AsyncImage(
+                                url: UserService.userModel.profilePicURL,
+                                transaction: Transaction(animation: .spring()))
+                            { phase in
+                                switch phase {
+                                case .empty:
+                                    Rectangle().fill(.white)
+                                        .blendMode(.overlay)
+                                case .success(let image):
+                                    image
+                                        .resizable()
+                                        .scaledToFill()
+                                        .transition(.scale(scale: 0.1, anchor: .center))
+                                case .failure:
+                                    Image(systemName: "wifi.slash")
+                                @unknown default:
+                                    EmptyView()
+                                }
+                            }
+                            .frame(width: 45, height: 45)
+                            .cornerRadius(15)
                         }
                         .padding(5)
                         .background(.ultraThinMaterial)
@@ -53,24 +72,50 @@ struct HomeView: View {
                         .shadow(radius: 10, y: 4)
                     }
                 }.padding(.horizontal, 21).padding(.top, 5)
-                Text("2 days streack")
-                    .padding(.top, 75)
-                    .font(.system(size: 13))
-                    .padding(.horizontal, 20).textCase(.uppercase).foregroundColor(.white)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                Text("Hello, Jason!")
-                    .padding(.horizontal, 20)
-                    .font(.system(size: 30).bold())
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                Text("ucomming lessons")
+                ZStack {
+                    if (viewModel.daysStreak == nil) {
+                        RoundedRectangle(cornerRadius: 10).fill(.white)
+                            .blendMode(.overlay)
+                            .frame(width: UIScreen.main.bounds.size.width / 2.5, height: 15)
+                    } else {
+                        Text("\(viewModel.daysStreak!) дней учебы подряд")
+                            .font(.system(size: 13))
+                        
+                    }
+                }
+                .frame(height: 15)
+                .padding(.top, 75)
+                .padding(.horizontal, 20).textCase(.uppercase).foregroundColor(.white)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .animation(.easeOut, value: viewModel.daysStreak)
+                .transition(.opacity)
+                
+                ZStack {
+                    if (viewModel.firstName == nil) {
+                        RoundedRectangle(cornerRadius: 10).fill(.white)
+                            .blendMode(.overlay)
+                            .frame(width: UIScreen.main.bounds.size.width / 2, height: 40)
+                    } else {
+                        Text("Привет, \(viewModel.firstName!)!")
+                            .font(.system(size: 30).bold())
+                            .foregroundColor(.white)
+                        
+                    }
+                }
+                .frame(height: 40)
+                .padding(.horizontal, 20)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .animation(.easeOut, value: viewModel.daysStreak)
+                .transition(.opacity)
+                    
+                Text("Предстоящие занятия")
                     .bold()
-                    .padding(.top, 1)
+                    .padding(.top, UIScreen.main.bounds.size.height / 25)
                     .padding(.horizontal, 20)
                     .font(.system(size: 13))
                     .textCase(.uppercase).foregroundColor(.white)
                 CardStackVIew().padding(.horizontal, 20).frame(maxWidth: .infinity).frame(height: 160)
-                Text("practice")
+                Text("Практика")
                     .textCase(.uppercase)
                     .padding(.top, 50)
                     .font(.system(size: 15).bold())
@@ -91,13 +136,6 @@ struct HomeView: View {
                             withAnimation {
                                 state.toggle()
                             }
-                            
-                            //                            if index < 2 {
-                            //                                state = .medium
-                            //                            }
-                            //                            else {
-                            //                                state = .large
-                            //                            }
                         } label: {
                             PracticeCardView(viewModel: viewModel.practiseCardsViewModels[index])
                                 .padding(.horizontal, 20)
@@ -115,107 +153,29 @@ struct HomeView: View {
                             state.toggle()
                         }
                     }
-                
             }
         }.frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
-        
-        //            .resizableSheet($state) { builder in
-        //                        builder.content { context in
-        //                            HalfPracticeSheet(viewModel: HalfPracticeSheetModel(), sheetMode: $state, mode: practiceType)
-        //                        }
-        //                    }
             .navigationBarHidden(true)
             .detentSheet(isPresented: $state, preferredCornerRadius: 40, detents: practiceType == .custom ? [.medium(), .large()] : [.medium()], allowsDismissalGesture: true) {
-//                if (practiceType == .custom) {
-//                    CustomPracticeSheet()
-//                }
-//                else {
                 HalfPracticeSheet(viewModel: HalfPracticeSheetModel(), sheetMode: $state, mode: $practiceType, showConstructor: $showConstructor)
-//                }
             }
             .sheet(isPresented: $showConstructor) {
                 CustomPracticeSheetView(showConstructor: $showConstructor)
             }
             .ignoresSafeArea()
-        //            .sheet(isPresented: $state)
-        //            {
-        //                                            HalfPracticeSheet(viewModel: HalfPracticeSheetModel(), sheetMode: $state, mode: practiceType)
-        //            }
-        
+            .onAppear {
+                viewModel.updateData()
+            }
     }
 }
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            HomeView(selected: .constant(.home))
+            HomeView(
+//                practiceShow: .constant(true),
+                selected: .constant(.home))
         }
-    }
-}
-
-class HomeViewModel: ObservableObject {
-    let userDataService = UserDataService()
-    let practiseCardsViewModels = [
-        PracticeCardViewModel(model: PracticeCardModel(title: "Completed Topics", countOfTasks: 10, imageName: "tick-inside-circle"),
-                              colors: [
-                                Color(uiColor: UIColor(
-                                    red: 239 / 255.0,
-                                    green: 147 / 255.0,
-                                    blue: 126 / 255.0,
-                                    alpha: 1)),
-                                Color(uiColor: UIColor(
-                                    red: 170 / 255.0,
-                                    green: 30 / 255.0,
-                                    blue: 245 / 255.0,
-                                    alpha: 1)),
-                                Color(uiColor: UIColor(
-                                    red: 206 / 255.0,
-                                    green: 92 / 255.0,
-                                    blue: 182 / 255.0,
-                                    alpha: 1))
-                              ]),
-        PracticeCardViewModel(model: PracticeCardModel(title: "Recomended Topics", countOfTasks: 10, imageName: "star"),
-                              colors: [
-                                Color(uiColor: UIColor(
-                                    red: 126 / 255.0,
-                                    green: 192 / 255.0,
-                                    blue: 239 / 255.0,
-                                    alpha: 1)),
-                                Color(uiColor: UIColor(
-                                    red: 30 / 255.0,
-                                    green: 77 / 255.0,
-                                    blue: 245 / 255.0,
-                                    alpha: 1)),
-                                Color(uiColor: UIColor(
-                                    red: 92 / 255.0,
-                                    green: 144 / 255.0,
-                                    blue: 206 / 255.0,
-                                    alpha: 1))
-                              ]),
-        PracticeCardViewModel(model: PracticeCardModel(title: "Custom Practice", countOfTasks: 10, imageName: "support"),
-                              colors: [
-                                Color(uiColor: UIColor(
-                                    red: 236 / 255.0,
-                                    green: 140 / 255.0,
-                                    blue: 140 / 255.0,
-                                    alpha: 1)),
-                                Color(uiColor: UIColor(
-                                    red: 249 / 255.0,
-                                    green: 58 / 255.0,
-                                    blue: 58 / 255.0,
-                                    alpha: 1)),
-                                Color(uiColor: UIColor(
-                                    red: 245 / 255.0,
-                                    green: 133 / 255.0,
-                                    blue: 155 / 255.0,
-                                    alpha: 1))
-                              ])
-    ]
-    @Published var userImage: UIImage = #imageLiteral(resourceName: "young-girls")
-    @Published var buoysLeftCount: Int = 5
-    
-    func fetchUserData() {
-        
     }
 }
 

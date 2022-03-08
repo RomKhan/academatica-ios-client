@@ -18,14 +18,14 @@ class LeadBoardsViewModel: ObservableObject {
     ]
     
     var leadboardUsers: [UserModel] = [
-        UserModel(id: "1", email: "asd", userName: "Петя", firstName: "Петя", lastName: "Петя", registereAt: "Неважно", profilePicURL: "young-girls"),
-        UserModel(id: "2", email: "asd", userName: "Петя", firstName: "Петя", lastName: "Петя", registereAt: "Неважно", profilePicURL: "support"),
-        UserModel(id: "3", email: "asd", userName: "Петя", firstName: "Петя", lastName: "Петя", registereAt: "Неважно", profilePicURL: "young-girls"),
-        UserModel(id: "4", email: "asd", userName: "Петя", firstName: "Петя", lastName: "Петя", registereAt: "Неважно", profilePicURL: "young-girls"),
-        UserModel(id: "5", email: "asd", userName: "Петя", firstName: "Петя", lastName: "Петя", registereAt: "Неважно", profilePicURL: "young-girls"),
-        UserModel(id: "6", email: "asd", userName: "Петя", firstName: "Петя", lastName: "Петя", registereAt: "Неважно", profilePicURL: "young-girls"),
-        UserModel(id: "7", email: "asd", userName: "Петя", firstName: "Петя", lastName: "Петя", registereAt: "Неважно", profilePicURL: "young-girls"),
-        UserModel(id: "8", email: "asd", userName: "Петя", firstName: "Петя", lastName: "Петя", registereAt: "Неважно", profilePicURL: "young-girls")
+        UserModel(id: UUID(), email: "asd", userName: "Петя", firstName: "Петя", lastName: "Петя", registereAt: "Неважно", profilePicURL: URL(string: "https://static.honeykidsasia.com/wp-content/uploads/2017/02/raising-a-teenager-in-Singapore-HERO.jpg")),
+        UserModel(id: UUID(), email: "asd", userName: "Петя", firstName: "Петя", lastName: "Петя", registereAt: "Неважно", profilePicURL: URL(string: "https://static.honeykidsasia.com/wp-content/uploads/2017/02/raising-a-teenager-in-Singapore-HERO.jpg")),
+        UserModel(id: UUID(), email: "asd", userName: "Петя", firstName: "Петя", lastName: "Петя", registereAt: "Неважно", profilePicURL: URL(string: "https://static.honeykidsasia.com/wp-content/uploads/2017/02/raising-a-teenager-in-Singapore-HERO.jpg")),
+        UserModel(id: UUID(), email: "asd", userName: "Петя", firstName: "Петя", lastName: "Петя", registereAt: "Неважно", profilePicURL: URL(string: "https://static.honeykidsasia.com/wp-content/uploads/2017/02/raising-a-teenager-in-Singapore-HERO.jpg")),
+        UserModel(id: UUID(), email: "asd", userName: "Петя", firstName: "Петя", lastName: "Петя", registereAt: "Неважно", profilePicURL: URL(string: "https://static.honeykidsasia.com/wp-content/uploads/2017/02/raising-a-teenager-in-Singapore-HERO.jpg")),
+        UserModel(id: UUID(), email: "asd", userName: "Петя", firstName: "Петя", lastName: "Петя", registereAt: "Неважно", profilePicURL: URL(string: "https://static.honeykidsasia.com/wp-content/uploads/2017/02/raising-a-teenager-in-Singapore-HERO.jpg")),
+        UserModel(id: UUID(), email: "asd", userName: "Петя", firstName: "Петя", lastName: "Петя", registereAt: "Неважно", profilePicURL: URL(string: "https://static.honeykidsasia.com/wp-content/uploads/2017/02/raising-a-teenager-in-Singapore-HERO.jpg")),
+        UserModel(id: UUID(), email: "asd", userName: "Петя", firstName: "Петя", lastName: "Петя", registereAt: "Неважно", profilePicURL: URL(string: "https://static.honeykidsasia.com/wp-content/uploads/2017/02/raising-a-teenager-in-Singapore-HERO.jpg"))
     ]
     let userPlace = 723
     var colors: [Color] = []
@@ -40,13 +40,13 @@ class LeadBoardsViewModel: ObservableObject {
         if (item.id == leadboardUsers[leadboardUsers.count - 1].id && !isLoadingUsers) {
             isLoadingUsers.toggle()
             DispatchQueue.global().sync { [weak self] in
-                self?.leadboardUsers.append(UserModel(id: String((Int(item.id) ?? -1) + 1),
+                self?.leadboardUsers.append(UserModel(id: UUID(),
                                                 email: "asd",
                                                 userName: "Петя",
                                                 firstName: "Петя",
                                                 lastName: "Петя",
                                                 registereAt: "Неважно",
-                                                profilePicURL: "young-girls")
+                                                profilePicURL: URL(string: "https://static.honeykidsasia.com/wp-content/uploads/2017/02/raising-a-teenager-in-Singapore-HERO.jpg"))
                 )
                 self?.isLoadingUsers.toggle()
             }

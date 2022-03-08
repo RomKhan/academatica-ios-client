@@ -1,16 +1,20 @@
 PODS:
+  - Alamofire (5.5.0)
   - CalendarHeatmap (0.1.3)
 
 DEPENDENCIES:
+  - Alamofire (~> 5.5)
   - CalendarHeatmap
 
 SPEC REPOS:
   trunk:
+    - Alamofire
     - CalendarHeatmap
 
 SPEC CHECKSUMS:
+  Alamofire: 1c4fb5369c3fe93d2857c780d8bbe09f06f97e7c
   CalendarHeatmap: 91034b0eead341a8a8d29b4a460b8b3a176fa36c
 
-PODFILE CHECKSUM: 2a6c1766b69bfe1e7cf4b747a4fac7b46d9bc6a9
+PODFILE CHECKSUM: 152a379051ad240725051e66070bceae9132bb2b
 
 COCOAPODS: 1.11.2

@@ -8,98 +8,74 @@
 import SwiftUI
 
 struct CardStackVIew: View {
-    @State var cardData = [
-        CardData(
-            id: 0, nameOfTopic: "Natural Numbers1",
-            nameOfLesson: "Decimals",
-            descriptionOfLesson: "Decimal numbers and decimal notation Decimal numbers and decimal notation Decimal numbers and decimal notation",
-            countOfLessons: 4,
-            numberOfCurrentLesson: 2,
-            expCount: 100),
-        CardData(
-            id: 1, nameOfTopic: "Natural Numbers2",
-            nameOfLesson: "Decimals",
-            descriptionOfLesson: "Decimal numbers and decimal notation",
-            countOfLessons: 4,
-            numberOfCurrentLesson: 2,
-            expCount: 100),
-        CardData(
-            id: 2, nameOfTopic: "Natural Numbers3",
-            nameOfLesson: "Decimals",
-            descriptionOfLesson: "Decimal numbers and decimal notation",
-            countOfLessons: 4,
-            numberOfCurrentLesson: 2,
-            expCount: 100),
-        CardData(
-            id: 3, nameOfTopic: "Natural Numbers4",
-            nameOfLesson: "Decimals",
-            descriptionOfLesson: "Decimal numbers and decimal notation",
-            countOfLessons: 4,
-            numberOfCurrentLesson: 2,
-            expCount: 100),
-        CardData(
-            id: 4, nameOfTopic: "Natural Numbers5",
-            nameOfLesson: "Decimals",
-            descriptionOfLesson: "Decimal numbers and decimal notation",
-            countOfLessons: 4,
-            numberOfCurrentLesson: 2,
-            expCount: 100),
-        CardData(
-            id: 5, nameOfTopic: "Natural Numbers6",
-            nameOfLesson: "Decimals",
-            descriptionOfLesson: "Decimal numbers and decimal notation",
-            countOfLessons: 4,
-            numberOfCurrentLesson: 2,
-            expCount: 100),
-        CardData(
-            id: 6, nameOfTopic: "Natural Numbers7",
-            nameOfLesson: "Decimals",
-            descriptionOfLesson: "Decimal numbers and decimal notation",
-            countOfLessons: 4,
-            numberOfCurrentLesson: 2,
-            expCount: 100),
-        CardData(
-            id: 7, nameOfTopic: "Natural Numbers8",
-            nameOfLesson: "Decimals",
-            descriptionOfLesson: "Decimal numbers and decimal notation",
-            countOfLessons: 4,
-            numberOfCurrentLesson: 2,
-            expCount: 100),
-        CardData(
-            id: 8, nameOfTopic: "Natural Numbers9",
-            nameOfLesson: "Decimals",
-            descriptionOfLesson: "Decimal numbers and decimal notation",
-            countOfLessons: 4,
-            numberOfCurrentLesson: 2,
-            expCount: 100)
-    ]
     
     @State var indexFront = 0
     @State var indexMiddle = 1
     @State var indexBack = 2
     @State var swipe = 0
+    @StateObject var viewModel = CardStackVIewModel()
     
     var body: some View {
         GeometryReader { reader in
             ZStack {
-                ForEach((cardData).reversed()) { tool in
-                    CardView(tool: tool, mode:
-                                tool.id == indexFront ? .front :
-                                tool.id == indexMiddle ? .middle :
-                                tool.id == indexBack ? .back : .none)
-                        .offset(y: tool.id == indexFront ? 30 :
-                                    tool.id == indexMiddle ? 15 :
-                                    tool.id == indexBack ? 0 : -15)
-                        .offset(y: tool.id == indexFront ? CGFloat(swipe) : 0)
-                        .padding(.horizontal, tool.id == indexFront ? 0 :
-                                    tool.id == indexMiddle ? 10 :
-                                    tool.id == indexBack ? 20 : 30)
-                        .opacity(tool.id == indexFront && swipe != 0 ? 1 - Double(swipe) / 20 : 1)
-                        .zIndex(tool.id == indexFront ? 0 :
-                                    tool.id == indexMiddle ? -1 :
-                                    tool.id == indexBack ? -2 : -3)
+                if (viewModel.cardData.isEmpty) {
+                    ForEach((0...2), id: \.self) { index in
+                        Rectangle()
+                            .fill(.clear)
+                            .frame(maxWidth: .infinity, maxHeight: 160, alignment: .leading)
+                            .background(index == 0 ?
+                                        Color(uiColor: UIColor(
+                                            red: 239.0 / 255,
+                                            green: 239.0 / 255,
+                                            blue: 239.0 / 255,
+                                            alpha: 0.2)) :
+                                            index == 1 ?
+                                        Color(uiColor: UIColor(
+                                            red: 15.0 / 255,
+                                            green: 205.0 / 255,
+                                            blue: 246.0 / 255,
+                                            alpha: 0.5)) :
+                                        Color(uiColor: UIColor(
+                                            red: 11.0 / 255,
+                                            green: 76.0 / 255,
+                                            blue: 243.0 / 255,
+                                            alpha: 0.6)))
+                            .background(.ultraThinMaterial)
+                            .cornerRadius(30)
+                            .offset(y: index == indexFront ? 30 :
+                                        index == indexMiddle ? 15 :
+                                        index == indexBack ? 0 : -15)
+                            .offset(y: index == indexFront ? CGFloat(swipe) : 0)
+                            .padding(.horizontal, index == indexFront ? 0 :
+                                        index == indexMiddle ? 10 :
+                                        index == indexBack ? 20 : 30)
+                            .opacity(index == indexFront && swipe != 0 ? 1 - Double(swipe) / 20 : 1)
+                            .zIndex(index == indexFront ? 0 :
+                                        index == indexMiddle ? -1 :
+                                        index == indexBack ? -2 : -3)
+                    }
+                } else {
+                    ForEach((viewModel.cardData).reversed()) { tool in
+                        CardView(tool: tool, mode:
+                                    tool.id == indexFront ? .front :
+                                    tool.id == indexMiddle ? .middle :
+                                    tool.id == indexBack ? .back : .none)
+                            .offset(y: tool.id == indexFront ? 30 :
+                                        tool.id == indexMiddle ? 15 :
+                                        tool.id == indexBack ? 0 : -15)
+                            .offset(y: tool.id == indexFront ? CGFloat(swipe) : 0)
+                            .padding(.horizontal, tool.id == indexFront ? 0 :
+                                        tool.id == indexMiddle ? 10 :
+                                        tool.id == indexBack ? 20 : 30)
+                            .opacity(tool.id == indexFront && swipe != 0 ? 1 - Double(swipe) / 20 : 1)
+                            .zIndex(tool.id == indexFront ? 0 :
+                                        tool.id == indexMiddle ? -1 :
+                                        tool.id == indexBack ? -2 : -3)
+                    }
                 }
             }
+            .animation(.easeOut, value: viewModel.cardData.isEmpty)
+            .transition(.opacity)
             .highPriorityGesture(DragGesture(minimumDistance: 0, coordinateSpace: .local).onChanged( {value in
                 withAnimation(.spring(), {
                     if value.translation.height > 0 {
@@ -111,14 +87,17 @@ struct CardStackVIew: View {
                 })
             }).onEnded({ value in
                 withAnimation(.spring()) {
-                    if swipe > 3 {
-                        indexFront = (indexFront + 1) % cardData.count
-                        indexMiddle = (indexFront + 1) % cardData.count
-                        indexBack = (indexFront + 2) % cardData.count
+                    if swipe > 3 && viewModel.cardData.count > 1 {
+                        indexFront = (indexFront + 1) % viewModel.cardData.count
+                        indexMiddle = (indexFront + 1) % viewModel.cardData.count
+                        indexBack = (indexFront + 2) % viewModel.cardData.count
                     }
                     swipe = 0
                 }
             }))
+            .onAppear {
+                viewModel.fillCardStack()
+            }
         }
     }
 }

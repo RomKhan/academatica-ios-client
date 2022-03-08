@@ -16,7 +16,6 @@
 		153DAFBC27BE0B9E006F6F0C /* PracticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153DAFBB27BE0B9E006F6F0C /* PracticeView.swift */; };
 		1542C0C027B976C500BB072B /* DataChangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1542C0BF27B976C500BB072B /* DataChangeView.swift */; };
 		1542C0C227B9772300BB072B /* DataChangeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1542C0C127B9772300BB072B /* DataChangeViewModel.swift */; };
-		154313E02785C8DF004A8890 /* UserDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154313DF2785C8DF004A8890 /* UserDataService.swift */; };
 		1543D4C227899AD800168085 /* PacticeCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1543D4C127899AD800168085 /* PacticeCardModel.swift */; };
 		1543D4C42789D1C700168085 /* TrackableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1543D4C32789D1C700168085 /* TrackableScrollView.swift */; };
 		1543D65127BFA0E3006CEED2 /* CustomPracticeSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1543D65027BFA0E3006CEED2 /* CustomPracticeSheetViewModel.swift */; };
@@ -32,11 +31,13 @@
 		154872DE27BD7C59005F4B22 /* LessonCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154872DD27BD7C59005F4B22 /* LessonCardView.swift */; };
 		154872E027BD7CB8005F4B22 /* LessonCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154872DF27BD7CB8005F4B22 /* LessonCardViewModel.swift */; };
 		154872E227BD89A3005F4B22 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154872E127BD89A3005F4B22 /* WebView.swift */; };
+		1548E4FB27D7BE24009762B3 /* BuoysLeftCounterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1548E4FA27D7BE24009762B3 /* BuoysLeftCounterViewModel.swift */; };
+		1548E4FD27D7C027009762B3 /* CourseServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1548E4FC27D7C027009762B3 /* CourseServices.swift */; };
+		1548E50127D7EF4F009762B3 /* CardStackVIewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1548E50027D7EF4F009762B3 /* CardStackVIewModel.swift */; };
 		154B0B49278DBEB800A7C12A /* TopicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154B0B48278DBEB800A7C12A /* TopicView.swift */; };
 		155252472791EBB200F27B3F /* HeatmapCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155252462791EBB200F27B3F /* HeatmapCalendarView.swift */; };
 		1552524C2791F96E00F27B3F /* HeatmapCalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1552524B2791F96E00F27B3F /* HeatmapCalendarViewController.swift */; };
 		1554347627908809001C0FDE /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1554347527908809001C0FDE /* ProfileViewModel.swift */; };
-		1554347827908C37001C0FDE /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1554347727908C37001C0FDE /* UserModel.swift */; };
 		1554347A27909232001C0FDE /* UserStateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1554347927909232001C0FDE /* UserStateModel.swift */; };
 		1554347D2790A1B9001C0FDE /* CircleProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1554347C2790A1B9001C0FDE /* CircleProgressBar.swift */; };
 		1556352627B5A9BB00D176DA /* GeneralSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1556352527B5A9BB00D176DA /* GeneralSettingsView.swift */; };
@@ -46,6 +47,10 @@
 		15583E1927BC79B400F96B65 /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15583E1827BC79B400F96B65 /* Background.swift */; };
 		15583E1B27BC9FFE00F96B65 /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15583E1A27BC9FFE00F96B65 /* RegistrationView.swift */; };
 		15583E1D27BCA00600F96B65 /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15583E1C27BCA00600F96B65 /* RegistrationViewModel.swift */; };
+		155C073E27D65DB30027EC2D /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155C073D27D65DB30027EC2D /* UserService.swift */; };
+		155C074027D690660027EC2D /* ColorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155C073F27D690660027EC2D /* ColorService.swift */; };
+		155C074227D697C20027EC2D /* ButtonState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155C074127D697C20027EC2D /* ButtonState.swift */; };
+		155C074427D6C35E0027EC2D /* AcadematicaAppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155C074327D6C35E0027EC2D /* AcadematicaAppViewModel.swift */; };
 		1563BCB9278B051C006F5510 /* TierViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1563BCB8278B051C006F5510 /* TierViewModel.swift */; };
 		1563BCBD278B10C9006F5510 /* ArrowButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1563BCBC278B10C9006F5510 /* ArrowButton.swift */; };
 		1563BCBF278B1EEF006F5510 /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1563BCBE278B1EEE006F5510 /* ProgressBarView.swift */; };
@@ -72,6 +77,8 @@
 		15C14FEC278C810300B31BA4 /* TopicModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C14FEB278C810300B31BA4 /* TopicModel.swift */; };
 		15C14FEE278C88D100B31BA4 /* TopicCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C14FED278C88D100B31BA4 /* TopicCardView.swift */; };
 		15C14FF0278C8BC300B31BA4 /* TopicCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C14FEF278C8BC300B31BA4 /* TopicCardViewModel.swift */; };
+		15ED318027D6D85D00BB1402 /* LogoScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15ED317F27D6D85D00BB1402 /* LogoScreen.swift */; };
+		15EFD7CE27D109C300C941DA /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15EFD7CD27D109C300C941DA /* HomeViewModel.swift */; };
 		15F19B5727931F370034E623 /* AchievemntCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F19B5627931F370034E623 /* AchievemntCardView.swift */; };
 		15F19B5927931F540034E623 /* AchievemntCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F19B5827931F540034E623 /* AchievemntCardViewModel.swift */; };
 		A76D4E6F895C080755C07B1D /* Pods_Academatica.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEE7876904D1EA6C81EBC8C3 /* Pods_Academatica.framework */; };
@@ -87,7 +94,6 @@
 		153DAFBB27BE0B9E006F6F0C /* PracticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeView.swift; sourceTree = "<group>"; };
 		1542C0BF27B976C500BB072B /* DataChangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataChangeView.swift; sourceTree = "<group>"; };
 		1542C0C127B9772300BB072B /* DataChangeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataChangeViewModel.swift; sourceTree = "<group>"; };
-		154313DF2785C8DF004A8890 /* UserDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataService.swift; sourceTree = "<group>"; };
 		1543D4C127899AD800168085 /* PacticeCardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacticeCardModel.swift; sourceTree = "<group>"; };
 		1543D4C32789D1C700168085 /* TrackableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackableScrollView.swift; sourceTree = "<group>"; };
 		1543D65027BFA0E3006CEED2 /* CustomPracticeSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPracticeSheetViewModel.swift; sourceTree = "<group>"; };
@@ -102,11 +108,13 @@
 		154872DD27BD7C59005F4B22 /* LessonCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonCardView.swift; sourceTree = "<group>"; };
 		154872DF27BD7CB8005F4B22 /* LessonCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonCardViewModel.swift; sourceTree = "<group>"; };
 		154872E127BD89A3005F4B22 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
+		1548E4FA27D7BE24009762B3 /* BuoysLeftCounterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuoysLeftCounterViewModel.swift; sourceTree = "<group>"; };
+		1548E4FC27D7C027009762B3 /* CourseServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseServices.swift; sourceTree = "<group>"; };
+		1548E50027D7EF4F009762B3 /* CardStackVIewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackVIewModel.swift; sourceTree = "<group>"; };
 		154B0B48278DBEB800A7C12A /* TopicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicView.swift; sourceTree = "<group>"; };
 		155252462791EBB200F27B3F /* HeatmapCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeatmapCalendarView.swift; sourceTree = "<group>"; };
 		1552524B2791F96E00F27B3F /* HeatmapCalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeatmapCalendarViewController.swift; sourceTree = "<group>"; };
 		1554347527908809001C0FDE /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
-		1554347727908C37001C0FDE /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		1554347927909232001C0FDE /* UserStateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStateModel.swift; sourceTree = "<group>"; };
 		1554347C2790A1B9001C0FDE /* CircleProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleProgressBar.swift; sourceTree = "<group>"; };
 		1556352527B5A9BB00D176DA /* GeneralSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingsView.swift; sourceTree = "<group>"; };
@@ -116,6 +124,10 @@
 		15583E1827BC79B400F96B65 /* Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Background.swift; sourceTree = "<group>"; };
 		15583E1A27BC9FFE00F96B65 /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
 		15583E1C27BCA00600F96B65 /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
+		155C073D27D65DB30027EC2D /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		155C073F27D690660027EC2D /* ColorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorService.swift; sourceTree = "<group>"; };
+		155C074127D697C20027EC2D /* ButtonState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonState.swift; sourceTree = "<group>"; };
+		155C074327D6C35E0027EC2D /* AcadematicaAppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcadematicaAppViewModel.swift; sourceTree = "<group>"; };
 		1563BCB8278B051C006F5510 /* TierViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TierViewModel.swift; sourceTree = "<group>"; };
 		1563BCBC278B10C9006F5510 /* ArrowButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrowButton.swift; sourceTree = "<group>"; };
 		1563BCBE278B1EEE006F5510 /* ProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
@@ -144,6 +156,8 @@
 		15C14FEB278C810300B31BA4 /* TopicModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicModel.swift; sourceTree = "<group>"; };
 		15C14FED278C88D100B31BA4 /* TopicCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicCardView.swift; sourceTree = "<group>"; };
 		15C14FEF278C8BC300B31BA4 /* TopicCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicCardViewModel.swift; sourceTree = "<group>"; };
+		15ED317F27D6D85D00BB1402 /* LogoScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoScreen.swift; sourceTree = "<group>"; };
+		15EFD7CD27D109C300C941DA /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		15F19B5627931F370034E623 /* AchievemntCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievemntCardView.swift; sourceTree = "<group>"; };
 		15F19B5827931F540034E623 /* AchievemntCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievemntCardViewModel.swift; sourceTree = "<group>"; };
 		50AC74060409C2D2EBF0FF22 /* Pods-SmartMath.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartMath.release.xcconfig"; path = "Target Support Files/Pods-SmartMath/Pods-SmartMath.release.xcconfig"; sourceTree = "<group>"; };
@@ -254,6 +268,8 @@
 				15583E1627BC764900F96B65 /* AuthorizationViewModel.swift */,
 				15583E1A27BC9FFE00F96B65 /* RegistrationView.swift */,
 				15583E1C27BCA00600F96B65 /* RegistrationViewModel.swift */,
+				155C074127D697C20027EC2D /* ButtonState.swift */,
+				15ED317F27D6D85D00BB1402 /* LogoScreen.swift */,
 			);
 			path = "Аuthorization";
 			sourceTree = "<group>";
@@ -264,11 +280,13 @@
 				15728B9527BEE03B00A3905D /* Practice Sheets */,
 				1547351827888A190010E71C /* CardStackVIew.swift */,
 				1547351A27888A6B0010E71C /* CardView.swift */,
+				1548E50027D7EF4F009762B3 /* CardStackVIewModel.swift */,
 				1547351C27888D180010E71C /* CardData.swift */,
 				1543D4C127899AD800168085 /* PacticeCardModel.swift */,
 				1544F4B8278A003F00CDDFF9 /* PracticeCardViewModel.swift */,
 				1547351E2788CD560010E71C /* PracticeCardView.swift */,
 				15982B9B2784377700440AEB /* HomeView.swift */,
+				15EFD7CD27D109C300C941DA /* HomeViewModel.swift */,
 			);
 			path = "Home Screen";
 			sourceTree = "<group>";
@@ -323,17 +341,20 @@
 				15982B952784361700440AEB /* Info.plist */,
 				15982B922784361700440AEB /* Preview Content */,
 				1543D4C32789D1C700168085 /* TrackableScrollView.swift */,
-				154313DF2785C8DF004A8890 /* UserDataService.swift */,
-				1554347727908C37001C0FDE /* UserModel.swift */,
 				1554347927909232001C0FDE /* UserStateModel.swift */,
 				1563BCBE278B1EEE006F5510 /* ProgressBarView.swift */,
 				1563BCC0278B1F4A006F5510 /* ProgressBarViewModel.swift */,
 				154B0B4A278DD99F00A7C12A /* Tier Screen */,
 				1593883C2785E1A300BEC566 /* BuoysLeftCounter.swift */,
+				1548E4FA27D7BE24009762B3 /* BuoysLeftCounterViewModel.swift */,
 				15728BA227BF279E00A3905D /* SheetExtention.swift */,
 				1563BCBA278B0558006F5510 /* Home Screen */,
 				1563BCBB278B05C4006F5510 /* TabBar */,
 				1544217E27B9A078007815E0 /* ImagePicker.swift */,
+				155C074327D6C35E0027EC2D /* AcadematicaAppViewModel.swift */,
+				155C073D27D65DB30027EC2D /* UserService.swift */,
+				1548E4FC27D7C027009762B3 /* CourseServices.swift */,
+				155C073F27D690660027EC2D /* ColorService.swift */,
 			);
 			path = Academatica;
 			sourceTree = "<group>";
@@ -487,17 +508,19 @@
 				15982B9C2784377700440AEB /* HomeView.swift in Sources */,
 				154872E027BD7CB8005F4B22 /* LessonCardViewModel.swift in Sources */,
 				1563BCBF278B1EEF006F5510 /* ProgressBarView.swift in Sources */,
+				1548E4FB27D7BE24009762B3 /* BuoysLeftCounterViewModel.swift in Sources */,
 				1542C0C027B976C500BB072B /* DataChangeView.swift in Sources */,
 				15583E1B27BC9FFE00F96B65 /* RegistrationView.swift in Sources */,
 				1547351927888A190010E71C /* CardStackVIew.swift in Sources */,
-				1554347827908C37001C0FDE /* UserModel.swift in Sources */,
 				1547351F2788CD560010E71C /* PracticeCardView.swift in Sources */,
+				15EFD7CE27D109C300C941DA /* HomeViewModel.swift in Sources */,
+				155C074227D697C20027EC2D /* ButtonState.swift in Sources */,
 				1543D65127BFA0E3006CEED2 /* CustomPracticeSheetViewModel.swift in Sources */,
 				15982B8F2784361600440AEB /* TabBar.swift in Sources */,
 				1563BCC3278B2593006F5510 /* TierCardView.swift in Sources */,
 				1554347627908809001C0FDE /* ProfileViewModel.swift in Sources */,
+				1548E4FD27D7C027009762B3 /* CourseServices.swift in Sources */,
 				1563BCC7278B2BF7006F5510 /* TierModel.swift in Sources */,
-				154313E02785C8DF004A8890 /* UserDataService.swift in Sources */,
 				1554347A27909232001C0FDE /* UserStateModel.swift in Sources */,
 				156A2E1B27B8546E00217964 /* AccountSettingsViewModel.swift in Sources */,
 				15982BA02784379900440AEB /* LeadBoardsView.swift in Sources */,
@@ -525,6 +548,7 @@
 				1593883D2785E1A300BEC566 /* BuoysLeftCounter.swift in Sources */,
 				1563BCB9278B051C006F5510 /* TierViewModel.swift in Sources */,
 				15583E1D27BCA00600F96B65 /* RegistrationViewModel.swift in Sources */,
+				15ED318027D6D85D00BB1402 /* LogoScreen.swift in Sources */,
 				15728B9727BEE07100A3905D /* HalfPracticeSheet.swift in Sources */,
 				15982BA2278437AB00440AEB /* ProfileView.swift in Sources */,
 				1552524C2791F96E00F27B3F /* HeatmapCalendarViewController.swift in Sources */,
@@ -533,11 +557,13 @@
 				15982BA427844BD900440AEB /* TabBarViewModel.swift in Sources */,
 				15F19B5727931F370034E623 /* AchievemntCardView.swift in Sources */,
 				1547351B27888A6B0010E71C /* CardView.swift in Sources */,
+				155C073E27D65DB30027EC2D /* UserService.swift in Sources */,
 				154872DE27BD7C59005F4B22 /* LessonCardView.swift in Sources */,
 				15583E1927BC79B400F96B65 /* Background.swift in Sources */,
 				154872DC27BD7812005F4B22 /* LessonViewModel.swift in Sources */,
 				15C14FEE278C88D100B31BA4 /* TopicCardView.swift in Sources */,
 				15982B8D2784361600440AEB /* SmartMathApp.swift in Sources */,
+				155C074027D690660027EC2D /* ColorService.swift in Sources */,
 				15026FAD27985AC400D8A6A8 /* TopicViewModel.swift in Sources */,
 				15026FAF27985B1A00D8A6A8 /* ClassModel.swift in Sources */,
 				156A2E1927B853D600217964 /* AccountSettingsView.swift in Sources */,
@@ -547,7 +573,9 @@
 				1556352827B5AA5800D176DA /* GeneralSettingsViewModel.swift in Sources */,
 				1544217F27B9A078007815E0 /* ImagePicker.swift in Sources */,
 				1547351D27888D180010E71C /* CardData.swift in Sources */,
+				155C074427D6C35E0027EC2D /* AcadematicaAppViewModel.swift in Sources */,
 				1563BCC1278B1F4A006F5510 /* ProgressBarViewModel.swift in Sources */,
+				1548E50127D7EF4F009762B3 /* CardStackVIewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

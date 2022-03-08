@@ -11,7 +11,6 @@ struct DataChangeView: View {
     @StateObject var viewModel = DataChangeViewModel()
     @Environment(\.dismiss) var dismiss
     let mode: DataChangeViewMode
-    @State var text: String = ""
     
     var body: some View {
         ScrollView {
@@ -38,8 +37,8 @@ struct DataChangeView: View {
                 .padding(.top, UIScreen.main.bounds.height / 10)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 20)
-            TextField("", text: $text)
-                .placeholder(when: text.isEmpty) {
+            TextField("", text: $viewModel.text)
+                .placeholder(when: viewModel.text.isEmpty) {
                     Text(DataChangeViewMode.getPlaceholder(mode: mode))
                         .opacity(0.8)
                         .selfSizeMask(
@@ -61,10 +60,31 @@ struct DataChangeView: View {
                 .padding(.horizontal, 20)
                 .padding(.top, 10)
                 .foregroundColor(.white)
-            if (!text.isEmpty) {
+            
+            ZStack {
+                switch viewModel.serverState {
+                case .none:
+                    EmptyView()
+                case .loading:
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle(tint: Color.white))
+                case .error:
+                    Text("Попробуйте еще раз")
+                        .foregroundColor(.red)
+                        .font(.system(size: 12))
+                case .success:
+                    Text("Попробуйте еще раз")
+                        .foregroundColor(viewModel.colors[2])
+                        .font(.system(size: 12))
+                }
+            }
+            .frame(maxWidth: .infinity)
+            .frame(height: UIScreen.main.bounds.height / 2.8)
+            
+            if (!viewModel.text.isEmpty) {
                 withAnimation {
                     Button {
-                        dismiss()
+                        viewModel.cancel()
                     } label: {
                         Text("Подтвердить")
                             .font(.system(size: UIScreen.main.bounds.height / 50, weight: .heavy))
@@ -75,7 +95,6 @@ struct DataChangeView: View {
                             .cornerRadius(25)
                             .shadow(color: viewModel.colors[2].opacity(0.5), radius: 8, x: 0, y: 8)
                     }
-                    .padding(.top, UIScreen.main.bounds.height / 2.5)
                 }
             }
         }

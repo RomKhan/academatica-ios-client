@@ -9,10 +9,8 @@ import SwiftUI
 
 struct AuthorizationView: View {
     @StateObject var viewModel = AuthorizationViewModel()
-    @State var email: String = ""
-    @State var password: String = ""
+    
     var body: some View {
-        
         GeometryReader { reader in
             ZStack {
                 Background()
@@ -28,8 +26,8 @@ struct AuthorizationView: View {
                         Text("Войдите в свою четную запись")
                             .font(.system(size: reader.size.width / 25, weight: .thin))
                             .padding(.top, 14)
-                        TextField("", text: $email)
-                            .placeholder(when: email.isEmpty) {
+                        TextField("", text: $viewModel.email)
+                            .placeholder(when: viewModel.email.isEmpty) {
                                 Text("Адрес электронной почты")
                                     .foregroundColor(.white.opacity(0.5))
                             }
@@ -37,8 +35,8 @@ struct AuthorizationView: View {
                             .background(.ultraThinMaterial)
                             .cornerRadius(reader.size.width / 25)
                             .padding(.top, reader.size.width / 10)
-                        SecureField("", text: $password)
-                            .placeholder(when: password.isEmpty) {
+                        SecureField("", text: $viewModel.password)
+                            .placeholder(when: viewModel.password.isEmpty) {
                                 Text("Пароль")
                                     .foregroundColor(.white.opacity(0.5))
                             }
@@ -47,20 +45,35 @@ struct AuthorizationView: View {
                             .cornerRadius(reader.size.width / 25)
                             .padding(.top, reader.size.width / 30)
                             .foregroundColor(.white)
-                        NavigationLink {
-                            TabBar(viewModel: TabBarViewModel()
-//                                   , windowScene: AcadematicaApp.windowScene
-                            )
+                        ZStack {
+                            switch viewModel.serverState {
+                            case .none:
+                                EmptyView()
+                            case .loading:
+                                ProgressView()
+                                    .progressViewStyle(CircularProgressViewStyle(tint: Color.white))
+                            case .error:
+                                Text("Попробуйте еще раз")
+                                    .foregroundColor(.red)
+                                    .font(.system(size: 12))
+                            case .success:
+                                EmptyView()
+                            }
+                        }
+                        .frame(maxWidth: .infinity)
+                        .frame(height: reader.size.width / 10)
+                        Button {
+                            viewModel.logIn()
                         } label: {
                             Text("Войти")
                                 .font(.system(size: reader.size.width / 26.5, weight: .bold))
                                 .padding()
                                 .frame(maxWidth: .infinity)
-                                .background(viewModel.colors[0])
+                                .background(viewModel.isButtonEnabled.getColor())
                                 .cornerRadius(reader.size.width / 25)
-                                .shadow(color: viewModel.colors[1].opacity(0.5), radius: 8, x: 0, y: 4)
+                                .shadow(color: viewModel.isButtonEnabled.getColor().opacity(0.5), radius: 8, x: 0, y: 4)
                         }
-                        .padding(.top, reader.size.width / 10)
+                        .disabled(viewModel.isButtonEnabled == .disable ? true : false)
                         
                         HStack {
                             Text("Еще нет аккаунта?")
@@ -68,7 +81,7 @@ struct AuthorizationView: View {
                                 RegistrationView()
                             } label: {
                                 Text("Зарегистрируйтесь")
-                                    .foregroundColor(viewModel.colors[2])
+                                    .foregroundColor(Color(uiColor: UIColor(red: 248 / 255.0, green: 112 / 255.0, blue: 255 / 255.0, alpha: 1)))
                             }
                         }
                         .frame(maxWidth: .infinity)
@@ -122,14 +135,12 @@ struct AuthorizationView: View {
                         }
                         .frame(height: reader.size.height / 14)
                         .padding(.top, reader.size.width / 28)
-                        
                     }
                     .frame(width: reader.size.width / 1.3, alignment: .leading)
                     .padding(.top, reader.size.height / 25)
                     .foregroundColor(.white)
                     .font(.system(size: reader.size.width / 31))
                 }
-                
             }
         }
     }

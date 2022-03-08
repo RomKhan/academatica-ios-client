@@ -5,14 +5,46 @@
 //  Created by Roman on 16.02.2022.
 //
 
-import SwiftUI
+import Foundation
+
+enum ServerState {
+    case none
+    case loading
+    case success
+    case error
+}
 
 class AuthorizationViewModel: ObservableObject {
-    var colors: [Color] = [
-        Color(uiColor: UIColor(red: 0 / 255.0, green: 212 / 255.0, blue: 110 / 255.0, alpha: 1)),
-        Color(uiColor: UIColor(red: 0 / 255.0, green: 212 / 255.0, blue: 110 / 255.0, alpha: 1)),
-        Color(uiColor: UIColor(red: 248 / 255.0, green: 112 / 255.0, blue: 255 / 255.0, alpha: 1))
-//        Color(uiColor: UIColor(red: 89 / 255.0, green: 89 / 255.0, blue: 89 / 255.0, alpha: 1))
-    ]
+    @Published var email: String = "" {
+        didSet {
+            updateButtonPublisher()
+        }
+    }
+    @Published var password: String = "" {
+        didSet {
+            updateButtonPublisher()
+        }
+    }
+    @Published var isButtonEnabled: ButtonState = .disable
     var images = ["google", "Facebook", "apple"]
+    
+    func updateButtonPublisher() {
+        if (email != "" && password != "") {
+            isButtonEnabled = .active
+        } else {
+            isButtonEnabled = .disable
+        }
+    }
+    
+    @Published var serverState = ServerState.none
+    
+    func logIn() {
+        serverState = .loading
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
+            UserService.logIn(userName: self?.email, password: self?.password)
+            self?.serverState = .none
+            self?.email = ""
+            self?.password = ""
+        }
+    }
 }

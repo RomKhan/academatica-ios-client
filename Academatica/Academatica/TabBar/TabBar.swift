@@ -11,16 +11,11 @@ import ResizableSheet
 struct TabBar: View {
     @State var selected: ScreenType = .home
     @State var showTopic: Bool = true
+//    @State var showPractice: Bool = false
     @State var showCompletedPracticeSheet: Bool = true
     @State var showSettings: CGFloat = UIScreen.main.bounds.width
     @Namespace var namespace
-    @ObservedObject var viewModel: TabBarViewModel
-    
-//    let windowScene: UIWindowScene?
-//
-//    var resizableSheetCenter: ResizableSheetCenter? {
-//        windowScene.flatMap(ResizableSheetCenter.resolve(for:))
-//    }
+    @ObservedObject var viewModel = TabBarViewModel()
     
     var body: some View {
         NavigationView {
@@ -29,7 +24,6 @@ struct TabBar: View {
                     switch selected {
                     case .home:
                         HomeView(selected: $selected)
-//                            .environment(\.resizableSheetCenter, resizableSheetCenter)
                     case .lesson:
                         TierView(viewModel: TierViewModel(), show: $showTopic, namespace: namespace)
                             .navigationBarHidden(true)
@@ -45,6 +39,10 @@ struct TabBar: View {
                     TopicView(viewModel: TopicViewModel(), show: $showTopic, namespace: namespace)
                         .zIndex(3)
                 }
+//                PracticeView(showPractice: $showPractice)
+//                    .offset(y: showPractice ? 0 : UIScreen.main.bounds.height * 1.5)
+//                    .animation(.spring(), value: showPractice)
+
                 
                 HStack {
                     Spacer()
@@ -78,8 +76,6 @@ struct TabBar: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        TabBar(viewModel: TabBarViewModel()
-//               , windowScene: AcadematicaApp.windowScene
-        )
+        TabBar()
     }
 }

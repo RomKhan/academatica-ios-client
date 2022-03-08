@@ -10,12 +10,14 @@ import ResizableSheet
 
 struct HalfPracticeSheet: View {
     @StateObject var viewModel: HalfPracticeSheetModel
-//    @Binding var sheetMode: ResizableSheetState
+    @State var practiceStart: Bool = false
     @Binding var sheetMode: Bool
     @Binding var mode: PracticeSheetState
     @Binding var showConstructor: Bool
     var body: some View {
         ZStack {
+            
+
             Image(uiImage: UIImage(named: "PracticeByCompletedTopicsBackground")!)
                 .resizable()
                 .scaledToFill()
@@ -24,32 +26,22 @@ struct HalfPracticeSheet: View {
                 .padding(-UIScreen.main.bounds.height / 5)
                 .offset(y: -UIScreen.main.bounds.height / 15)
         VStack(alignment: .leading, spacing: 5) {
-//            HStack(alignment: .top) {
                     Text("10 заданий".uppercased())
                         .font(.system(size: UIScreen.main.bounds.height / 45))
                     Text("\(mode.getTitle())")
                         .font(.system(size: UIScreen.main.bounds.height / 30, weight: .heavy))
-//                Spacer()
-//                Group {
-//                Text("+3")
-//                    .font(.system(size: UIScreen.main.bounds.height / 35))
-//                Circle()
-//                    .strokeBorder(.white, lineWidth: 10)
-//                    .frame(width: 32, height: 32)
-//                }
-//                .padding(.top, UIScreen.main.bounds.height / 110)
-//            }
             Spacer()
             Text(mode.getDescription())
                 .opacity(0.8)
                 .font(.system(size: UIScreen.main.bounds.height / 55))
             Button {
-//                sheetMode = .hidden
                 withAnimation {
                     sheetMode.toggle()
                 }
                 if (mode == .custom) {
                     showConstructor.toggle()
+                } else {
+                    practiceStart.toggle()
                 }
             } label: {
                 Text("Начать")

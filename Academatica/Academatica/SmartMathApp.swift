@@ -7,36 +7,53 @@
 
 import SwiftUI
 import ResizableSheet
+import Alamofire
+import Combine
 
 @main
 struct SmartMathApp: App {
-    var isAuthorized = false
+    @State var authLoadShow: Bool = true
+    @State var logoOpacity: CGFloat = 1
+    @StateObject var viewModel = AcadematicaAppViewModel()
     
-//    static var windowScene: UIWindowScene? {
-//        guard let scene = UIApplication.shared.connectedScenes.first,
-//              let windowScene = scene as? UIWindowScene else {
-//            return nil
-//        }
-//    
-//        return windowScene
-//    }
-//    
     var body: some Scene {
         WindowGroup {
-            if isAuthorized {
-                TabBar(viewModel: TabBarViewModel()
-//                       , windowScene: SmartMathApp.windowScene
-                )
+            ZStack {
+                if (!authLoadShow) {
+                    NavigationView {
+                        ZStack {
+                            NavigationLink(isActive: $viewModel.isAuthorized) {
+                                TabBar()
+                                    .navigationBarHidden(true)
+                                    .onAppear {
+                                        UserService.userSetup()
+                                    }
+                            } label: {
+                                EmptyView()
+                            }
+                            
+                            AuthorizationView()
+                                .navigationBarHidden(true)
+                        }
+                    }
+                    .onAppear {
+                        withAnimation {
+                            logoOpacity = 0
+                        }
+                    }
                     .preferredColorScheme(.light)
-            }
-            else {
-                NavigationView {
-                AuthorizationView()
-                        .navigationBarHidden(true)
-                        .preferredColorScheme(.light)
                 }
+                
+                LogoScreen()
+                    .opacity(logoOpacity)
+                    .animation(.easeIn(duration: 0.2).delay(1), value: logoOpacity)
+                    .onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            UserService.shared.isAuthorized.value = UserService.accessToken == nil ? false : true
+                            authLoadShow.toggle()
+                        }
+                    }
             }
         }
-        
     }
 }

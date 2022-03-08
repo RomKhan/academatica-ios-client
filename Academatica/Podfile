@@ -6,5 +6,6 @@ target 'Academatica' do
   use_frameworks!
 
   pod 'CalendarHeatmap'
+  pod 'Alamofire', '~> 5.5'
 
 end

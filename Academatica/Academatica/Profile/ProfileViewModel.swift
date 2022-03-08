@@ -10,13 +10,13 @@ import SwiftUI
 class ProfileViewModel : ObservableObject {
     @State var progressBar: Float = 1250.0 / 5000;
     let imageName: String = "young-girls"
-    let userModel = UserModel(id: "1",
+    let userModel = UserModel(id: UUID(),
                               email: "fsfd@gmail.com",
                               userName: "jreyers",
                               firstName: "Jaseon",
                               lastName: "Reyers",
                               registereAt: "312",
-                              profilePicURL: "")
+                              profilePicURL: URL(string: "https://static.honeykidsasia.com/wp-content/uploads/2017/02/raising-a-teenager-in-Singapore-HERO.jpg"))
     let userStateModel = UserStateModel(id: "1",
                                         exp: 1250,
                                         buoysLeft: 5,

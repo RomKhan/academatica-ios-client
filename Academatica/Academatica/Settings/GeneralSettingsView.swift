@@ -114,11 +114,11 @@ struct GeneralSettingsView: View {
                             )
                             .cornerRadius(15)
                         VStack(alignment: .leading, spacing: 2) {
-                            Text("\(viewModel.userModel.firstName) \(viewModel.userModel.lastName)")
+                            Text("\(viewModel.userModel.firstName!) \(viewModel.userModel.lastName!)")
                                 .font(.system(size: UIScreen.main.bounds.width / 20.8, weight: .bold))
                                 .lineLimit(1)
                             Spacer()
-                            Text("\(viewModel.userModel.firstName) \(viewModel.userModel.lastName)")
+                            Text("\(viewModel.userModel.firstName!) \(viewModel.userModel.lastName!)")
                                 .font(.system(size: UIScreen.main.bounds.width / 20.8, weight: .bold))
                                 .lineLimit(1)
                                 .foregroundColor(.clear)
@@ -127,9 +127,9 @@ struct GeneralSettingsView: View {
                                 .background(viewModel.colors[4])
                                 .cornerRadius(2)
                                 .offset(y: -8)
-                            Text("\(viewModel.userModel.email)")
+                            Text("\(viewModel.userModel.email!)")
                                 .font(.system(size: UIScreen.main.bounds.width / 31.25, weight: .thin))
-                            Text("@\(viewModel.userModel.userName)")
+                            Text("@\(viewModel.userModel.userName!)")
                                 .font(.system(size: UIScreen.main.bounds.width / 31.25, weight: .thin))
                         }
                         .padding(10)
@@ -171,7 +171,8 @@ struct GeneralSettingsView: View {
                 .padding(.top, UIScreen.main.bounds.height / 70)
                 .shadow(color: .black.opacity(0.2), radius: 15, x: 0, y: 0)
                 Button("Sing Out", role: .destructive) {
-                    
+                    UserService.shared.isAuthorized.value = false
+                    UserService.refreshToken = nil
                 }
                 .font(.system(size: UIScreen.main.bounds.height / 58))
                 .offset(y: UIScreen.main.bounds.height / 8)

@@ -8,12 +8,27 @@
 import SwiftUI
 
 struct BuoysLeftCounter: View {
+    @StateObject var viewModel = BuoysLeftCounterViewModel()
     var body: some View {
         HStack(spacing: 7) {
             Circle()
                 .strokeBorder(.white, lineWidth: 10)
                 .frame(width: 32, height: 32)
-            Text("5").font(.system(size: 36, weight: .heavy)).foregroundColor(.white)
+            if (viewModel.amount == nil) {
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(.white)
+                    .blendMode(.overlay)
+                    .frame(maxWidth: 36)
+                    
+            } else {
+                Text("\(viewModel.amount ?? -1)").font(.system(size: 36, weight: .heavy)).foregroundColor(.white)
+            }
+        }
+        .animation(.easeOut, value: viewModel.amount)
+        .transition(.opacity)
+        .frame(height: 40)
+        .onAppear {
+            viewModel.counterUpdate()
         }
     }
 }

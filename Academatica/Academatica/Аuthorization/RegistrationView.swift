@@ -10,14 +10,9 @@ import SwiftUI
 struct RegistrationView: View {
     @StateObject var viewModel = RegistrationViewModel()
     @Environment(\.dismiss) var dismiss
-    @State var firstName: String = ""
-    @State var lastName: String = ""
-    @State var email: String = ""
-    @State var username: String = ""
-    @State var password: String = ""
-    @State var confirmPassword: String = ""
     @State var showImagePicker: Bool = false
     @State var image: Image? = nil
+    
     var body: some View {
         GeometryReader { reader in
             ZStack {
@@ -52,16 +47,16 @@ struct RegistrationView: View {
                             )
                             .cornerRadius(reader.size.width / 25)
                             VStack(spacing: 0) {
-                                TextField("", text: $firstName)
-                                    .placeholder(when: firstName.isEmpty) {
+                                TextField("", text: $viewModel.firstName)
+                                    .placeholder(when: viewModel.firstName.isEmpty) {
                                         Text("Имя")
                                             .foregroundColor(.white.opacity(0.5))
                                     }
                                     .padding()
                                     .background(.ultraThinMaterial)
                                     .cornerRadius(reader.size.width / 25)
-                                TextField("", text: $lastName)
-                                    .placeholder(when: lastName.isEmpty) {
+                                TextField("", text: $viewModel.lastName)
+                                    .placeholder(when: viewModel.lastName.isEmpty) {
                                         Text("Фамилия")
                                             .foregroundColor(.white.opacity(0.5))
                                     }
@@ -73,16 +68,16 @@ struct RegistrationView: View {
                         }
                         .padding(.top, reader.size.width / 10)
                         VStack(spacing: 0) {
-                            TextField("", text: $email)
-                                .placeholder(when: email.isEmpty) {
+                            TextField("", text: $viewModel.email)
+                                .placeholder(when: viewModel.email.isEmpty) {
                                     Text("Адрес электронной почты")
                                         .foregroundColor(.white.opacity(0.5))
                                 }
                                 .padding()
                                 .background(.ultraThinMaterial)
                                 .cornerRadius(reader.size.width / 25)
-                            TextField("", text: $username)
-                                .placeholder(when: username.isEmpty) {
+                            TextField("", text: $viewModel.username)
+                                .placeholder(when: viewModel.username.isEmpty) {
                                     Text("Псевдоним")
                                         .foregroundColor(.white.opacity(0.5))
                                 }
@@ -93,8 +88,8 @@ struct RegistrationView: View {
                         }
                         .padding(.top, reader.size.width / 18)
                         VStack(spacing: 0) {
-                            SecureField("", text: $password)
-                                .placeholder(when: password.isEmpty) {
+                            SecureField("", text: $viewModel.password)
+                                .placeholder(when: viewModel.password.isEmpty) {
                                     Text("Пароль")
                                         .foregroundColor(.white.opacity(0.5))
                                 }
@@ -102,8 +97,8 @@ struct RegistrationView: View {
                                 .background(.ultraThinMaterial)
                                 .cornerRadius(reader.size.width / 25)
                                 .foregroundColor(.white)
-                            SecureField("", text: $confirmPassword)
-                                .placeholder(when: confirmPassword.isEmpty) {
+                            SecureField("", text: $viewModel.confirmPassword)
+                                .placeholder(when: viewModel.confirmPassword.isEmpty) {
                                     Text("Подтвердите пароль")
                                         .foregroundColor(.white.opacity(0.5))
                                 }
@@ -115,20 +110,36 @@ struct RegistrationView: View {
                         }
                         .padding(.top, reader.size.width / 18)
 
-                        NavigationLink {
-                            TabBar(viewModel: TabBarViewModel()
-//                                   , windowScene: AcadematicaApp.windowScene
-                            )
+                        ZStack {
+                            switch viewModel.serverState {
+                            case .none:
+                                EmptyView()
+                            case .loading:
+                                ProgressView()
+                                    .progressViewStyle(CircularProgressViewStyle(tint: Color.white))
+                            case .error:
+                                Text("Попробуйте еще раз")
+                                    .foregroundColor(.red)
+                                    .font(.system(size: 12))
+                            case .success:
+                                EmptyView()
+                            }
+                        }
+                        .frame(maxWidth: .infinity)
+                        .frame(height: reader.size.width / 8)
+                        
+                        Button {
+                            viewModel.registrerStart()
                         } label: {
                             Text("Зарегистрироваться")
                                 .font(.system(size: reader.size.width / 26.5, weight: .bold))
                                 .padding()
                                 .frame(maxWidth: .infinity)
-                                .background(viewModel.colors[0])
+                                .background(viewModel.isButtonEnabled.getColor())
                                 .cornerRadius(reader.size.width / 25)
-                                .shadow(color: viewModel.colors[1].opacity(0.5), radius: 8, x: 0, y: 4)
+                                .shadow(color: viewModel.isButtonEnabled.getColor().opacity(0.5), radius: 8, x: 0, y: 4)
                         }
-                        .padding(.top, reader.size.width / 8)
+                        .disabled(viewModel.isButtonEnabled == .disable ? true : false)
                         
                         HStack {
                             Text("Уже есть аккаунт?")
@@ -197,6 +208,12 @@ struct RegistrationView: View {
                     .foregroundColor(.white)
                     .font(.system(size: reader.size.width / 31))
                 }
+                NavigationLink(isActive: $viewModel.showCodeEnterScreen) {
+                    DataChangeView(viewModel: DataChangeViewModel(cancelFunc: viewModel.registerConfirm), mode: .codeConfirm)
+                } label: {
+                    EmptyView()
+                }
+
             }
         }
         .navigationBarHidden(true)
