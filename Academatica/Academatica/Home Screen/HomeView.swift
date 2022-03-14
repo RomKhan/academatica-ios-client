@@ -16,14 +16,16 @@ enum practiceType {
 }
 
 struct HomeView: View {
-    @ObservedObject var viewModel = HomeViewModel()
+    @StateObject var viewModel = HomeViewModel()
     @State private var heightOfset: CGFloat = 0
     @State var selectedDetentIdentifier: UISheetPresentationController.Detent.Identifier? = .medium
     @State var state: Bool = false
-    @State var practiceType: PracticeSheetState = .byCompletedLessons
+    @State var practiceShow: Bool = false
+    @State var practiceType: PracticeType = .completedLessons
     @State private var showConstructor = false
-//    @Binding var practiceShow: Bool
+    @Binding var showClass: Bool
     @Binding var selected: ScreenType
+    
     var body: some View {
         ZStack(alignment: .top) {
             AngleBackground()
@@ -45,7 +47,7 @@ struct HomeView: View {
                             selected = .profile
                         } label: {
                             AsyncImage(
-                                url: UserService.userModel.profilePicURL,
+                                url: UserService.shared.userModel?.profilePicUrl,
                                 transaction: Transaction(animation: .spring()))
                             { phase in
                                 switch phase {
@@ -73,12 +75,12 @@ struct HomeView: View {
                     }
                 }.padding(.horizontal, 21).padding(.top, 5)
                 ZStack {
-                    if (viewModel.daysStreak == nil) {
+                    if (viewModel.userState?.daysStreak == nil) {
                         RoundedRectangle(cornerRadius: 10).fill(.white)
                             .blendMode(.overlay)
                             .frame(width: UIScreen.main.bounds.size.width / 2.5, height: 15)
                     } else {
-                        Text("\(viewModel.daysStreak!) дней учебы подряд")
+                        Text("\(viewModel.userState!.daysStreak) дней учебы подряд")
                             .font(.system(size: 13))
                         
                     }
@@ -87,16 +89,16 @@ struct HomeView: View {
                 .padding(.top, 75)
                 .padding(.horizontal, 20).textCase(.uppercase).foregroundColor(.white)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .animation(.easeOut, value: viewModel.daysStreak)
+                .animation(.easeOut, value: viewModel.userState?.daysStreak)
                 .transition(.opacity)
                 
                 ZStack {
-                    if (viewModel.firstName == nil) {
+                    if (viewModel.userModel?.firstName == nil) {
                         RoundedRectangle(cornerRadius: 10).fill(.white)
                             .blendMode(.overlay)
                             .frame(width: UIScreen.main.bounds.size.width / 2, height: 40)
                     } else {
-                        Text("Привет, \(viewModel.firstName!)!")
+                        Text("Привет, \(viewModel.userModel!.firstName)!")
                             .font(.system(size: 30).bold())
                             .foregroundColor(.white)
                         
@@ -105,7 +107,7 @@ struct HomeView: View {
                 .frame(height: 40)
                 .padding(.horizontal, 20)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .animation(.easeOut, value: viewModel.daysStreak)
+                .animation(.easeOut, value: viewModel.userModel?.firstName)
                 .transition(.opacity)
                     
                 Text("Предстоящие занятия")
@@ -114,7 +116,9 @@ struct HomeView: View {
                     .padding(.horizontal, 20)
                     .font(.system(size: 13))
                     .textCase(.uppercase).foregroundColor(.white)
-                CardStackVIew().padding(.horizontal, 20).frame(maxWidth: .infinity).frame(height: 160)
+                CardStackView(showClass: $showClass).padding(.horizontal, 20).frame(maxWidth: .infinity).frame(height: 160).onAppear {
+                    CourseService.shared.getUpcomingLessons()
+                }
                 Text("Практика")
                     .textCase(.uppercase)
                     .padding(.top, 50)
@@ -127,9 +131,9 @@ struct HomeView: View {
                         Button {
                             switch index {
                             case 0:
-                                practiceType = .byCompletedLessons
+                                practiceType = .completedLessons
                             case 1:
-                                practiceType = .byRecomend
+                                practiceType = .recomended
                             default:
                                 practiceType = .custom
                             }
@@ -143,7 +147,7 @@ struct HomeView: View {
                     }
                 }.frame(maxWidth: .infinity, alignment: .top)
                 Text("").frame(height: 95)
-            }
+            }.gesture(DragGesture(minimumDistance: 30, coordinateSpace: .local))
             if (state) {
                 Rectangle()
                     .fill(.black.opacity(0.3))
@@ -154,13 +158,44 @@ struct HomeView: View {
                         }
                     }
             }
-        }.frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
+            
+            if practiceType == .recomended {
+                NavigationLink(isActive: $practiceShow) {
+                    PracticeLoadView(viewModel: PracticeLoadViewModel(mode: practiceType, topicId: viewModel.recommendedTopicId), showPractice: .constant(true))
+                        .navigationBarHidden(true)
+                        .overlay(Color.black.opacity(viewModel.completedTopicsCount != 0 && viewModel.recommendedTopicId != nil ? 0 : 0.5))
+                        .overlay(
+                            Image("locked")
+                                .resizable()
+                                .frame(width: 64, height: 64, alignment: .center)
+                                .opacity(viewModel.completedTopicsCount != 0 && viewModel.recommendedTopicId != nil ? 0 : 1)
+                        )
+                } label: {
+                    EmptyView()
+                }
+            } else if practiceType == .completedLessons {
+                NavigationLink(isActive: $practiceShow) {
+                    PracticeLoadView(viewModel: PracticeLoadViewModel(mode: practiceType, topicId: nil), showPractice: .constant(true))
+                        .navigationBarHidden(true)
+                        .overlay(Color.black.opacity(viewModel.completedTopicsCount != 0 ? 0 : 0.5))
+                        .overlay(
+                            Image("locked")
+                                .resizable()
+                                .frame(width: 64, height: 64, alignment: .center)
+                                .opacity(viewModel.completedTopicsCount != 0 ? 0 : 1)
+                        )
+                } label: {
+                    EmptyView()
+                }
+            }
+        }
+        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
             .navigationBarHidden(true)
             .detentSheet(isPresented: $state, preferredCornerRadius: 40, detents: practiceType == .custom ? [.medium(), .large()] : [.medium()], allowsDismissalGesture: true) {
-                HalfPracticeSheet(viewModel: HalfPracticeSheetModel(), sheetMode: $state, mode: $practiceType, showConstructor: $showConstructor)
+                HalfPracticeSheet(viewModel: HalfPracticeSheetModel(), practiceShow: $practiceShow, sheetMode: $state, mode: $practiceType, showConstructor: $showConstructor)
             }
             .sheet(isPresented: $showConstructor) {
-                CustomPracticeSheetView(showConstructor: $showConstructor)
+                CustomPracticeSheetView(showConstructor: $showConstructor, practiceShow: $practiceShow)
             }
             .ignoresSafeArea()
             .onAppear {
@@ -172,9 +207,7 @@ struct HomeView: View {
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            HomeView(
-//                practiceShow: .constant(true),
-                selected: .constant(.home))
+            HomeView(showClass: .constant(false), selected: .constant(.home))
         }
     }
 }

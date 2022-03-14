@@ -6,13 +6,7 @@
 //
 
 import Foundation
-
-enum ServerState {
-    case none
-    case loading
-    case success
-    case error
-}
+import Combine
 
 class AuthorizationViewModel: ObservableObject {
     @Published var email: String = "" {
@@ -26,7 +20,16 @@ class AuthorizationViewModel: ObservableObject {
         }
     }
     @Published var isButtonEnabled: ButtonState = .disable
-    var images = ["google", "Facebook", "apple"]
+    @Published var serverState = ServerState.none
+    @Published var notification: String = ""
+    
+    private var cancellables = Set<AnyCancellable>()
+    
+    public init() {
+        UserService.shared.$authorizationNotification.sink { [weak self] newValue in
+            self?.notification = newValue
+        }.store(in: &cancellables)
+    }
     
     func updateButtonPublisher() {
         if (email != "" && password != "") {
@@ -36,15 +39,8 @@ class AuthorizationViewModel: ObservableObject {
         }
     }
     
-    @Published var serverState = ServerState.none
-    
-    func logIn() {
+    func logIn(completion: @escaping (Bool, String?) -> Void) {
         serverState = .loading
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
-            UserService.logIn(userName: self?.email, password: self?.password)
-            self?.serverState = .none
-            self?.email = ""
-            self?.password = ""
-        }
+        UserService.shared.logIn(email: email, password: password, completion: completion)
     }
 }

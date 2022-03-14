@@ -18,14 +18,7 @@ class LeadBoardsViewModel: ObservableObject {
     ]
     
     var leadboardUsers: [UserModel] = [
-        UserModel(id: UUID(), email: "asd", userName: "Петя", firstName: "Петя", lastName: "Петя", registereAt: "Неважно", profilePicURL: URL(string: "https://static.honeykidsasia.com/wp-content/uploads/2017/02/raising-a-teenager-in-Singapore-HERO.jpg")),
-        UserModel(id: UUID(), email: "asd", userName: "Петя", firstName: "Петя", lastName: "Петя", registereAt: "Неважно", profilePicURL: URL(string: "https://static.honeykidsasia.com/wp-content/uploads/2017/02/raising-a-teenager-in-Singapore-HERO.jpg")),
-        UserModel(id: UUID(), email: "asd", userName: "Петя", firstName: "Петя", lastName: "Петя", registereAt: "Неважно", profilePicURL: URL(string: "https://static.honeykidsasia.com/wp-content/uploads/2017/02/raising-a-teenager-in-Singapore-HERO.jpg")),
-        UserModel(id: UUID(), email: "asd", userName: "Петя", firstName: "Петя", lastName: "Петя", registereAt: "Неважно", profilePicURL: URL(string: "https://static.honeykidsasia.com/wp-content/uploads/2017/02/raising-a-teenager-in-Singapore-HERO.jpg")),
-        UserModel(id: UUID(), email: "asd", userName: "Петя", firstName: "Петя", lastName: "Петя", registereAt: "Неважно", profilePicURL: URL(string: "https://static.honeykidsasia.com/wp-content/uploads/2017/02/raising-a-teenager-in-Singapore-HERO.jpg")),
-        UserModel(id: UUID(), email: "asd", userName: "Петя", firstName: "Петя", lastName: "Петя", registereAt: "Неважно", profilePicURL: URL(string: "https://static.honeykidsasia.com/wp-content/uploads/2017/02/raising-a-teenager-in-Singapore-HERO.jpg")),
-        UserModel(id: UUID(), email: "asd", userName: "Петя", firstName: "Петя", lastName: "Петя", registereAt: "Неважно", profilePicURL: URL(string: "https://static.honeykidsasia.com/wp-content/uploads/2017/02/raising-a-teenager-in-Singapore-HERO.jpg")),
-        UserModel(id: UUID(), email: "asd", userName: "Петя", firstName: "Петя", lastName: "Петя", registereAt: "Неважно", profilePicURL: URL(string: "https://static.honeykidsasia.com/wp-content/uploads/2017/02/raising-a-teenager-in-Singapore-HERO.jpg"))
+        UserService.shared.userModel!
     ]
     let userPlace = 723
     var colors: [Color] = []
@@ -40,14 +33,6 @@ class LeadBoardsViewModel: ObservableObject {
         if (item.id == leadboardUsers[leadboardUsers.count - 1].id && !isLoadingUsers) {
             isLoadingUsers.toggle()
             DispatchQueue.global().sync { [weak self] in
-                self?.leadboardUsers.append(UserModel(id: UUID(),
-                                                email: "asd",
-                                                userName: "Петя",
-                                                firstName: "Петя",
-                                                lastName: "Петя",
-                                                registereAt: "Неважно",
-                                                profilePicURL: URL(string: "https://static.honeykidsasia.com/wp-content/uploads/2017/02/raising-a-teenager-in-Singapore-HERO.jpg"))
-                )
                 self?.isLoadingUsers.toggle()
             }
         }

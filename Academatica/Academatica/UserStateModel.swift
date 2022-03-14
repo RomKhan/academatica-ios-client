@@ -7,11 +7,7 @@
 
 import Foundation
 
-struct UserStateModel : Identifiable {
-    var id: String
-    var exp: Int
-    var buoysLeft: Int
-    var daysStreak: Int
-    var lastClassFinishedAt: String
-    var legue: String
+struct UserStateModel: Decodable {
+    let buoysLeft: Int
+    let daysStreak: Int
 }

@@ -8,12 +8,13 @@
 import SwiftUI
 
 class TierCardViewModel: ObservableObject {
-    var model: TierModel = TierModel(id: "0",
-                                     name: "1",
-                                     description: "ewqe",
-                                     imageUrl: "",
-                                     finishedPercentage: 56,
-                                     isFineshed: false)
+    var model: TierModel = TierModel(
+        id: "0",
+        name: "1",
+        description: "ewqe",
+        completionRate: 56,
+        isComplete: false,
+        isUnlocked: true)
     init(model: TierModel) {
         self.model = model
     }

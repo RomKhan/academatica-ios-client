@@ -13,6 +13,7 @@ struct TierView: View {
     @State var isAlgebra: Int = 0
     @State var topicsOfset: CGFloat = 0
     @Binding var show: Bool
+    
     var namespace: Namespace.ID
     var body: some View {
         GeometryReader { reader in
@@ -29,13 +30,13 @@ struct TierView: View {
                 
                 HStack {
                     if isAlgebra == 0 {
-                        Text("Algebra Topics")
+                        Text("Алгебра")
                             .textCase(.uppercase)
                             .font(.system(size: 13).bold())
                             .transition(AnyTransition.opacity.animation(.easeInOut(duration: 0.3)))
                     }
                     else {
-                        Text("Geometry Topics")
+                        Text("Геометрия")
                             .textCase(.uppercase)
                             .font(.system(size: 13).bold())
                             .transition(AnyTransition.opacity.animation(.easeInOut(duration: 0.3)))
@@ -69,22 +70,42 @@ struct TierView: View {
                         .padding(.horizontal, 20)
                         .padding(.top, 12)
                         .padding(.bottom, 6)
-                        TabView {
-                            ForEach(viewModel.TierCardModels) { tierCardModel in
-                                TierCardView(viewModel: TierCardViewModel(model: tierCardModel))
+                        TabView(selection: $viewModel.selectedTierIndex) {
+                            ForEach((0..<viewModel.tierCardModels.count), id: \.self) { index in
+                                TierCardView(viewModel: TierCardViewModel(model: viewModel.tierCardModels[index]))
                                     .padding(.horizontal, 20)
+                                    .tag(index)
                             }
                         }
                         .tabViewStyle(.page(indexDisplayMode: .never))
+                        .onChange(of: viewModel.selectedTierIndex) { _ in
+                            viewModel.loadTopics()
+                        }
                         .frame(height: reader.size.height / 3.45)
+                        ZStack {
+                            switch viewModel.serverState {
+                            case .none:
+                                EmptyView()
+                            case .loading:
+                                ProgressView()
+                                    .progressViewStyle(CircularProgressViewStyle(tint: Color.black))
+                            case .error:
+                                Text("Попробуйте еще раз")
+                                    .foregroundColor(.red)
+                                    .font(.system(size: 12))
+                            case .success:
+                                EmptyView()
+                            }
+                        }
+                        .frame(maxWidth: .infinity)
+                        .frame(height: reader.size.height / 10)
+                        .padding(.bottom, 0)
                         TabView(selection: $isAlgebra) {
                             GeometryReader { readerInside in
                                 VStack(spacing: 20) {
-                                    ForEach(viewModel.TopicModels) { topicModel in
-                                        if (topicModel.isAlgebraTopics) {
-                                            TopicCardView(viewModel: TopicCardViewModel(topicModel: topicModel),
-                                                          show: $show,
-                                                          namespace: namespace)
+                                    ForEach(viewModel.topicModels) { topicModel in
+                                        if (topicModel.isAlgebraTopic) {
+                                            TopicCardView(viewModel: TopicCardViewModel(topicModel: topicModel), show: $show, namespace: namespace)
                                                 .frame(height: reader.size.height / 3.2)
                                                 .padding(.horizontal, 20)
                                         }
@@ -96,12 +117,9 @@ struct TierView: View {
                             .tag(0)
                             GeometryReader { readerInside in
                                 VStack(spacing: 20) {
-                                    ForEach(viewModel.TopicModels) { topicModel in
-                                        if (!topicModel.isAlgebraTopics) {
-                                            TopicCardView(viewModel: TopicCardViewModel(topicModel: topicModel),
-                                                          show: $show,
-                                                          namespace: namespace
-                                            )
+                                    ForEach(viewModel.topicModels) { topicModel in
+                                        if (!topicModel.isAlgebraTopic) {
+                                            TopicCardView(viewModel: TopicCardViewModel(topicModel: topicModel), show: $show, namespace: namespace)
                                                 .frame(height: reader.size.height / 3.2)
                                                 .padding(.horizontal, 20)
                                         }
@@ -114,7 +132,7 @@ struct TierView: View {
                             .tag(1)
                         }
                         .tabViewStyle(.page(indexDisplayMode: .never))
-                        .padding(.top, 50)
+                        .padding(.top, -40)
                         .onChange(of: isAlgebra) { _ in
                             if (heightOffset >= 90 + reader.size.height / 3.8 ) {
                                 value.scrollTo(0, anchor: .top)
@@ -126,6 +144,9 @@ struct TierView: View {
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+        }.onAppear() {
+            viewModel.loadData()
+            viewModel.loadTopics()
         }
     }
 }

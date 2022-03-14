@@ -7,6 +7,10 @@
 
 import SwiftUI
 
+struct CustomPracticeTupicModel {
+    
+}
 class CustomPracticeSheetViewModel: ObservableObject {
-
+    init() {
+    }
 }

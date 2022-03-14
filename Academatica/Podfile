@@ -7,5 +7,6 @@ target 'Academatica' do
 
   pod 'CalendarHeatmap'
   pod 'Alamofire', '~> 5.5'
+  pod 'lottie-ios'
 
 end

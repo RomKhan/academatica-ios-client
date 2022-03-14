@@ -1,19 +1,20 @@
 //
-//  File.swift
-//  SmartMath
+//  TopicModel.swift
+//  Academatica
 //
 //  Created by Roman on 10.01.2022.
 //
 
 import Foundation
 
-struct TopicModel: Identifiable {
+struct TopicModel: Identifiable, Decodable {
     let id: String
     let name: String
     let description: String
-    let isAlgebraTopics: Bool
-    let imageURL: String
-    let isFineshed: Bool
-    let amountOfClasses: Int
-    let amoutTimeToComplete: Int
+    let isAlgebraTopic: Bool
+    let imageUrl: URL?
+    let isComplete: Bool
+    let isUnlocked: Bool
+    let completionRate: Int
+    let classCount: Int
 }

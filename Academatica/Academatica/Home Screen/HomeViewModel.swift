@@ -1,8 +1,9 @@
 import SwiftUI
+import Combine
 
 class HomeViewModel: ObservableObject {
     let practiseCardsViewModels = [
-        PracticeCardViewModel(model: PracticeCardModel(title: "Completed Topics", countOfTasks: 10, imageName: "tick-inside-circle"),
+        PracticeCardViewModel(model: PracticeCardModel(title: "Завершённые темы", countOfTasks: 10, imageName: "tick-inside-circle"),
                               colors: [
                                 Color(uiColor: UIColor(
                                     red: 239 / 255.0,
@@ -20,7 +21,7 @@ class HomeViewModel: ObservableObject {
                                     blue: 182 / 255.0,
                                     alpha: 1))
                               ]),
-        PracticeCardViewModel(model: PracticeCardModel(title: "Recomended Topics", countOfTasks: 10, imageName: "star"),
+        PracticeCardViewModel(model: PracticeCardModel(title: "Рекомендованная тема", countOfTasks: 10, imageName: "star"),
                               colors: [
                                 Color(uiColor: UIColor(
                                     red: 126 / 255.0,
@@ -38,7 +39,7 @@ class HomeViewModel: ObservableObject {
                                     blue: 206 / 255.0,
                                     alpha: 1))
                               ]),
-        PracticeCardViewModel(model: PracticeCardModel(title: "Custom Practice", countOfTasks: 10, imageName: "support"),
+        PracticeCardViewModel(model: PracticeCardModel(title: "Своя практика", countOfTasks: 10, imageName: "support"),
                               colors: [
                                 Color(uiColor: UIColor(
                                     red: 236 / 255.0,
@@ -58,23 +59,37 @@ class HomeViewModel: ObservableObject {
                               ])
     ]
     
-    @Published var daysStreak: Int? = UserService.daysStreak
-    @Published var firstName: String? = UserService.userModel.firstName
+    @Published var userModel: UserModel?
+    @Published var userState: UserStateModel?
+    @Published var recommendedTopicId: String?
+    @Published var completedTopicsCount: Int = 0
+    
+    private var cancellables = Set<AnyCancellable>()
     
     init() {
         updateData()
-    }
-    func updateData() {
-        firstName = UserService.userModel.firstName
-        apiUsersIdStateGet()
         
+        UserService.shared.$userModel.sink { [weak self] newValue in
+            self?.userModel = newValue
+        }.store(in: &cancellables)
         
+        UserStateService.shared.$userState.sink { [weak self] newValue in
+            self?.userState = newValue
+        }.store(in: &cancellables)
+        
+        CourseService.shared.$recommendedTopic.sink { [weak self] newValue in
+            self?.recommendedTopicId = newValue?.id
+        }.store(in: &cancellables)
+        
+        CourseService.shared.$completedTopicCount.sink { [weak self] newValue in
+            self?.completedTopicsCount = newValue
+        }.store(in: &cancellables)
     }
     
-    func apiUsersIdStateGet() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
-            UserService.daysStreak = Int.random(in: (0...10))
-            self?.daysStreak = UserService.daysStreak
-        }
+    func updateData() {
+        UserService.shared.userSetup()
+        UserStateService.shared.updateUserState()
+        CourseService.shared.getRecommendedPracticeTopic()
+        CourseService.shared.getCompletedTopicsCount()
     }
 }

@@ -33,10 +33,10 @@ struct TierCardView: View {
                             .padding(.top, 15)
                             .lineLimit(4)
                             .frame(height: 100)
-                    }
+                    }.frame(maxWidth: .infinity, alignment: .leading)
                     Spacer()
-                    ProgressBarView(viewModel: ProgressBarViewModel(percentages: viewModel.model.finishedPercentage)).padding(.bottom, 10)
-                    Text("\(viewModel.model.finishedPercentage)% завершено")
+                    ProgressBarView(viewModel: ProgressBarViewModel(percentages: CGFloat(viewModel.model.completionRate) / 100)).padding(.bottom, 10)
+                    Text("\(viewModel.model.completionRate)% завершено")
                         .padding(.bottom, 15)
                         .font(.system(size: 13))
                         .foregroundColor(Color(uiColor: UIColor(red: 89 / 255.0, green: 89 / 255.0, blue: 89 / 255.0, alpha: 1)))
@@ -52,6 +52,13 @@ struct TierCardView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             .frame(minHeight: 200)
             .background(.ultraThinMaterial)
+            .overlay(Color.black.opacity(viewModel.model.isUnlocked ? 0 : 0.5))
+            .overlay(
+                Image("locked")
+                    .resizable()
+                    .frame(width: 64, height: 64, alignment: .center)
+                    .opacity(viewModel.model.isUnlocked ? 0 : 1)
+            )
             .cornerRadius(20)
         }
     }
@@ -60,13 +67,15 @@ struct TierCardView: View {
 struct TierCardView_Previews: PreviewProvider {
     static var previews: some View {
         TierCardView(viewModel:
-                        TierCardViewModel(model:
-                                            TierModel(id: "sfd",
-                                                      name: "4",
-                                                      description: "Introduction to geometry, units of measurement, simple equations, more about arithmetic operations.",
-                                                      imageUrl: "",
-                                                      finishedPercentage: 56,
-                                                      isFineshed: false)))
+                        TierCardViewModel(
+                            model:TierModel(
+                                id: "sfd",
+                                name: "4",
+                                description: "Introduction to geometry, units of measurement, simple equations, more about arithmetic operations.",
+                                completionRate: 56,
+                                isComplete: false,
+                                isUnlocked: true
+                            )))
             .background(LinearGradient(colors: [Color(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)), Color(#colorLiteral(red: 0.9686274529, green: 0.78039217, blue: 0.3450980484, alpha: 1))], startPoint: .top, endPoint: .bottom))
     }
 }

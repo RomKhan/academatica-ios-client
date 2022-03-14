@@ -6,9 +6,9 @@
 //
 
 import SwiftUI
+import Alamofire
 
 class RegistrationViewModel: ObservableObject {
-    @Published var showCodeEnterScreen: Bool = false
     @Published var firstName: String = "" {
         didSet {
             updateButtonPublisher()
@@ -45,8 +45,12 @@ class RegistrationViewModel: ObservableObject {
         }
     }
     
+    @Published var image: UIImage? = nil
+    
     @Published var isButtonEnabled: ButtonState = .disable
     @Published var serverState = ServerState.none
+    @Published var transitionToAuthScreen = false
+    @Published var notification: String = ""
     
     var colors: [Color] = [
         Color(uiColor: UIColor(red: 0 / 255.0, green: 212 / 255.0, blue: 110 / 255.0, alpha: 1)),
@@ -68,24 +72,11 @@ class RegistrationViewModel: ObservableObject {
         }
     }
     
-    func registrerStart() {
+    func signUp(completion: @escaping (Bool, String?) -> Void) {
         serverState = .loading
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
-            UserService.registerStart(firstName: self?.firstName, lastName: self?.lastName, userName: self?.username, email: self?.email, password: self?.password)
-            self?.showCodeEnterScreen.toggle()
+        DispatchQueue.main.async() { [weak self] in
+            UserService.shared.signUp(firstName: self?.firstName, lastName: self?.lastName, userName: self?.username, email: self?.email, password: self?.password, confirmPassword: self?.confirmPassword, profilePic: self?.image, completion: completion)
+            self?.serverState = .loading
         }
-    }
-    
-    func registerConfirm(code: String?) {
-        
-        UserService.registerConfirm(code: code)
-        
-        serverState = .none
-        firstName = ""
-        lastName = ""
-        email = ""
-        username = ""
-        password = ""
-        confirmPassword = ""
     }
 }

@@ -46,7 +46,7 @@ struct LeadBoardsView: View {
                                     .font(.system(size: 18, weight: .bold))
                                     .foregroundColor(.white)
                                     .frame(maxWidth: 36)
-                                AsyncImage(url: userModel.profilePicURL,         transaction: Transaction(animation: .easeInOut))
+                                AsyncImage(url: userModel.profilePicUrl, transaction: Transaction(animation: .easeInOut))
                                 { phase in
                                     switch phase {
                                     case .empty:
@@ -70,11 +70,11 @@ struct LeadBoardsView: View {
                                     
                                 VStack(alignment: .leading) {
                                     
-                                    Text("\(userModel.firstName!) \(userModel.lastName!)")
+                                    Text("\(userModel.firstName) \(userModel.lastName)")
                                         .foregroundColor(.white)
                                         .font(.system(size: 16, weight: .bold))
                                         .padding(.bottom, -5)
-                                    Text("@\(userModel.userName!)")
+                                    Text("@\(userModel.username)")
                                         .foregroundColor(viewModel.colors[3])
                                         .font(.system(size: 13))
                                     

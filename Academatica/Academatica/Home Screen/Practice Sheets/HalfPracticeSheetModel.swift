@@ -7,12 +7,22 @@
 
 import SwiftUI
 
-enum PracticeSheetState {
-    case byCompletedLessons, byRecomend, custom
+enum PracticeType {
+    case recomended
+    case completedLessons
+    case custom
+    case lesson
+}
+
+class HalfPracticeSheetModel: ObservableObject {
+    var colors: [Color] = [
+        Color(uiColor: UIColor(red: 0 / 255.0, green: 212 / 255.0, blue: 110 / 255.0, alpha: 1)),
+        Color(uiColor: UIColor(red: 0 / 255.0, green: 212 / 255.0, blue: 110 / 255.0, alpha: 1))
+    ]
     
-    func getBackgroundGradient() -> Gradient {
-        switch self {
-        case .byCompletedLessons:
+    func getBackgroundGradient(type: PracticeType) -> Gradient {
+        switch type {
+        case .completedLessons:
             return Gradient(stops: [
                 .init(color:
                         Color(uiColor: UIColor(
@@ -29,7 +39,7 @@ enum PracticeSheetState {
                             alpha: 1)),
                       location: 0.7)
             ])
-        case .byRecomend:
+        case .recomended:
             return Gradient(stops: [
                 .init(color:
                         Color(uiColor: UIColor(
@@ -63,35 +73,39 @@ enum PracticeSheetState {
                             alpha: 1)),
                       location: 0.7)
             ])
+        case .lesson:
+            return Gradient(stops: [
+                .init(color: .red,
+                      location: 0.4),
+                .init(color: .red,
+                      location: 0.4)
+            ])
         }
     }
     
-    func getTitle() -> String {
-        switch self {
-        case .byCompletedLessons:
+    func getTitle(type: PracticeType) -> String {
+        switch type {
+        case .completedLessons:
             return "Практика по последним темам"
-        case .byRecomend:
+        case .recomended:
             return "Рекомендованная практика"
         case .custom:
             return "Пользователская практика"
+        case .lesson:
+            return ""
         }
     }
     
-    func getDescription() -> String {
-        switch self {
-        case .byCompletedLessons:
+    func getDescription(type: PracticeType) -> String {
+        switch type {
+        case .completedLessons:
             return "Состоит из случайных задач по пройденным темам."
-        case .byRecomend:
+        case .recomended:
             return "Состоит из тем, ошибок в которых было допущено больше всего."
         case .custom:
             return "Состоит из тем, выбранных в конструкторе."
+        case .lesson:
+            return ""
         }
     }
-}
-
-class HalfPracticeSheetModel: ObservableObject {
-    var colors: [Color] = [
-        Color(uiColor: UIColor(red: 0 / 255.0, green: 212 / 255.0, blue: 110 / 255.0, alpha: 1)),
-        Color(uiColor: UIColor(red: 0 / 255.0, green: 212 / 255.0, blue: 110 / 255.0, alpha: 1))
-    ]
 }

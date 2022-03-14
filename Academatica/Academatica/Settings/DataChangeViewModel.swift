@@ -45,7 +45,7 @@ enum DataChangeViewMode {
         case .emailChange:
             return "Введите новый адрес электронной почты"
         case .codeConfirm:
-            return "Введие код подтверждения из пиьма на электронной почте"
+            return "Введите код подтверждения из письма на электронной почте"
         }
     }
     
@@ -62,30 +62,186 @@ enum DataChangeViewMode {
         case .emailChange:
             return "example@gmail.com"
         case .codeConfirm:
-            return "код из пьима"
+            return "Код из письма"
         }
     }
 }
 
 class DataChangeViewModel: ObservableObject {
-    var cancelFunc: ((String) -> ())?
     @Published var serverState = ServerState.none
     @Published var text: String = ""
+    @Published var newPassword: String = ""
+    @Published var newPasswordConfirm: String = ""
+    @Published var showSecondaryMode = false {
+        didSet {
+            print(text, showSecondaryMode)
+            print(Thread.callStackSymbols.joined(separator: "\n"))
+        }
+    }
+    @Published var secondaryMode: DataChangeViewMode = .emailChange
+    @Published var errorMessage: String = ""
+    @Published var callback: ((Bool) -> ())?
+    var confirmationCode: String = ""
     var colors: [Color] = [
         Color(uiColor: UIColor(red: 92 / 255.0, green: 0 / 255.0, blue: 149 / 255.0, alpha: 1)),
         Color(uiColor: UIColor(red: 81 / 255.0, green: 132 / 255.0, blue: 209 / 255.0, alpha: 1)),
         Color(uiColor: UIColor(red: 0 / 255.0, green: 212 / 255.0, blue: 110 / 255.0, alpha: 1))
-//        Color(uiColor: UIColor(red: 0 / 255.0, green: 255 / 255.0, blue: 117 / 255.0, alpha: 1)),
-//        Color(uiColor: UIColor(red: 89 / 255.0, green: 89 / 255.0, blue: 89 / 255.0, alpha: 1))
     ]
     
-    init() {}
-    init(cancelFunc: ((String) -> ())?) {
-        self.cancelFunc = cancelFunc
+    init() { }
+    
+    init(secondaryMode: DataChangeViewMode) {
+        self.secondaryMode = secondaryMode
     }
     
-    func cancel() {
+    init(confirmationCode: String, callback: ((Bool) -> ())?) {
+        self.confirmationCode = confirmationCode
+        self.callback = callback
+    }
+    
+    func cancel(mode: DataChangeViewMode) {
         serverState = .loading
-        cancelFunc?(text)
+        
+        switch mode {
+        case .firstnameChange:
+            firstNameChange()
+        case .lastnameCgange:
+            lastNameChange()
+        case .nicknameChange:
+            userNameChange()
+        case .passwordChange:
+            passwordChange()
+        case .emailChange:
+            emailChange()
+        case .codeConfirm:
+            confirmCode()
+        }
+    }
+    
+    func firstNameChange() {
+        errorMessage = ""
+        serverState = .loading
+
+        UserService.shared.changeFirstName(newFirstName: text) { [weak self] success in
+            if success {
+                self?.serverState = .success
+            } else {
+                self?.serverState = .error
+                self?.errorMessage = "Что-то пошло не так"
+            }
+        }
+    }
+
+    func lastNameChange() {
+        errorMessage = ""
+        serverState = .loading
+
+        UserService.shared.changeLastName(newLastName: text) { [weak self] success in
+            if success {
+                self?.serverState = .success
+            } else {
+                self?.serverState = .error
+                self?.errorMessage = "Что-то пошло не так"
+            }
+        }
+    }
+
+    func userNameChange() {
+        errorMessage = ""
+        serverState = .loading
+
+        UserService.shared.changeUsername(newUsername: text) { [weak self] success in
+            if success {
+                self?.serverState = .success
+            } else {
+                self?.serverState = .error
+                self?.errorMessage = "Что-то пошло не так"
+            }
+        }
+    }
+
+    func confirmCode() {
+        errorMessage = ""
+        serverState = .loading
+
+        switch secondaryMode {
+        case .emailChange:
+            UserService.shared.checkEmailConfirmationCode(text) { [weak self] success in
+                if success {
+                    self?.serverState = .none
+                    self?.showSecondaryMode = true
+                    self?.callback = { success in
+                        if success {
+                            self?.serverState = .success
+                        }
+                    }
+                } else {
+                    self?.serverState = .error
+                    self?.errorMessage = "Код не прошёл проверку"
+                }
+            }
+        case .passwordChange:
+            UserService.shared.checkPasswordConfirmationCode(text) { [weak self] success in
+                if success {
+                    self?.serverState = .none
+                    self?.showSecondaryMode = true
+                    self?.callback = { success in
+                        if success {
+                            self?.serverState = .success
+                        }
+                    }
+                } else {
+                    self?.serverState = .error
+                    self?.errorMessage = "Код не прошёл проверку"
+                }
+            }
+        default:
+            serverState = .error
+            errorMessage = "INTERNAL: Неверный вторичный режим"
+        }
+    }
+
+    func passwordChange() {
+        serverState = .loading
+        errorMessage = ""
+
+        if newPassword != newPasswordConfirm {
+            serverState = .error
+            errorMessage = "Пароли не совпадают!"
+            return
+        }
+
+        UserService.shared.changeUserPassword(oldPassword: text, newPassword: newPassword, newPasswordConfirm: newPasswordConfirm) { [weak self] success, error in
+            if success {
+                self?.serverState = .success
+                self?.callback?(true)
+            } else {
+                self?.serverState = .error
+                self?.callback?(false)
+                if let error = error {
+                    self?.errorMessage = error
+                }
+            }
+        }
+    }
+
+    func emailChange() {
+        errorMessage = ""
+        serverState = .loading
+
+        UserService.shared.changeUserEMail(confirmationCode: confirmationCode, newEmail: text) { [weak self] success, error in
+            if success {
+                self?.serverState = .success
+                self?.callback?(true)
+                UserService.shared.logOff()
+                UserService.shared.authorizationNotification = "Подтвердите Ваш новый адрес"
+            } else {
+                self?.serverState = .error
+                self?.callback?(false)
+                if let error = error {
+                    self?.errorMessage = error
+                }
+            }
+        }
     }
 }

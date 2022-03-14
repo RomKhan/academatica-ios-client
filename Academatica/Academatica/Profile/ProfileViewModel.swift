@@ -6,89 +6,50 @@
 //
 
 import SwiftUI
+import Combine
 
 class ProfileViewModel : ObservableObject {
-    @State var progressBar: Float = 1250.0 / 5000;
-    let imageName: String = "young-girls"
-    let userModel = UserModel(id: UUID(),
-                              email: "fsfd@gmail.com",
-                              userName: "jreyers",
-                              firstName: "Jaseon",
-                              lastName: "Reyers",
-                              registereAt: "312",
-                              profilePicURL: URL(string: "https://static.honeykidsasia.com/wp-content/uploads/2017/02/raising-a-teenager-in-Singapore-HERO.jpg"))
-    let userStateModel = UserStateModel(id: "1",
-                                        exp: 1250,
-                                        buoysLeft: 5,
-                                        daysStreak: 2,
-                                        lastClassFinishedAt: "d",
-                                        legue: "Gold")
-    let achievementsOfRightStack = [
-        AchievemntModel(
-            id: "1",
-            name: "Get started",
-            description: "Completed first lesson (and some text for the second line)",
-            imageUrl: "shuttle",
-            count: 2
-        ),
-        AchievemntModel(
-            id: "2",
-            name: "Get started",
-            description: "Completed first lesson (and some text for the second line) fgdgfdfgdf",
-            imageUrl: "shuttle",
-            count: 10
-        ),
-        AchievemntModel(
-            id: "3",
-            name: "Get started",
-            description: "Completed first lesson",
-            imageUrl: "shuttle",
-            count: 99
-        ),
-        AchievemntModel(
-            id: "4",
-            name: "Get started and fsfd",
-            description: "Completed first lesson (and some text for the second line)",
-            imageUrl: "shuttle",
-            count: 9
-        )
-    ]
-    let achievementsOfLeftStack = [
-        AchievemntModel(
-            id: "5",
-            name: "Get started",
-            description: "Completed first lesson (and some text)",
-            imageUrl: "shuttle",
-            count: 2
-        ),
-        AchievemntModel(
-            id: "6",
-            name: "Get started",
-            description: "Completed first lesson (and some text for the second line)",
-            imageUrl: "shuttle",
-            count: 20
-        ),
-        AchievemntModel(
-            id: "7",
-            name: "Get started hehehhe",
-            description: "Completed first lesson (and some text for the second line)",
-            imageUrl: "shuttle",
-            count: 2
-        ),
-        AchievemntModel(
-            id: "8",
-            name: "Get started",
-            description: "Completed first lesson (and some text for the second line)",
-            imageUrl: "shuttle",
-            count: 2
-        )
-    ]
-    let userLevel = 2
-    let userLevelState = "Novice"
-    let maxLevelExp = 5000
-    let howMushExpAtThisWeek = 100
+    @Published var achievementsOfRightStack: [AchievementModel] = []
+    @Published var achievementsOfLeftStack: [AchievementModel] = []
+    @Published var leagueState: LeaderboardStateModel?
+    
+    private var cancellables = Set<AnyCancellable>()
     
     init() {
-        progressBar = Float(userStateModel.exp / maxLevelExp)
+        UserStateService.shared.$userLeaderboardState.sink { [weak self] newValue in
+            if let newValue = newValue {
+                self?.leagueState = newValue
+            }
+        }.store(in: &cancellables)
+        
+        UserStateService.shared.$userAchievements.sink { [weak self] newValue in
+            self?.achievementsOfRightStack.removeAll()
+            self?.achievementsOfLeftStack.removeAll()
+            
+            if let newValue = newValue {
+                for i in (0 ..< newValue.count / 2) {
+                    self?.achievementsOfRightStack.append(newValue[i])
+                }
+                
+                for i in (newValue.count / 2 ..< newValue.count) {
+                    self?.achievementsOfLeftStack.append(newValue[i])
+                }
+            }
+        }.store(in: &cancellables)
+        
+        dataUpdate()
+    }
+    
+    func dataUpdate() {
+        getAchievements()
+        getLeagueState()
+    }
+    
+    func getLeagueState() {
+        UserStateService.shared.updateUserLeaderboardState()
+    }
+    
+    func getAchievements() {
+        UserStateService.shared.loadUserAchievements()
     }
 }

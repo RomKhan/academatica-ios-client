@@ -1,20 +1,24 @@
 PODS:
   - Alamofire (5.5.0)
   - CalendarHeatmap (0.1.3)
+  - lottie-ios (3.3.0)
 
 DEPENDENCIES:
   - Alamofire (~> 5.5)
   - CalendarHeatmap
+  - lottie-ios
 
 SPEC REPOS:
   trunk:
     - Alamofire
     - CalendarHeatmap
+    - lottie-ios
 
 SPEC CHECKSUMS:
   Alamofire: 1c4fb5369c3fe93d2857c780d8bbe09f06f97e7c
   CalendarHeatmap: 91034b0eead341a8a8d29b4a460b8b3a176fa36c
+  lottie-ios: 6ac74dcc09904798f59b18cb3075c089d76be9ae
 
-PODFILE CHECKSUM: 152a379051ad240725051e66070bceae9132bb2b
+PODFILE CHECKSUM: 5c7e5069330221f2dc730bc1586ba1f15a7f07ba
 
 COCOAPODS: 1.11.2

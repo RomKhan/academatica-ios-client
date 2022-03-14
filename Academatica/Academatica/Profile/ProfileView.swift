@@ -18,8 +18,8 @@ struct ProfileView: View {
                 .fill(LinearGradient(
                     gradient: Gradient(
                         stops: [
-                            .init(color: Color(uiColor: UIColor(red: 1, green: 139 / 255.0, blue: 132 / 255.0, alpha: 1)), location: 0.6    ),
-                            .init(color: Color(uiColor: UIColor(red: 0, green: 18 / 255.0, blue: 182 / 255.0, alpha: 1)), location: 0)
+                            .init(color: Color(uiColor: UIColor(red: 0, green: 18 / 255.0, blue: 182 / 255.0, alpha: 1)), location: 0),
+                            .init(color: Color(uiColor: UIColor(red: 1, green: 139 / 255.0, blue: 132 / 255.0, alpha: 1)), location: 0.6)
                         ]),
                     startPoint: .topLeading,
                     endPoint: .bottomTrailing))
@@ -50,7 +50,7 @@ struct ProfileView: View {
                         })
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
-                    Text("Profile")
+                    Text("Профиль")
                         .frame(maxWidth: .infinity)
                         .foregroundColor(.white)
                         .font(.system(size: 18, weight: .bold))
@@ -67,42 +67,98 @@ struct ProfileView: View {
                 }
                 .padding(.horizontal, 20)
                 HStack(spacing: 0) {
-                    Image(viewModel.imageName)
-                        .resizable()
-                        .scaledToFit()
-                        .padding(12)
-                        .mask(
-                            RoundedRectangle(cornerRadius: 20)
-                                .frame(minWidth: 74, minHeight: 74)
-                                .frame(
-                                    width: UIScreen.main.bounds.height / 9.3 - 24,
-                                    height: UIScreen.main.bounds.height / 9.3 - 24)
-                        )
-                        .padding(.horizontal, -5)
-                        .shadow(color: .black.opacity(0.25), radius: 10, x: 0, y: 0)
-                        .blendMode(.overlay)
+                    AsyncImage(
+                        url: UserService.shared.userModel?.profilePicUrl,
+                        transaction: Transaction(animation: .spring()))
+                    { phase in
+                        switch phase {
+                        case .empty:
+                            Rectangle()
+                                .scaledToFit()
+                                .background(.black.opacity(0.5))
+                        case .success(let image):
+                            Rectangle()
+                                .fill(.clear)
+                                .scaledToFit()
+                                .background(
+                                    image
+                                        .resizable()
+                                        .scaledToFill()
+                                )
+                        case .failure:
+                            Rectangle()
+                                .fill(.black.opacity(0.5))
+                                .scaledToFit()
+                                .background(
+                                    Image(systemName: "wifi.slash")
+                                        .resizable()
+                                        .scaledToFill()
+                                        .padding(25)
+                                        .foregroundColor(.white)
+                                )
+                        @unknown default:
+                            EmptyView()
+                        }
+                    }
+                    .padding(12)
+                    .mask(
+                        RoundedRectangle(cornerRadius: 20)
+                            .frame(minWidth: 74, minHeight: 74)
+                            .frame(
+                                width: UIScreen.main.bounds.height / 9.3 - 24,
+                                height: UIScreen.main.bounds.height / 9.3 - 24)
+                    )
+                    .shadow(color: .black.opacity(0.25), radius: 10, x: 0, y: 0)
+                    .blendMode(.overlay)
                     VStack(alignment: .leading, spacing: 5) {
-                        Text("\(viewModel.userModel.firstName!) \(viewModel.userModel.lastName!)")
-                            .font(.system(size: 18, weight: .heavy))
-                        Text("@\(viewModel.userModel.userName!)")
-                            .font(.system(size: 14, weight: .thin))
+                        if (UserService.shared.userModel?.firstName == nil || UserService.shared.userModel?.lastName == nil) {
+                            RoundedRectangle(cornerRadius: 10).fill(.black.opacity(0.5))
+                                .blendMode(.overlay)
+                                .frame(width: UIScreen.main.bounds.size.width / 2.7, height: 20)
+                        } else {
+                            Text("\(UserService.shared.userModel!.firstName) \(UserService.shared.userModel!.lastName)")
+                                .font(.system(size: 18, weight: .heavy))
+                        }
+                        
+                        if (UserService.shared.userModel?.username == nil) {
+                            RoundedRectangle(cornerRadius: 10).fill(.black.opacity(0.5))
+                                .blendMode(.overlay)
+                                .frame(width: UIScreen.main.bounds.size.width / 3.5, height: 16)
+                        } else {
+                            Text("@\(UserService.shared.userModel!.username)")
+                                .font(.system(size: 14, weight: .thin))
+                        }
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
                     VStack(spacing: 0) {
-                        Text(viewModel.userStateModel.legue)
-                            .textCase(.uppercase)
-                            .font(.callout)
-                        Image("gold")
-                            .resizable()
-                            .scaledToFit()
-                        Text("League")
-                            .textCase(.uppercase)
-                            .font(.callout)
+                        if (viewModel.leagueState == nil) {
+                            RoundedRectangle(cornerRadius: 10).fill(.black.opacity(0.5))
+                                .blendMode(.overlay)
+                                .frame(maxWidth: UIScreen.main.bounds.size.width / 5.5)
+                        } else {
+                            if (viewModel.leagueState!.league != .none) {
+                                Image("gold")
+                                    .resizable()
+                                    .scaledToFit()
+                                Text(viewModel.leagueState!.league.getName())
+                                    .textCase(.uppercase)
+                                    .font(.callout)
+                                    .padding(.trailing, viewModel.leagueState!.league == .none ? 10 : 0)
+                            } else {
+                                Image("question")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .padding()
+                                    .padding(.trailing, 5)
+                            }
+                        }
                     }
                     .blendMode(.overlay)
                     .frame(maxHeight: .infinity, alignment: .center)
-                    .padding(12)
+                    .padding(16)
                     .padding(.trailing, 6)
+                    .animation(.easeOut, value: viewModel.leagueState)
+                    .transition(.opacity)
                 }
                 .frame(minHeight: 98)
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -115,23 +171,54 @@ struct ProfileView: View {
                 
                 HStack {
                     VStack(alignment: .leading, spacing: 3) {
-                        Text("**Level \(viewModel.userLevel)** - \(viewModel.userLevelState)")
-                            .font(.system(size: 20))
-                            .padding(.bottom, 8)
-                        Text("EXP " + String(viewModel.userStateModel.exp) + "/\(viewModel.maxLevelExp)")
-                            .font(.system(size: 14))
-                            .foregroundColor(Color(uiColor: UIColor(red: 0, green: 1, blue: 72 / 255.0, alpha: 1)))
-                        Text("+ \(viewModel.howMushExpAtThisWeek) EXP THIS WEEK")
-                            .font(.system(size: 14))
-                            .foregroundColor(Color(uiColor: UIColor(red: 0, green: 1, blue: 72 / 255.0, alpha: 1)))
+                        if (UserService.shared.userModel?.level == nil || UserService.shared.userModel?.levelName == nil) {
+                            RoundedRectangle(cornerRadius: 10).fill(.black.opacity(0.5))
+                                .blendMode(.overlay)
+                                .frame(maxWidth: UIScreen.main.bounds.size.width / 2, maxHeight: 22)
+                        } else {
+                            Text("**Уровень \(UserService.shared.userModel!.level)** - \(UserService.shared.userModel!.levelName)")
+                                .font(.system(size: 18))
+                                .lineLimit(1)
+                                .padding(.bottom, 8)
+                        }
+                        if (UserService.shared.userModel?.exp == nil || UserService.shared.userModel?.expLevelCap == nil) {
+                            RoundedRectangle(cornerRadius: 10).fill(.black.opacity(0.5))
+                                .blendMode(.overlay)
+                                .frame(maxWidth: UIScreen.main.bounds.size.width / 3.5, maxHeight: 16)
+                        } else {
+                            Text("EXP " + String(UserService.shared.userModel!.exp) + "/\(UserService.shared.userModel!.expLevelCap)")
+                                .font(.system(size: 14))
+                                .foregroundColor(Color(uiColor: UIColor(red: 0, green: 1, blue: 72 / 255.0, alpha: 1)))
+                        }
+                        
+                        if (UserService.shared.userModel?.expThisWeek == nil) {
+                            RoundedRectangle(cornerRadius: 10).fill(.black.opacity(0.5))
+                                .blendMode(.overlay)
+                                .frame(maxWidth: UIScreen.main.bounds.size.width / 3.5, maxHeight: 16)
+                        } else {
+                            Text("+ \(UserService.shared.userModel!.expThisWeek) EXP THIS WEEK")
+                                .font(.system(size: 14))
+                                .foregroundColor(Color(uiColor: UIColor(red: 0, green: 1, blue: 72 / 255.0, alpha: 1)))
+                        }
                     }
                     .padding(.leading, 5)
                     .padding(.horizontal, 12)
                     Spacer()
-                    CircleProgressBar(progress: $viewModel.progressBar)
+                    Group {
+                        if (UserService.shared.userModel?.exp == nil ||
+                            UserService.shared.userModel?.expLevelCap == nil) {
+                        Circle().fill(.black.opacity(0.5))
+                            .blendMode(.overlay)
+                            .frame(maxWidth: 98, maxHeight: 98, alignment: .trailing)
+                    } else {
+                        CircleProgressBar(progress: Float(UserService.shared.userModel!.exp) / Float(UserService.shared.userModel!.expLevelCap))
                         .frame(maxWidth: 98, maxHeight: 98, alignment: .trailing)
-                        .padding()
+                    }
+                    }.padding(10)
+                        .padding(.vertical, 10)
                 }
+                .animation(.easeOut, value: viewModel.leagueState)
+                .transition(.opacity)
                 .frame(minHeight: 98)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .frame(height: UIScreen.main.bounds.height / 7.5)
@@ -157,24 +244,30 @@ struct ProfileView: View {
                     .textCase(.uppercase)
                     .foregroundColor(.white)
                     .font(.system(size: 14, weight: .bold))
+                if (viewModel.achievementsOfRightStack.count == 0 || viewModel.achievementsOfLeftStack.count == 0) {
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle(tint: Color.white))
+                        .padding(.top, UIScreen.main.bounds.size.height / 35)
+                } else {
                 HStack(alignment: .top, spacing: 20) {
                     VStack(spacing: 20) {
                         ForEach(viewModel.achievementsOfLeftStack) { model in
-                            AchievemntCardView(
-                                viewModel: AchievemntCardViewModel(model: model)
+                            AchievementCardView(
+                                viewModel: AchievementCardViewModel(model: model)
                             )
                         }
                     }
                     VStack(spacing: 20) {
                         ForEach(viewModel.achievementsOfRightStack) { model in
-                            AchievemntCardView(
-                                viewModel: AchievemntCardViewModel(model: model)
+                            AchievementCardView(
+                                viewModel: AchievementCardViewModel(model: model)
                             )
                         }
                     }
                 }
                 .padding(.horizontal, 20)
                 .padding(.top, 15)
+                }
                 Text("")
                     .frame(height: 95)
             }
@@ -187,6 +280,9 @@ struct ProfileView: View {
             ]), startPoint: .top, endPoint: .bottom)
         )
         .navigationBarHidden(true)
+        .onAppear {
+            viewModel.dataUpdate()
+        }
     }
 }
 

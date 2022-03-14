@@ -9,20 +9,19 @@ import Foundation
 import Combine
 
 class BuoysLeftCounterViewModel : ObservableObject {
-    @Published var amount: Int? = CourseServises.shared.buoysCount.value
+    @Published var amount: Int?
     
     private var cancellables = Set<AnyCancellable>()
     
     init() {
-        CourseServises.shared.buoysCount
-            .receive(on: DispatchQueue.main)
-            .sink { [self] values in
-                self.amount = values
-            }
-            .store(in: &cancellables)
+        counterUpdate()
+        
+        UserStateService.shared.$userState.sink { [weak self] newValue in
+            self?.amount = newValue?.buoysLeft
+        }.store(in: &cancellables)
     }
     
     func counterUpdate() {
-        CourseServises.buoysCountUpdate()
+        UserStateService.shared.updateUserState()
     }
 }

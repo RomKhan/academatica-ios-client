@@ -35,6 +35,8 @@ struct AuthorizationView: View {
                             .background(.ultraThinMaterial)
                             .cornerRadius(reader.size.width / 25)
                             .padding(.top, reader.size.width / 10)
+                            .disableAutocorrection(true)
+                            .autocapitalization(.none)
                         SecureField("", text: $viewModel.password)
                             .placeholder(when: viewModel.password.isEmpty) {
                                 Text("Пароль")
@@ -45,6 +47,8 @@ struct AuthorizationView: View {
                             .cornerRadius(reader.size.width / 25)
                             .padding(.top, reader.size.width / 30)
                             .foregroundColor(.white)
+                            .disableAutocorrection(true)
+                            .autocapitalization(.none)
                         ZStack {
                             switch viewModel.serverState {
                             case .none:
@@ -63,7 +67,18 @@ struct AuthorizationView: View {
                         .frame(maxWidth: .infinity)
                         .frame(height: reader.size.width / 10)
                         Button {
-                            viewModel.logIn()
+                            viewModel.logIn() { success, message in
+                                if !success {
+                                    self.viewModel.email = ""
+                                    self.viewModel.password = ""
+                                    self.viewModel.serverState = .error
+                                    if let message = message {
+                                        self.viewModel.notification = message
+                                    }
+                                } else {
+                                    self.viewModel.serverState = .success
+                                }
+                            }
                         } label: {
                             Text("Войти")
                                 .font(.system(size: reader.size.width / 26.5, weight: .bold))
@@ -86,55 +101,10 @@ struct AuthorizationView: View {
                         }
                         .frame(maxWidth: .infinity)
                         .padding(.top, reader.size.width / 28)
-                        HStack {
-                            Spacer()
-                            Rectangle()
-                                .fill(
-                                    LinearGradient(
-                                        gradient: Gradient(stops: [
-                                            .init(color: .white, location: 0.4),
-                                            .init(color: .clear, location: 1)
-                                        ]),
-                                        startPoint: .trailing,
-                                        endPoint: .leading)
-                                )
-                                .frame(width: reader.size.width / 6, height: 1)
-                            Spacer()
-                            Text("Или через сервисы")
-                            Spacer()
-                            Rectangle()
-                                .fill(
-                                    LinearGradient(
-                                        gradient: Gradient(stops: [
-                                            .init(color: .white, location: 0.4),
-                                            .init(color: .clear, location: 1)
-                                        ]),
-                                        startPoint: .leading,
-                                        endPoint: .trailing)
-                                )
-                                .frame(width: reader.size.width / 6, height: 1)
-                            Spacer()
-                        }
-                        .frame(maxWidth: .infinity)
-                        .padding(.top, reader.size.width / 12)
-                        HStack(spacing: reader.size.width / 20) {
-                            ForEach(viewModel.images, id: \.self) { name in
-                                Button {
-                                    
-                                } label: {
-                                    Image(uiImage: UIImage(named: name)!)
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(maxWidth: .infinity)
-                                }
-                            }
-                            .blendMode(.overlay)
-                            .padding(reader.size.width / 40)
-                            .background(VisualEffectView(effect: UIBlurEffect(style: .light)).opacity(0.35))
-                            .cornerRadius(reader.size.width / 28.5)
-                        }
-                        .frame(height: reader.size.height / 14)
+                        Text(viewModel.notification)
                         .padding(.top, reader.size.width / 28)
+                        .frame(maxWidth: .infinity)
+                        .lineLimit(2)
                     }
                     .frame(width: reader.size.width / 1.3, alignment: .leading)
                     .padding(.top, reader.size.height / 25)

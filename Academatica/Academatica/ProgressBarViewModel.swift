@@ -8,9 +8,9 @@
 import SwiftUI
 
 class ProgressBarViewModel: ObservableObject {
-    var percentages: Int = 0
+    var percentages: CGFloat = 0
     
-    init(percentages: Int) {
+    init(percentages: CGFloat) {
         self.percentages = percentages
     }
 }

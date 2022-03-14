@@ -13,10 +13,7 @@ struct GeneralSettingsView: View {
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
-        //        UITableView.appearance().backgroundColor = .clear
-        //        UITableViewCell.appearance().backgroundColor = .clear
-        
-        return ZStack(alignment: .top) {
+        ZStack(alignment: .top) {
             Group {
                 BigBubbleShape()
                     .offset(y: UIScreen.main.bounds.height / 18 + heightOfset*0.05)
@@ -41,49 +38,6 @@ struct GeneralSettingsView: View {
                         endPoint: .bottom))
             }
             .offset(y: -heightOfset*1.1)
-            //            List {
-            //                VStack {
-            //                Text("Настройки")
-            //                    .font(.system(size: 16, weight: .bold))
-            //                    .foregroundColor(viewModel.colors[4])
-            //                    .padding(.vertical, 5)
-            //                NavigationLink {
-            //                    Text("dsf")
-            //                } label: {
-            //                    HStack(spacing: 0) {
-            //                        Image("young-girls")
-            //                            .resizable()
-            //                            .aspectRatio(contentMode: .fill)
-            //                            .frame(
-            //                                width: UIScreen.main.bounds.height / 10,
-            //                                height: UIScreen.main.bounds.height / 10
-            //                            )
-            //                            .cornerRadius(15)
-            //                        VStack(alignment: .leading) {
-            //                            Text("\(viewModel.userModel.firstName) \(viewModel.userModel.lastName)")
-            //                                .font(.system(size: UIScreen.main.bounds.width / 20.8, weight: .bold))
-            //                                .lineLimit(1)
-            //                            Spacer()
-            //                            Rectangle()
-            //                                .frame(height: 0.5)
-            //                                .padding(.horizontal, 3)
-            //                                .background(viewModel.colors[4])
-            //                                .cornerRadius(2)
-            //                                .offset(y: -8)
-            //                            Spacer()
-            //                        }
-            //                        .padding(10)
-            //                    }
-            //                    .frame(maxWidth: .infinity, alignment: .leading)
-            //                    .frame(height: UIScreen.main.bounds.height / 10)
-            //
-            //                }
-            //                .padding(10)
-            //                .background(.ultraThinMaterial)
-            //                .cornerRadius(20)
-            //                }
-            //                .listRowBackground(Color.clear)
-            //            }
             TrackableScrollView(showIndicators: false, contentOffset: $heightOfset) {
                 ZStack {
                     Text("Настройки")
@@ -98,27 +52,66 @@ struct GeneralSettingsView: View {
                             .frame(width: 11, height: 20)
                     })
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        
+                    
                 }
                 .padding(.horizontal, 26)
                 NavigationLink {
                     AccountSettingsView(viewModel: AccountSettingsViewModel())
                 } label: {
                     HStack(spacing: 0) {
-                        Image("young-girls")
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(
-                                width: UIScreen.main.bounds.height / 10,
-                                height: UIScreen.main.bounds.height / 10
-                            )
-                            .cornerRadius(15)
+                        AsyncImage(
+                            url: UserService.shared.userModel?.profilePicUrl,
+                            transaction: Transaction(animation: .spring()))
+                        { phase in
+                            switch phase {
+                            case .empty:
+                                Rectangle()
+                                    .fill(.black.opacity(0.5))
+                                    .scaledToFit()
+                                    .blendMode(.overlay)
+                            case .success(let image):
+                                Rectangle()
+                                    .fill(.clear)
+                                    .scaledToFit()
+                                    .background(
+                                        image
+                                            .resizable()
+                                            .scaledToFill()
+                                    )
+                            case .failure:
+                                Rectangle()
+                                    .fill(.black.opacity(0.5))
+                                    .scaledToFit()
+                                    .background(
+                                        Image(systemName: "wifi.slash")
+                                            .resizable()
+                                            .scaledToFill()
+                                            .padding(25)
+                                            .foregroundColor(.white)
+                                    )
+                                    .blendMode(.overlay)
+                            @unknown default:
+                                EmptyView()
+                            }
+                        }
+                        .frame(
+                            width: UIScreen.main.bounds.height / 10,
+                            height: UIScreen.main.bounds.height / 10
+                        )
+                        .cornerRadius(15)
+                        
                         VStack(alignment: .leading, spacing: 2) {
-                            Text("\(viewModel.userModel.firstName!) \(viewModel.userModel.lastName!)")
-                                .font(.system(size: UIScreen.main.bounds.width / 20.8, weight: .bold))
-                                .lineLimit(1)
+                            if (UserService.shared.userModel?.firstName == nil || UserService.shared.userModel?.lastName == nil) {
+                                RoundedRectangle(cornerRadius: 10).fill(.black.opacity(0.5))
+                                    .blendMode(.overlay)
+                                    .frame(width: UIScreen.main.bounds.size.width / 2.7, height: UIScreen.main.bounds.width / 20)
+                            } else {
+                                Text("\(UserService.shared.userModel!.firstName) \(UserService.shared.userModel!.lastName)")
+                                    .font(.system(size: UIScreen.main.bounds.width / 20.8, weight: .bold))
+                                    .lineLimit(1)
+                            }
                             Spacer()
-                            Text("\(viewModel.userModel.firstName!) \(viewModel.userModel.lastName!)")
+                            Text("\(UserService.shared.userModel?.firstName ?? "...........") \(UserService.shared.userModel?.lastName ?? "..........")")
                                 .font(.system(size: UIScreen.main.bounds.width / 20.8, weight: .bold))
                                 .lineLimit(1)
                                 .foregroundColor(.clear)
@@ -127,13 +120,26 @@ struct GeneralSettingsView: View {
                                 .background(viewModel.colors[4])
                                 .cornerRadius(2)
                                 .offset(y: -8)
-                            Text("\(viewModel.userModel.email!)")
+                            if (UserService.shared.userModel?.email == nil) {
+                                RoundedRectangle(cornerRadius: 10).fill(.black.opacity(0.5))
+                                    .blendMode(.overlay)
+                                    .frame(width: UIScreen.main.bounds.size.width / 2.7, height: UIScreen.main.bounds.width / 31)
+                            } else {
+                            Text("\(UserService.shared.userModel!.email)")
                                 .font(.system(size: UIScreen.main.bounds.width / 31.25, weight: .thin))
-                            Text("@\(viewModel.userModel.userName!)")
-                                .font(.system(size: UIScreen.main.bounds.width / 31.25, weight: .thin))
+                            }
+                            if (UserService.shared.userModel?.username == nil) {
+                                RoundedRectangle(cornerRadius: 10).fill(.black.opacity(0.5))
+                                    .blendMode(.overlay)
+                                    .frame(width: UIScreen.main.bounds.size.width / 2.7, height: UIScreen.main.bounds.width / 31)
+                            } else {
+                                Text("@\(UserService.shared.userModel!.username)")
+                                    .font(.system(size: UIScreen.main.bounds.width / 31.25, weight: .thin))
+                            }
                         }
                         .padding(10)
                         .frame(maxWidth: .infinity, maxHeight: UIScreen.main.bounds.height / 10, alignment: .leading)
+                        .transition(.opacity)
                         SmothArrow()
                             .fill(viewModel.colors[4])
                             .rotationEffect(Angle(degrees: 180))
@@ -160,7 +166,7 @@ struct GeneralSettingsView: View {
                         )
                     Text("Уведомления")
                         .font(.system(size: UIScreen.main.bounds.height / 58, weight: .thin))
-                    Toggle("", isOn: .constant(true))
+                    Toggle("", isOn: $viewModel.toggle)
                         .toggleStyle(SwitchToggleStyle(tint: viewModel.colors[2]))
                 }
                 .padding(20)
@@ -170,9 +176,8 @@ struct GeneralSettingsView: View {
                 .padding(.horizontal, 20)
                 .padding(.top, UIScreen.main.bounds.height / 70)
                 .shadow(color: .black.opacity(0.2), radius: 15, x: 0, y: 0)
-                Button("Sing Out", role: .destructive) {
-                    UserService.shared.isAuthorized.value = false
-                    UserService.refreshToken = nil
+                Button("Выйти из учётной записи", role: .destructive) {
+                    viewModel.logOut()
                 }
                 .font(.system(size: UIScreen.main.bounds.height / 58))
                 .offset(y: UIScreen.main.bounds.height / 8)
@@ -180,8 +185,6 @@ struct GeneralSettingsView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .navigationBarHidden(true)
-        //        .navigationBarTitleDisplayMode(.inline)
-        //        .navigationBarTitle("Настройки")
     }
 }
 

@@ -10,8 +10,8 @@ import ResizableSheet
 
 struct TabBar: View {
     @State var selected: ScreenType = .home
-    @State var showTopic: Bool = true
-//    @State var showPractice: Bool = false
+    @State var showTopic: Bool = false
+    @State var showClass: Bool = false
     @State var showCompletedPracticeSheet: Bool = true
     @State var showSettings: CGFloat = UIScreen.main.bounds.width
     @Namespace var namespace
@@ -23,7 +23,7 @@ struct TabBar: View {
                 Group {
                     switch selected {
                     case .home:
-                        HomeView(selected: $selected)
+                        HomeView(showClass: $showClass, selected: $selected)
                     case .lesson:
                         TierView(viewModel: TierViewModel(), show: $showTopic, namespace: namespace)
                             .navigationBarHidden(true)
@@ -35,13 +35,20 @@ struct TabBar: View {
                     }
                 }.frame(maxWidth: .infinity, maxHeight: .infinity)
                 
-                if (!showTopic) {
-                    TopicView(viewModel: TopicViewModel(), show: $showTopic, namespace: namespace)
+                if (showTopic) {
+                    TopicView(show: $showTopic, namespace: namespace)
                         .zIndex(3)
                 }
-//                PracticeView(showPractice: $showPractice)
-//                    .offset(y: showPractice ? 0 : UIScreen.main.bounds.height * 1.5)
-//                    .animation(.spring(), value: showPractice)
+                
+                if (showClass) {
+                    LessonView(viewModel: LessonViewModel(
+                        lesson: CourseService.shared.currentClass ?? ClassModel(id: "0", name: "classname", description: "desc", expReward: 100, imageUrl: nil, theoryUrl: URL(string: "https://google.com")!, problemNum: 10, topicName: "topicname", isComplete: false, isUnlocked: true),
+                        topicName: CourseService.shared.currentClass?.topicName ?? ""),
+                            showSheet: $showClass)
+                        .offset(y: showClass ? 0 : UIScreen.main.bounds.height * 1.5)
+                        .animation(.spring(), value: showClass)
+                        .zIndex(3)
+                }
 
                 
                 HStack {

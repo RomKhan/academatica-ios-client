@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct TierModel: Identifiable{
+struct TierModel: Identifiable, Decodable {
     let id: String
     let name: String
     let description: String
-    let imageUrl: String
-    let finishedPercentage: Int
-    let isFineshed: Bool
+    let completionRate: Int
+    let isComplete: Bool
+    let isUnlocked: Bool
 }

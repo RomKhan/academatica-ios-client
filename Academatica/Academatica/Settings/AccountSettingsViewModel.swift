@@ -25,17 +25,8 @@ class AccountSettingsViewModel: ObservableObject {
     var colors: [Color] = [
         Color(uiColor: UIColor(red: 92 / 255.0, green: 0 / 255.0, blue: 149 / 255.0, alpha: 1)),
         Color(uiColor: UIColor(red: 81 / 255.0, green: 132 / 255.0, blue: 209 / 255.0, alpha: 1))
-//        Color(uiColor: UIColor(red: 0 / 255.0, green: 163 / 255.0, blue: 255 / 255.0, alpha: 1)),
-//        Color(uiColor: UIColor(red: 0 / 255.0, green: 255 / 255.0, blue: 117 / 255.0, alpha: 1)),
-//        Color(uiColor: UIColor(red: 89 / 255.0, green: 89 / 255.0, blue: 89 / 255.0, alpha: 1))
     ]
-    let userModel = UserModel(id: UUID(),
-                              email: "fsfd@gmail.com",
-                              userName: "jreyers",
-                              firstName: "Jaseon",
-                              lastName: "Reyers",
-                              registereAt: "312",
-                              profilePicURL: URL(string: "https://static.honeykidsasia.com/wp-content/uploads/2017/02/raising-a-teenager-in-Singapore-HERO.jpg"))
+    
     let disclosureRows = [
         DisclosureRow(id: 0, title: "Персональные данные", icon: "person.fill", subRows: [
             DataSettingsRow(title: "Имя", isLast: false, settingsMode: .firstnameChange),
@@ -44,7 +35,12 @@ class AccountSettingsViewModel: ObservableObject {
         ]),
         DisclosureRow(id: 1, title: "Безопасность", icon: "lock.fill", subRows: [
             DataSettingsRow(title: "Пароль", isLast: false, settingsMode: .passwordChange),
-            DataSettingsRow(title: "Почта", isLast: true, settingsMode: .emailChange)
+            DataSettingsRow(title: "Почта", isLast: true, settingsMode: .codeConfirm)
         ])
     ]
+    
+    // Метод запроса с сервера apiUsersIdImagePatch
+    func patchPicture(image: UIImage) {
+        UserService.shared.userModel?.profilePicUrl = URL(string: "https://static01.nyt.com/images/2017/11/08/well/family/well-fam-damour/well-fam-damour-articleLarge.jpg?quality=75&auto=webp&disable=upscale")!
+    }
 }
