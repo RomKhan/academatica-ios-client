@@ -27,7 +27,7 @@ final class APIRequestInterceptor: RequestInterceptor, RequestRetrier {
     public static let shared: APIRequestInterceptor = APIRequestInterceptor()
 
     func adapt(_ urlRequest: URLRequest, for session: Session, completion: @escaping (Result<URLRequest, Error>) -> Void) {
-        guard urlRequest.url?.absoluteString.hasPrefix("http://acme.com/connect") == false else {
+        guard urlRequest.url?.absoluteString.hasPrefix("https://news-platform.ru/connect") == false else {
             // If the request does not require authentication, we can directly return it as unmodified.
             return completion(.success(urlRequest))
         }
@@ -38,8 +38,6 @@ final class APIRequestInterceptor: RequestInterceptor, RequestRetrier {
             urlRequest.setValue("Bearer " + accessToken, forHTTPHeaderField: "Authorization")
 
             completion(.success(urlRequest))
-        } else {
-            
         }
     }
     
@@ -62,7 +60,7 @@ final class APIRequestInterceptor: RequestInterceptor, RequestRetrier {
                     completion(.retry)
                 case .failure(let error):
                     print(error.localizedDescription)
-                    self.userService.isAuthorized.value = false
+                    self.userService.logOff()
                 }
             }
         }
@@ -80,7 +78,7 @@ final class APIRequestInterceptor: RequestInterceptor, RequestRetrier {
             "refresh_token": refreshToken
         ];
         
-        AF.request("http://acme.com/connect/token", method: .post, parameters: parameters, encoder: URLEncodedFormParameterEncoder.default, headers: headers, interceptor: self).responseDecodable(of: TokenModel.self) { response in
+        AF.request("https://news-platform.ru/connect/token", method: .post, parameters: parameters, encoder: URLEncodedFormParameterEncoder.default, headers: headers, interceptor: self).responseDecodable(of: TokenModel.self) { response in
             guard let result = response.value else {
                 if let error = response.error {
                     completion(.failure(error))
@@ -89,6 +87,10 @@ final class APIRequestInterceptor: RequestInterceptor, RequestRetrier {
             }
             
             completion(.success(result))
+        }.responseString { response in
+            if let value = response.value {
+                print(value)
+            }
         }
     }
 }

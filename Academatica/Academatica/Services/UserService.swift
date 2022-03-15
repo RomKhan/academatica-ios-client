@@ -23,6 +23,27 @@ struct UserModel: Identifiable {
     let levelName: String
     var expLevelCap: Int
     var maxLevelReached: Bool
+    
+    func getLevelName() -> String {
+        switch levelName {
+        case "newcomer":
+            return "Новичок"
+        case "apprentice":
+            return "Ученик"
+        case "fast learner":
+            return "Опытный"
+        case "enthusiast":
+            return "Энтузиаст"
+        case "matter expert":
+            return "Эксперт"
+        case "virtuose":
+            return "Виртуоз"
+        case "calculator":
+            return "Калькулятор"
+        default:
+            return "Неизвестный"
+        }
+    }
 }
 
 struct UserProfileModel: Decodable {
@@ -46,6 +67,10 @@ struct CodeCheckResponseModel: Decodable {
 struct CredentialsChangeResponseModel: Decodable {
     let success: Bool
     let error: String?
+}
+
+struct UserActivityModel: Decodable {
+    let activityMatrix: [String: Int]
 }
 
 final class UserService: ObservableObject {
@@ -93,8 +118,8 @@ final class UserService: ObservableObject {
     }
     
     @Published var userModel: UserModel?
+    @Published var otherUserModel: UserModel?
     var daysStreak: Int?
-    
     
     private init() {}
     
@@ -116,16 +141,23 @@ final class UserService: ObservableObject {
                 if let error = response.error {
                     completion(false, error.failureReason)
                 }
+                
+                completion(false, "Неизвестная ошибка")
+                self?.logOff()
                 return
             }
             
             self?.accessToken = result.accessToken
             self?.refreshToken = result.refreshToken
+            
+            self?.loadUserInfo(completion: completion)
         }
-        
+    }
+    
+    func loadUserInfo(completion: @escaping (Bool, String?) -> Void) {
         if accessToken == nil {
             completion(false, "Неизвестная ошибка")
-            isAuthorized.value = false
+            logOff()
             return
         }
         
@@ -150,6 +182,7 @@ final class UserService: ObservableObject {
     }
     
     func logOff() {
+        print(Thread.callStackSymbols)
         isAuthorized.value = false
         accessToken = nil
         refreshToken = nil
@@ -185,9 +218,7 @@ final class UserService: ObservableObject {
     
     func userSetup() {
         guard let userId = userId else {
-            isAuthorized.value = false
-            accessToken = nil
-            refreshToken = nil
+            logOff()
             return
         }
         
@@ -195,10 +226,8 @@ final class UserService: ObservableObject {
         
         AF.request(url, method: .get, interceptor: APIRequestInterceptor.shared).responseDecodable(of: UserProfileModel.self) { [weak self] response in
             guard let result = response.value else {
-                if response.error != nil {
-                    self?.isAuthorized.value = false
-                    self?.accessToken = nil
-                    self?.refreshToken = nil
+                if response.error != nil, self?.userModel == nil {
+                    self?.logOff()
                 }
                 return
             }
@@ -217,14 +246,44 @@ final class UserService: ObservableObject {
                 expLevelCap: result.expLevelCap,
                 maxLevelReached: result.maxLevelReached
             )
+        }.responseString { response in
+            if let value = response.value {
+                print(value)
+            }
+        }
+    }
+    
+    func otherUserSetup(userId: String) {
+        let url = host + "/api/users/" + userId
+        
+        AF.request(url, method: .get, interceptor: APIRequestInterceptor.shared).responseDecodable(of: UserProfileModel.self) { [weak self] response in
+            guard let result = response.value else {
+                if response.error != nil {
+                    self?.logOff()
+                }
+                return
+            }
+            
+            self?.otherUserModel = UserModel(
+                id: userId,
+                email: result.email,
+                username: result.username,
+                firstName: result.firstName,
+                lastName: result.lastName,
+                profilePicUrl: result.profilePicUrl,
+                exp: result.exp,
+                expThisWeek: result.expThisWeek,
+                level: result.level,
+                levelName: result.levelName,
+                expLevelCap: result.expLevelCap,
+                maxLevelReached: result.maxLevelReached
+            )
         }
     }
     
     func sendEmailConfirmationCode() {
         guard let userId = userId else {
-            isAuthorized.value = false
-            accessToken = nil
-            refreshToken = nil
+            logOff()
             return
         }
         
@@ -237,9 +296,7 @@ final class UserService: ObservableObject {
     
     func sendPasswordConfirmationCode() {
         guard let userId = userId else {
-            isAuthorized.value = false
-            accessToken = nil
-            refreshToken = nil
+            logOff()
             return
         }
         
@@ -252,9 +309,7 @@ final class UserService: ObservableObject {
     
     func checkEmailConfirmationCode(_ confirmationCode: String, completion: @escaping (Bool) -> Void) {
         guard let userId = userId else {
-            isAuthorized.value = false
-            accessToken = nil
-            refreshToken = nil
+            logOff()
             return
         }
         
@@ -274,9 +329,7 @@ final class UserService: ObservableObject {
     
     func checkPasswordConfirmationCode(_ confirmationCode: String, completion: @escaping (Bool) -> Void) {
         guard let userId = userId else {
-            isAuthorized.value = false
-            accessToken = nil
-            refreshToken = nil
+            logOff()
             return
         }
         
@@ -296,9 +349,7 @@ final class UserService: ObservableObject {
     
     func changeUserEMail(confirmationCode: String, newEmail: String, completion: @escaping (Bool, String?) -> Void) {
         guard let userId = userId else {
-            isAuthorized.value = false
-            accessToken = nil
-            refreshToken = nil
+            logOff()
             return
         }
         
@@ -327,9 +378,7 @@ final class UserService: ObservableObject {
     
     func changeUserPassword(oldPassword: String, newPassword: String, newPasswordConfirm: String,completion: @escaping (Bool, String?) -> Void) {
         guard let userId = userId else {
-            isAuthorized.value = false
-            accessToken = nil
-            refreshToken = nil
+            logOff()
             return
         }
         
@@ -363,9 +412,7 @@ final class UserService: ObservableObject {
     
     func changeUsername(newUsername: String, completion: @escaping (Bool) -> Void) {
         guard let userId = userId else {
-            isAuthorized.value = false
-            accessToken = nil
-            refreshToken = nil
+            logOff()
             return
         }
         
@@ -391,9 +438,7 @@ final class UserService: ObservableObject {
     
     func changeFirstName(newFirstName: String, completion: @escaping (Bool) -> Void) {
         guard let userId = userId else {
-            isAuthorized.value = false
-            accessToken = nil
-            refreshToken = nil
+            logOff()
             return
         }
         
@@ -418,9 +463,7 @@ final class UserService: ObservableObject {
     
     func changeLastName(newLastName: String, completion: @escaping (Bool) -> Void) {
         guard let userId = userId else {
-            isAuthorized.value = false
-            accessToken = nil
-            refreshToken = nil
+            logOff()
             return
         }
         
@@ -440,6 +483,24 @@ final class UserService: ObservableObject {
             } else {
                 completion(true)
             }
+        }
+    }
+    
+    func loadActivity(completion: @escaping ([String: Int]?) -> Void) {
+        let headersInfo: HTTPHeaders = [
+            "Accept": "application/json"
+        ]
+        
+        AF.request(host + "/api/course/activity", method: .get, headers: headersInfo, interceptor: APIRequestInterceptor.shared).responseDecodable(of: UserActivityModel.self) { response in
+            guard let result = response.value else {
+                if let error = response.error {
+                    print(String(describing: error))
+                }
+                completion(nil)
+                return
+            }
+            
+            completion(result.activityMatrix)
         }
     }
 }

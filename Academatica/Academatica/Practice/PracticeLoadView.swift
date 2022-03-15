@@ -16,6 +16,7 @@ struct PracticeLoadView: View {
         ZStack {
             if viewModel.serverState == .success {
                 PracticeView(viewModel: PracticeViewModel(type: viewModel.practiceType, problems: viewModel.practiceProblems, cancel: {
+                    CourseService.shared.practiceLoaded = false
                     dismiss()
                     showPractice.toggle()
                 }, expReward: viewModel.expReward, classId: viewModel.classId, topicId: viewModel.topicId))

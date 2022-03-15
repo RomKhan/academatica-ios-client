@@ -21,9 +21,9 @@ struct AuthorizationView: View {
                         .frame(width: reader.size.width / 1.7)
                         .padding(.top, reader.size.width / 9)
                     VStack(alignment: .leading, spacing: 0) {
-                        Text("Привествуем!")
+                        Text("Приветствуем!")
                             .font(.system(size: reader.size.width / 13, weight: .heavy))
-                        Text("Войдите в свою четную запись")
+                        Text("Войдите в свою учётную запись")
                             .font(.system(size: reader.size.width / 25, weight: .thin))
                             .padding(.top, 14)
                         TextField("", text: $viewModel.email)
@@ -69,7 +69,6 @@ struct AuthorizationView: View {
                         Button {
                             viewModel.logIn() { success, message in
                                 if !success {
-                                    self.viewModel.email = ""
                                     self.viewModel.password = ""
                                     self.viewModel.serverState = .error
                                     if let message = message {
@@ -91,7 +90,7 @@ struct AuthorizationView: View {
                         .disabled(viewModel.isButtonEnabled == .disable ? true : false)
                         
                         HStack {
-                            Text("Еще нет аккаунта?")
+                            Text("Ещё нет аккаунта?")
                             NavigationLink {
                                 RegistrationView()
                             } label: {

@@ -16,6 +16,22 @@ enum ServerState {
     case error
 }
 
+struct UpcomingClassModel: Decodable, Identifiable {
+    let id: String
+    let topicId: String
+    let tierId: String
+    let name: String
+    let description: String
+    let expReward: Int
+    let imageUrl: URL?
+    let theoryUrl: URL
+    let problemNum: Int
+    let isAlgebraClass: Bool
+    let topicName: String
+    let classNumber: Int
+    let topicClassCount: Int
+}
+
 struct UpcomingClassListModel: Decodable {
     let upcomingClasses: [UpcomingClassModel]
 }
@@ -36,9 +52,20 @@ struct ProblemListModel: Decodable {
     let problems: [ProblemModel]
 }
 
+struct ClassAchievementModel: Identifiable, Decodable {
+    let id = UUID()
+    let name: String
+    let description: String
+    let imageUrl: URL
+    
+    private enum CodingKeys: CodingKey {
+        case name, description, imageUrl
+    }
+}
+
 struct ClassPracticeResultModel: Decodable {
     let exp: Int
-    let achievements: [AchievementModel]
+    let achievements: [ClassAchievementModel]
 }
 
 struct PracticeResultModel: Decodable {
@@ -67,6 +94,7 @@ final class CourseService: ObservableObject {
     @Published var tiers: [TierModel] = []
     @Published var topics: [TopicModel] = []
     @Published var classes: [ClassModel] = []
+    @Published var currentTier: TierModel?
     @Published var currentTopic: TopicModel?
     @Published var currentClass: ClassModel?
     @Published var recommendedTopic: RecommendedTopicModel?
@@ -74,6 +102,7 @@ final class CourseService: ObservableObject {
     @Published var lastExpReward: Int = 0
     @Published var lastBuoysAdded: Bool = false
     @Published var lastAchievements: [AchievementModel] = []
+    @Published var practiceLoaded: Bool = false
     
     private let host = "https://news-platform.ru"
     static let shared = CourseService()
@@ -85,13 +114,13 @@ final class CourseService: ObservableObject {
             "Accept": "application/json"
         ]
         
-        AF.request("http://acme.com/api/course/classes/upcoming", method: .get, headers: headers, interceptor: APIRequestInterceptor.shared).responseDecodable(of: UpcomingClassListModel.self) { response in
+        AF.request(host + "/api/course/classes/upcoming", method: .get, headers: headers, interceptor: APIRequestInterceptor.shared).responseDecodable(of: UpcomingClassListModel.self) { [weak self] response in
             guard let result = response.value else {
                 return
             }
             
-            self.upcomingClasses.removeAll()
-            self.upcomingClasses.append(contentsOf: result.upcomingClasses)
+            self?.upcomingClasses.removeAll()
+            self?.upcomingClasses.append(contentsOf: result.upcomingClasses)
         }
     }
     
@@ -100,13 +129,13 @@ final class CourseService: ObservableObject {
             "Accept": "application/json"
         ]
         
-        AF.request(host + "/api/course/tiers", method: .get, headers: headers, interceptor: APIRequestInterceptor.shared).responseDecodable(of: TiersListModel.self) { response in
+        AF.request(host + "/api/course/tiers", method: .get, headers: headers, interceptor: APIRequestInterceptor.shared).responseDecodable(of: TiersListModel.self) { [weak self] response in
             guard let result = response.value else {
                 return
             }
             
-            self.tiers.removeAll()
-            self.tiers.append(contentsOf: result.tiers)
+            self?.tiers.removeAll()
+            self?.tiers.append(contentsOf: result.tiers)
         }
     }
     
@@ -115,13 +144,13 @@ final class CourseService: ObservableObject {
             "Accept": "application/json"
         ]
         
-        AF.request(host + "/api/course/tiers/" + tierId, method: .get, headers: headers, interceptor: APIRequestInterceptor.shared).responseDecodable(of: TopicListModel.self) { response in
+        AF.request(host + "/api/course/tiers/" + tierId, method: .get, headers: headers, interceptor: APIRequestInterceptor.shared).responseDecodable(of: TopicListModel.self) { [weak self] response in
             guard let result = response.value else {
                 return
             }
             
-            self.topics.removeAll()
-            self.topics.append(contentsOf: result.topics)
+            self?.topics.removeAll()
+            self?.topics.append(contentsOf: result.topics)
         }
     }
     
@@ -130,7 +159,7 @@ final class CourseService: ObservableObject {
             "Accept": "application/json"
         ]
         
-        AF.request(host + "/api/course/topics/" + topicId, method: .get, headers: headers, interceptor: APIRequestInterceptor.shared).responseDecodable(of: ClassListModel.self) { response in
+        AF.request(host + "/api/course/topics/" + topicId, method: .get, headers: headers, interceptor: APIRequestInterceptor.shared).responseDecodable(of: ClassListModel.self) { [weak self] response in
             guard let result = response.value else {
                 if let error = response.error {
                     print(error.localizedDescription)
@@ -138,8 +167,8 @@ final class CourseService: ObservableObject {
                 return
             }
             
-            self.classes.removeAll()
-            self.classes.append(contentsOf: result.classes)
+            self?.classes.removeAll()
+            self?.classes.append(contentsOf: result.classes)
         }
     }
     
@@ -148,7 +177,7 @@ final class CourseService: ObservableObject {
             "Accept": "application/json"
         ]
         
-        AF.request(host + "/api/course/topics/completed", method: .get, headers: headers, interceptor: APIRequestInterceptor.shared).responseDecodable(of: CompletedTopicListModel.self) { response in
+        AF.request(host + "/api/course/topics/completed", method: .get, headers: headers, interceptor: APIRequestInterceptor.shared).responseDecodable(of: CompletedTopicListModel.self) { [weak self] response in
             guard let result = response.value else {
                 if let error = response.error {
                     print(error.localizedDescription)
@@ -156,7 +185,11 @@ final class CourseService: ObservableObject {
                 return
             }
             
-            self.completedTopicCount = result.topics.count
+            self?.completedTopicCount = result.topics.count
+        }.responseString { response in
+            if let value = response.value {
+                print(value)
+            }
         }
     }
     
@@ -255,8 +288,14 @@ final class CourseService: ObservableObject {
             }
             
             self?.lastExpReward = result.exp
-            self?.lastAchievements = result.achievements
+            self?.lastAchievements = result.achievements.map { value in
+                return AchievementModel(name: value.name, description: value.description, imageUrl: value.imageUrl, achievedAmount: 1)
+            }
             completion(true)
+        }.responseString { response in
+            if let value = response.value {
+                print(value)
+            }
         }
     }
     

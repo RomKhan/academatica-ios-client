@@ -176,7 +176,7 @@ struct ProfileView: View {
                                 .blendMode(.overlay)
                                 .frame(maxWidth: UIScreen.main.bounds.size.width / 2, maxHeight: 22)
                         } else {
-                            Text("**Уровень \(UserService.shared.userModel!.level)** - \(UserService.shared.userModel!.levelName)")
+                            Text("**Уровень \(UserService.shared.userModel!.level)** - \(UserService.shared.userModel!.getLevelName())")
                                 .font(.system(size: 18))
                                 .lineLimit(1)
                                 .padding(.bottom, 8)
@@ -207,13 +207,13 @@ struct ProfileView: View {
                     Group {
                         if (UserService.shared.userModel?.exp == nil ||
                             UserService.shared.userModel?.expLevelCap == nil) {
-                        Circle().fill(.black.opacity(0.5))
-                            .blendMode(.overlay)
-                            .frame(maxWidth: 98, maxHeight: 98, alignment: .trailing)
-                    } else {
-                        CircleProgressBar(progress: Float(UserService.shared.userModel!.exp) / Float(UserService.shared.userModel!.expLevelCap))
-                        .frame(maxWidth: 98, maxHeight: 98, alignment: .trailing)
-                    }
+                            Circle().fill(.black.opacity(0.5))
+                                .blendMode(.overlay)
+                                .frame(maxWidth: 98, maxHeight: 98, alignment: .trailing)
+                        } else {
+                            CircleProgressBar(progress: Float(UserService.shared.userModel!.exp) / Float(UserService.shared.userModel!.expLevelCap))
+                                .frame(maxWidth: 98, maxHeight: 98, alignment: .trailing)
+                        }
                     }.padding(10)
                         .padding(.vertical, 10)
                 }
@@ -227,46 +227,56 @@ struct ProfileView: View {
                 .cornerRadius(23)
                 .padding(.top, 10)
                 .padding(.horizontal, 20)
-                Text("Акитвность")
-                    .padding(.top, UIScreen.main.bounds.height / (0.05*UIScreen.main.bounds.width))
-                    .textCase(.uppercase)
-                    .foregroundColor(.white)
-                    .font(.system(size: 14, weight: .bold))
-                HeapmapCalendarView()
-                    .frame(height: max(140, UIScreen.main.bounds.height / 6))
-                    .padding(.top, 10)
-                    .blendMode(.overlay)
-                    .background(.ultraThinMaterial)
-                    .cornerRadius(20)
-                    .padding(.horizontal, 20)
+                if !isOtherAccount {
+                    Text("Активность")
+                        .padding(.top, UIScreen.main.bounds.height / (0.05*UIScreen.main.bounds.width))
+                        .textCase(.uppercase)
+                        .foregroundColor(.white)
+                        .font(.system(size: 14, weight: .bold))
+                    HeapmapCalendarView()
+                        .frame(height: max(140, UIScreen.main.bounds.height / 6))
+                        .padding(.top, 10)
+                        .blendMode(.overlay)
+                        .background(.ultraThinMaterial)
+                        .cornerRadius(20)
+                        .padding(.horizontal, 20)
+                }
                 Text("Достижения")
                     .padding(.top, UIScreen.main.bounds.height / (0.045*UIScreen.main.bounds.width))
                     .textCase(.uppercase)
                     .foregroundColor(.white)
                     .font(.system(size: 14, weight: .bold))
                 if (viewModel.achievementsOfRightStack.count == 0 || viewModel.achievementsOfLeftStack.count == 0) {
-                    ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle(tint: Color.white))
-                        .padding(.top, UIScreen.main.bounds.size.height / 35)
+                    if viewModel.serverState == .loading {
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle(tint: Color.white))
+                            .padding(.top, UIScreen.main.bounds.size.height / 35)
+                    } else {
+                        Text("Пока нет достижений")
+                            .padding(.top, UIScreen.main.bounds.height / (0.045*UIScreen.main.bounds.width))
+                            .textCase(.uppercase)
+                            .foregroundColor(.white)
+                            .font(.system(size: 12, weight: .light))
+                    }
                 } else {
-                HStack(alignment: .top, spacing: 20) {
-                    VStack(spacing: 20) {
-                        ForEach(viewModel.achievementsOfLeftStack) { model in
-                            AchievementCardView(
-                                viewModel: AchievementCardViewModel(model: model)
-                            )
+                    HStack(alignment: .top, spacing: 20) {
+                        VStack(spacing: 20) {
+                            ForEach(viewModel.achievementsOfLeftStack) { model in
+                                AchievementCardView(
+                                    viewModel: AchievementCardViewModel(model: model)
+                                )
+                            }
+                        }
+                        VStack(spacing: 20) {
+                            ForEach(viewModel.achievementsOfRightStack) { model in
+                                AchievementCardView(
+                                    viewModel: AchievementCardViewModel(model: model)
+                                )
+                            }
                         }
                     }
-                    VStack(spacing: 20) {
-                        ForEach(viewModel.achievementsOfRightStack) { model in
-                            AchievementCardView(
-                                viewModel: AchievementCardViewModel(model: model)
-                            )
-                        }
-                    }
-                }
-                .padding(.horizontal, 20)
-                .padding(.top, 15)
+                    .padding(.horizontal, 20)
+                    .padding(.top, 15)
                 }
                 Text("")
                     .frame(height: 95)

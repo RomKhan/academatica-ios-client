@@ -12,7 +12,6 @@ import ResizableSheet
 enum practiceType {
     case completedPractive
     case recomendedPractice
-    case customPractice
 }
 
 struct HomeView: View {
@@ -127,7 +126,7 @@ struct HomeView: View {
                     .textCase(.uppercase)
                     .frame(maxWidth: .infinity, alignment: .leading).zIndex(1)
                 VStack(spacing: 16) {
-                    ForEach(0...2, id: \.self) {index in
+                    ForEach(0...1, id: \.self) {index in
                         Button {
                             switch index {
                             case 0:
@@ -137,11 +136,13 @@ struct HomeView: View {
                             default:
                                 practiceType = .custom
                             }
-                            withAnimation {
-                                state.toggle()
+                            if viewModel.completedTopicsCount != 0 && (practiceType != .recomended || viewModel.recommendedTopicId != nil) {
+                                withAnimation {
+                                    state.toggle()
+                                }
                             }
                         } label: {
-                            PracticeCardView(viewModel: viewModel.practiseCardsViewModels[index])
+                            PracticeCardView(viewModel: viewModel.practiseCardsViewModels[index], unlocked: $viewModel.practicesUnlocked)
                                 .padding(.horizontal, 20)
                         }
                     }
@@ -163,13 +164,6 @@ struct HomeView: View {
                 NavigationLink(isActive: $practiceShow) {
                     PracticeLoadView(viewModel: PracticeLoadViewModel(mode: practiceType, topicId: viewModel.recommendedTopicId), showPractice: .constant(true))
                         .navigationBarHidden(true)
-                        .overlay(Color.black.opacity(viewModel.completedTopicsCount != 0 && viewModel.recommendedTopicId != nil ? 0 : 0.5))
-                        .overlay(
-                            Image("locked")
-                                .resizable()
-                                .frame(width: 64, height: 64, alignment: .center)
-                                .opacity(viewModel.completedTopicsCount != 0 && viewModel.recommendedTopicId != nil ? 0 : 1)
-                        )
                 } label: {
                     EmptyView()
                 }
@@ -193,9 +187,6 @@ struct HomeView: View {
             .navigationBarHidden(true)
             .detentSheet(isPresented: $state, preferredCornerRadius: 40, detents: practiceType == .custom ? [.medium(), .large()] : [.medium()], allowsDismissalGesture: true) {
                 HalfPracticeSheet(viewModel: HalfPracticeSheetModel(), practiceShow: $practiceShow, sheetMode: $state, mode: $practiceType, showConstructor: $showConstructor)
-            }
-            .sheet(isPresented: $showConstructor) {
-                CustomPracticeSheetView(showConstructor: $showConstructor, practiceShow: $practiceShow)
             }
             .ignoresSafeArea()
             .onAppear {

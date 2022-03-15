@@ -24,10 +24,27 @@ struct RuntimeError: Error {
 class PracticeLoadViewModel: ObservableObject {
     @Published var serverState = ServerState.loading
     @Published var errorMessage: String = ""
-    @Published var classId: String?
+    @Published var classId: String? {
+        didSet {
+            if let classId = classId, !problemsSet {
+                serverState = .loading
+                lessonPracticeLoad(id: classId)
+            }
+        }
+    }
     @Published var topicId: String?
     @Published var practiceProblems: [ProblemModel]!
-    
+    var problemsSet: Bool = false {
+        didSet {
+            if !problemsSet {
+                if serverState == .success {
+                    serverState = .loading
+                }
+                
+                practiceProblems = nil
+            }
+        }
+    }
     @Published var expReward: Int = 0
     var practiceType: PracticeType
     private var cancellables = Set<AnyCancellable>()
@@ -46,16 +63,28 @@ class PracticeLoadViewModel: ObservableObject {
                 completedTopicsPracticeLoad()
             default: break
         }
+        
+        CourseService.shared.$practiceLoaded.sink { [weak self] newValue in
+            self?.problemsSet = newValue
+        }.store(in: &cancellables)
     }
     
     // Для кастомной практики
     init(models: [CustomPracticeTupicModel]) {
         practiceType = .custom
+        
+        CourseService.shared.$practiceLoaded.sink { [weak self] newValue in
+            self?.problemsSet = newValue
+        }.store(in: &cancellables)
     }
     
     // Для практики по уроку
     init(lessonID: String) {
         practiceType = .lesson
+        
+        CourseService.shared.$practiceLoaded.sink { [weak self] newValue in
+            self?.problemsSet = newValue
+        }.store(in: &cancellables)
         
         CourseService.shared.$currentClass.sink { [weak self] newValue in
             self?.classId = newValue?.id
@@ -71,8 +100,10 @@ class PracticeLoadViewModel: ObservableObject {
                 self?.topicId = topicId
                 self?.serverState = .success
                 self?.expReward = 50
+                CourseService.shared.practiceLoaded = true
             } else {
                 self?.serverState = .error
+                CourseService.shared.practiceLoaded = false
             }
         }
     }
@@ -83,8 +114,10 @@ class PracticeLoadViewModel: ObservableObject {
                 self?.practiceProblems = problems
                 self?.serverState = .success
                 self?.expReward = 50
+                CourseService.shared.practiceLoaded = true
             } else {
                 self?.serverState = .error
+                CourseService.shared.practiceLoaded = false
             }
         }
     }
@@ -128,8 +161,10 @@ class PracticeLoadViewModel: ObservableObject {
                 self?.classId = id
                 self?.serverState = .success
                 self?.expReward = 100
+                CourseService.shared.practiceLoaded = true
             } else {
                 self?.serverState = .error
+                CourseService.shared.practiceLoaded = false
             }
         }
     }

@@ -66,7 +66,6 @@ class ProblemViewModel: ObservableObject {
         for answer in problemModel.correctAnswers {
             if (!tempAnswers.contains(answer)) {
                 problemState = .incorrectAnswer
-                UserStateService.shared.updateUserState()
                 return
             }
             tempAnswers.remove(at: tempAnswers.firstIndex(of: answer)!)

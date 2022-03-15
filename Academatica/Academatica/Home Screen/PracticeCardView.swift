@@ -9,6 +9,8 @@ import SwiftUI
 
 struct PracticeCardView: View {
     @StateObject var viewModel: PracticeCardViewModel
+    @Binding var unlocked: Bool
+    
     var body: some View {
         ZStack {
             HStack() {
@@ -30,6 +32,14 @@ struct PracticeCardView: View {
                 }
                 Spacer()
             }.frame(height: 100, alignment: .leading)
+            .overlay(Color.black.opacity(unlocked ? 0 : 0.5))
+            .overlay(
+                Image("locked")
+                    .resizable()
+                    .frame(width: 64, height: 64, alignment: .center)
+                    .opacity(unlocked ? 0 : 1)
+            )
+            .cornerRadius(25)
             
             LinearGradient(stops: [
                 .init(color: viewModel.colors[1], location: 0.4),
@@ -68,6 +78,6 @@ struct PracticeCard_Previews: PreviewProvider {
                                                     green: 92 / 255.0,
                                                     blue: 182 / 255.0,
                                                     alpha: 1))
-                                             ])).padding(.horizontal, 20)
+                                             ]), unlocked: .constant(true)).padding(.horizontal, 20)
     }
 }

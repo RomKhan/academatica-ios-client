@@ -38,24 +38,6 @@ class HomeViewModel: ObservableObject {
                                     green: 144 / 255.0,
                                     blue: 206 / 255.0,
                                     alpha: 1))
-                              ]),
-        PracticeCardViewModel(model: PracticeCardModel(title: "Своя практика", countOfTasks: 10, imageName: "support"),
-                              colors: [
-                                Color(uiColor: UIColor(
-                                    red: 236 / 255.0,
-                                    green: 140 / 255.0,
-                                    blue: 140 / 255.0,
-                                    alpha: 1)),
-                                Color(uiColor: UIColor(
-                                    red: 249 / 255.0,
-                                    green: 58 / 255.0,
-                                    blue: 58 / 255.0,
-                                    alpha: 1)),
-                                Color(uiColor: UIColor(
-                                    red: 245 / 255.0,
-                                    green: 133 / 255.0,
-                                    blue: 155 / 255.0,
-                                    alpha: 1))
                               ])
     ]
     
@@ -63,12 +45,11 @@ class HomeViewModel: ObservableObject {
     @Published var userState: UserStateModel?
     @Published var recommendedTopicId: String?
     @Published var completedTopicsCount: Int = 0
+    @Published var practicesUnlocked: Bool = false
     
     private var cancellables = Set<AnyCancellable>()
     
     init() {
-        updateData()
-        
         UserService.shared.$userModel.sink { [weak self] newValue in
             self?.userModel = newValue
         }.store(in: &cancellables)
@@ -79,10 +60,20 @@ class HomeViewModel: ObservableObject {
         
         CourseService.shared.$recommendedTopic.sink { [weak self] newValue in
             self?.recommendedTopicId = newValue?.id
+            if self?.completedTopicsCount != 0 && self?.recommendedTopicId != nil {
+                self?.practicesUnlocked = true
+            } else {
+                self?.practicesUnlocked = false
+            }
         }.store(in: &cancellables)
         
         CourseService.shared.$completedTopicCount.sink { [weak self] newValue in
             self?.completedTopicsCount = newValue
+            if self?.completedTopicsCount != 0 && self?.recommendedTopicId != nil {
+                self?.practicesUnlocked = true
+            } else {
+                self?.practicesUnlocked = false
+            }
         }.store(in: &cancellables)
     }
     

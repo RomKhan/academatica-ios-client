@@ -63,6 +63,7 @@ class PracticeViewModel: ObservableObject {
                     }
                 }
                 badExitShow = true
+                CourseService.shared.practiceLoaded = false
             }
         }
     }
