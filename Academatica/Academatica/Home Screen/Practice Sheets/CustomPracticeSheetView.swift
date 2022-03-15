@@ -11,6 +11,7 @@ struct CustomPracticeSheetView: View {
     @StateObject var viewModel = CustomPracticeSheetViewModel()
     @State var selectedTier: Int = 5
     @Binding var showConstructor: Bool
+    @Binding var practiceShow: Bool
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             ZStack(alignment: .top) {
@@ -30,6 +31,8 @@ struct CustomPracticeSheetView: View {
                             .font(.system(size: 18, weight: .bold))
                         Button {
                             showConstructor.toggle()
+                            // !!!!
+                            practiceShow.toggle()
                         } label: {
                             Image(systemName: "xmark")
                                 .font(Font.system(size: 15, weight: .bold))
@@ -81,7 +84,7 @@ struct CustomPracticeSheetView: View {
 
 struct CustomPracticeSheet_Previews: PreviewProvider {
     static var previews: some View {
-        CustomPracticeSheetView(showConstructor: .constant(true))
+        CustomPracticeSheetView(showConstructor: .constant(true), practiceShow: .constant(true))
     }
 }
 

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CircleProgressBar: View {
-    @Binding var progress: Float
+    var progress: Float
     
     var body: some View {
         ZStack {
@@ -40,7 +40,7 @@ struct CircleProgressBar: View {
 
 struct CircleProgressBar_Previews: PreviewProvider {
     static var previews: some View {
-        CircleProgressBar(progress: .constant(0.8))
+        CircleProgressBar(progress: 0.8)
             .background(LinearGradient(colors: [Color(#colorLiteral(red: 0.9686274529, green: 0.78039217, blue: 0.3450980484, alpha: 1)), Color(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1))], startPoint: .top, endPoint: .bottom))
     }
 }

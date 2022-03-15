@@ -6,13 +6,12 @@
 //
 
 import SwiftUI
-import ResizableSheet
 
 struct HalfPracticeSheet: View {
     @StateObject var viewModel: HalfPracticeSheetModel
-//    @Binding var sheetMode: ResizableSheetState
+    @Binding var practiceShow: Bool
     @Binding var sheetMode: Bool
-    @Binding var mode: PracticeSheetState
+    @Binding var mode: PracticeType
     @Binding var showConstructor: Bool
     var body: some View {
         ZStack {
@@ -24,32 +23,22 @@ struct HalfPracticeSheet: View {
                 .padding(-UIScreen.main.bounds.height / 5)
                 .offset(y: -UIScreen.main.bounds.height / 15)
         VStack(alignment: .leading, spacing: 5) {
-//            HStack(alignment: .top) {
                     Text("10 заданий".uppercased())
                         .font(.system(size: UIScreen.main.bounds.height / 45))
-                    Text("\(mode.getTitle())")
+            Text("\(viewModel.getTitle(type: mode))")
                         .font(.system(size: UIScreen.main.bounds.height / 30, weight: .heavy))
-//                Spacer()
-//                Group {
-//                Text("+3")
-//                    .font(.system(size: UIScreen.main.bounds.height / 35))
-//                Circle()
-//                    .strokeBorder(.white, lineWidth: 10)
-//                    .frame(width: 32, height: 32)
-//                }
-//                .padding(.top, UIScreen.main.bounds.height / 110)
-//            }
             Spacer()
-            Text(mode.getDescription())
+            Text(viewModel.getDescription(type: mode))
                 .opacity(0.8)
                 .font(.system(size: UIScreen.main.bounds.height / 55))
             Button {
-//                sheetMode = .hidden
                 withAnimation {
                     sheetMode.toggle()
                 }
                 if (mode == .custom) {
                     showConstructor.toggle()
+                } else {
+                    practiceShow.toggle()
                 }
             } label: {
                 Text("Начать")
@@ -70,7 +59,7 @@ struct HalfPracticeSheet: View {
         }
         .foregroundColor(.white)
         .background(
-            LinearGradient(gradient: mode.getBackgroundGradient(), startPoint: .topTrailing, endPoint: .bottomLeading)
+            LinearGradient(gradient: viewModel.getBackgroundGradient(type: mode), startPoint: .topTrailing, endPoint: .bottomLeading)
         )
     }
 }
@@ -78,8 +67,7 @@ struct HalfPracticeSheet: View {
 struct HalfPracticeSheet_Previews: PreviewProvider {
     static var previews: some View {
         HalfPracticeSheet(
-            viewModel: HalfPracticeSheetModel(),
-//            sheetMode: .constant(ResizableSheetState.hidden),
+            viewModel: HalfPracticeSheetModel(), practiceShow: .constant(true),
             sheetMode: .constant(false),
             mode: .constant(.custom), showConstructor: .constant(true))
     }

@@ -12,7 +12,6 @@ struct AccountSettingsView: View {
     @State private var heightOfset: CGFloat = 0
     @Environment(\.dismiss) var dismiss
     @State private var flags: [Bool] = [false, false]
-    @State var image: Image? = nil
     @State var showImagePicker: Bool = false
     
     var body: some View {
@@ -28,7 +27,7 @@ struct AccountSettingsView: View {
         }
         return ScrollView {
             ZStack {
-                Text("Настройки Аккаунта")
+                Text("Настройки аккаунта")
                     .font(.system(size: UIScreen.main.bounds.height / 50, weight: .bold))
                     .foregroundColor(.white)
                     .padding(.vertical, 10)
@@ -48,26 +47,71 @@ struct AccountSettingsView: View {
                 Button {
                     showImagePicker.toggle()
                 } label: {
-                    Image("young-girls")
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(
-                            width: UIScreen.main.bounds.height / 10,
-                            height: UIScreen.main.bounds.height / 10
-                        )
-                        .cornerRadius(15)
+                    AsyncImage(
+                        url: UserService.shared.userModel?.profilePicUrl,
+                        transaction: Transaction(animation: .spring()))
+                    { phase in
+                        switch phase {
+                        case .empty:
+                            Rectangle()
+                                .fill(.white.opacity(0.5))
+                                .scaledToFit()
+                                .blendMode(.overlay)
+                        case .success(let image):
+                            Rectangle()
+                                .fill(.clear)
+                                .scaledToFit()
+                                .background(
+                                    image
+                                        .resizable()
+                                        .scaledToFill()
+                                )
+                        case .failure:
+                            Rectangle()
+                                .fill(.white.opacity(0.5))
+                                .scaledToFit()
+                                .background(
+                                    Image(systemName: "wifi.slash")
+                                        .resizable()
+                                        .scaledToFill()
+                                        .padding(25)
+                                        .foregroundColor(.black)
+                                )
+                                .blendMode(.overlay)
+                        @unknown default:
+                            EmptyView()
+                        }
+                    }
+                    .frame(
+                        width: UIScreen.main.bounds.height / 10,
+                        height: UIScreen.main.bounds.height / 10
+                    )
+                    .cornerRadius(15)
                 }
                 Spacer()
-                Text("\(viewModel.userModel.firstName) \(viewModel.userModel.lastName)")
+                if (UserService.shared.userModel?.firstName == nil || UserService.shared.userModel?.lastName == nil) {
+                    RoundedRectangle(cornerRadius: 10).fill(.white.opacity(0.5))
+                        .blendMode(.overlay)
+                        .frame(width: UIScreen.main.bounds.size.width / 2, height: UIScreen.main.bounds.width / 15)
+                } else {
+                Text("\(UserService.shared.userModel!.firstName) \(UserService.shared.userModel!.lastName)")
                     .font(.system(size: UIScreen.main.bounds.width / 15, weight: .bold))
                     .foregroundColor(.white)
                     .lineLimit(1)
+                }
                 Spacer()
                     .frame(maxHeight: 10)
-                Text("@\(viewModel.userModel.userName)")
+                
+                if (UserService.shared.userModel?.username == nil) {
+                    RoundedRectangle(cornerRadius: 10).fill(.white.opacity(0.5))
+                        .blendMode(.overlay)
+                        .frame(width: UIScreen.main.bounds.size.width / 2.7, height: UIScreen.main.bounds.width / 21)
+                } else {
+                Text("@\(UserService.shared.userModel!.username)")
                     .font(.system(size: UIScreen.main.bounds.width / 22))
                     .foregroundColor(.white)
                     .blendMode(.overlay)
+                }
                 Spacer()
                 Spacer()
             }
@@ -77,7 +121,11 @@ struct AccountSettingsView: View {
                     DisclosureGroup(isExpanded: $flags[disclosureRow.id]) {
                         ForEach (disclosureRow.subRows) { dataSettingsRow in
                             NavigationLink {
-                                DataChangeView(mode: dataSettingsRow.settingsMode)
+                                if dataSettingsRow.settingsMode != .codeConfirm {
+                                    DataChangeView(mode: dataSettingsRow.settingsMode)
+                                } else {
+                                    DataChangeView(viewModel: DataChangeViewModel(secondaryMode: .emailChange), mode: dataSettingsRow.settingsMode)
+                                }
                             } label: {
                                 Text(dataSettingsRow.title)
                                     .padding(.bottom, dataSettingsRow.isLast ? 5 : 0)
@@ -132,7 +180,7 @@ struct AccountSettingsView: View {
         .navigationBarHidden(true)
         .sheet(isPresented: $showImagePicker) {
             ImagePicker(sourceType: .photoLibrary) { image in
-                self.image = Image(uiImage: image)
+                self.viewModel.patchPicture(image: image)
             }
         }
     }

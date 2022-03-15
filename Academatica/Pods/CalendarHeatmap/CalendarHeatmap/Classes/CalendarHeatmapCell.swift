@@ -30,7 +30,7 @@ open class CalendarHeatmapCell: UICollectionViewCell {
     
     open override func draw(_ rect: CGRect) {
         let cornerRadius = config.itemCornerRadius
-        let maxCornerRadius = min(bounds.width, bounds.height) * 0.3
+        let maxCornerRadius = min(bounds.width, bounds.height) * 0.5
         let path = UIBezierPath(roundedRect: rect, cornerRadius: min(cornerRadius, maxCornerRadius))
         itemColor.setFill()
         path.fill()

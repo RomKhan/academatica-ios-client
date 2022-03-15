@@ -15,28 +15,29 @@ enum CardMode {
 }
 
 struct CardView: View {
-    var tool: CardData
+    @State var tool: UpcomingClassModel
     var mode: CardMode
     var body: some View {
         
         VStack(alignment: .leading, spacing: 0) {
-            Text(tool.nameOfLesson)
+            Text(tool.name)
                 .font(.system(size: 20).bold())
                 .padding(5)
                 .padding(.horizontal, 15)
                 .padding(.top, 15)
-            Text("\(tool.nameOfTopic.uppercased()) - \(tool.numberOfCurrentLesson) out of \(tool.countOfLessons)")
+                .lineLimit(2)
+            Text("\(tool.topicName.uppercased()) - урок \(tool.classNumber)")
                 .font(.system(size: 10))
                 .padding(.horizontal, 20)
                 .foregroundStyle(Color.black.opacity(0.65))
             Spacer()
-            Text(tool.descriptionOfLesson)
+            Text(tool.description)
                 .padding(7)
                 .padding(.horizontal, 13)
                 .lineLimit(3)
                 .foregroundStyle(Color.black.opacity(0.65))
                 .font(.system(size: 11))
-            Text("+\(tool.expCount) EXP")
+            Text("+\(tool.expReward) EXP")
                 .padding(.bottom, 20)
                 .padding(.leading, 20)
                 .foregroundColor(Color(uiColor: UIColor(red: 0, green: 212 / 255.0, blue: 110 / 255.0, alpha: 1)))
@@ -68,13 +69,7 @@ struct CardView: View {
 
 struct CardView_Previews: PreviewProvider {
     static var previews: some View {
-        CardView(tool: CardData(
-            id: 0, nameOfTopic: "Natural Numbers",
-            nameOfLesson: "Decimals",
-            descriptionOfLesson: "Decimal numbers and decimal notation",
-            countOfLessons: 4,
-            numberOfCurrentLesson: 2,
-            expCount: 100), mode: .middle)
+        CardView(tool: UpcomingClassModel(id: "0", topicId: "0", tierId: "0", name: "name", description: "desc", expReward: 100, imageUrl: nil, theoryUrl: URL(string: "https://google.com")!, problemNum: 10, isAlgebraClass: true, topicName: "topicname", classNumber: 2, topicClassCount: 4), mode: .middle)
             .padding()
             .background(LinearGradient(colors: [Color(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)), Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))], startPoint: .top, endPoint: .bottom))
     }

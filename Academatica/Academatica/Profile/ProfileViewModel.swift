@@ -6,89 +6,109 @@
 //
 
 import SwiftUI
+import Combine
 
 class ProfileViewModel : ObservableObject {
-    @State var progressBar: Float = 1250.0 / 5000;
-    let imageName: String = "young-girls"
-    let userModel = UserModel(id: "1",
-                              email: "fsfd@gmail.com",
-                              userName: "jreyers",
-                              firstName: "Jaseon",
-                              lastName: "Reyers",
-                              registereAt: "312",
-                              profilePicURL: "")
-    let userStateModel = UserStateModel(id: "1",
-                                        exp: 1250,
-                                        buoysLeft: 5,
-                                        daysStreak: 2,
-                                        lastClassFinishedAt: "d",
-                                        legue: "Gold")
-    let achievementsOfRightStack = [
-        AchievemntModel(
-            id: "1",
-            name: "Get started",
-            description: "Completed first lesson (and some text for the second line)",
-            imageUrl: "shuttle",
-            count: 2
-        ),
-        AchievemntModel(
-            id: "2",
-            name: "Get started",
-            description: "Completed first lesson (and some text for the second line) fgdgfdfgdf",
-            imageUrl: "shuttle",
-            count: 10
-        ),
-        AchievemntModel(
-            id: "3",
-            name: "Get started",
-            description: "Completed first lesson",
-            imageUrl: "shuttle",
-            count: 99
-        ),
-        AchievemntModel(
-            id: "4",
-            name: "Get started and fsfd",
-            description: "Completed first lesson (and some text for the second line)",
-            imageUrl: "shuttle",
-            count: 9
-        )
-    ]
-    let achievementsOfLeftStack = [
-        AchievemntModel(
-            id: "5",
-            name: "Get started",
-            description: "Completed first lesson (and some text)",
-            imageUrl: "shuttle",
-            count: 2
-        ),
-        AchievemntModel(
-            id: "6",
-            name: "Get started",
-            description: "Completed first lesson (and some text for the second line)",
-            imageUrl: "shuttle",
-            count: 20
-        ),
-        AchievemntModel(
-            id: "7",
-            name: "Get started hehehhe",
-            description: "Completed first lesson (and some text for the second line)",
-            imageUrl: "shuttle",
-            count: 2
-        ),
-        AchievemntModel(
-            id: "8",
-            name: "Get started",
-            description: "Completed first lesson (and some text for the second line)",
-            imageUrl: "shuttle",
-            count: 2
-        )
-    ]
-    let userLevel = 2
-    let userLevelState = "Novice"
-    let maxLevelExp = 5000
-    let howMushExpAtThisWeek = 100
+    @Published var achievementsOfRightStack: [AchievementModel] = []
+    @Published var achievementsOfLeftStack: [AchievementModel] = []
+    @Published var leagueState: LeaderboardStateModel?
+    @Published var serverState: ServerState = .none
+    @Published var userModel: UserModel?
+    
+    private var otherUser: Bool = false
+    private var userId: String = ""
+    private var cancellables = Set<AnyCancellable>()
+    
+    init(userId: String) {
+        UserService.shared.$otherUserModel.sink { [weak self] newValue in
+            if let newValue = newValue {
+                self?.userModel = newValue
+            }
+        }.store(in: &cancellables)
+        
+        UserStateService.shared.$otherUserLeaderboardState.sink { [weak self] newValue in
+            if let newValue = newValue {
+                self?.leagueState = newValue
+            }
+        }.store(in: &cancellables)
+        
+        UserStateService.shared.$otherUserAchievements.sink { [weak self] newValue in
+            self?.achievementsOfRightStack.removeAll()
+            self?.achievementsOfLeftStack.removeAll()
+            
+            if let newValue = newValue {
+                for i in (0 ..< newValue.count / 2) {
+                    self?.achievementsOfRightStack.append(newValue[i])
+                }
+                
+                for i in (newValue.count / 2 ..< newValue.count) {
+                    self?.achievementsOfLeftStack.append(newValue[i])
+                }
+            }
+        }.store(in: &cancellables)
+        
+        self.userId = userId
+        self.otherUser = true
+        
+        dataUpdate()
+    }
     
     init() {
-        progressBar = Float(userStateModel.exp / maxLevelExp)
+        UserService.shared.$userModel.sink { [weak self] newValue in
+            if let newValue = newValue {
+                self?.userModel = newValue
+            }
+        }.store(in: &cancellables)
+        
+        UserStateService.shared.$userLeaderboardState.sink { [weak self] newValue in
+            if let newValue = newValue {
+                self?.leagueState = newValue
+            }
+        }.store(in: &cancellables)
+        
+        UserStateService.shared.$userAchievements.sink { [weak self] newValue in
+            self?.achievementsOfRightStack.removeAll()
+            self?.achievementsOfLeftStack.removeAll()
+            
+            if let newValue = newValue {
+                for i in (0 ..< newValue.count / 2) {
+                    self?.achievementsOfRightStack.append(newValue[i])
+                }
+                
+                for i in (newValue.count / 2 ..< newValue.count) {
+                    self?.achievementsOfLeftStack.append(newValue[i])
+                }
+            }
+        }.store(in: &cancellables)
+        
+        dataUpdate()
+    }
+    
+    func dataUpdate() {
+        serverState = .loading
+        
+        if otherUser {
+            UserService.shared.otherUserSetup(userId: userId)
+        }
+        
+        getAchievements()
+        getLeagueState()
+        serverState = .none
+    }
+    
+    func getLeagueState() {
+        if !otherUser {
+            UserStateService.shared.updateUserLeaderboardState()
+        } else {
+            UserStateService.shared.loadOtherUserLeaderboardState(userId: userId)
+        }
+    }
+    
+    func getAchievements() {
+        if !otherUser {
+            UserStateService.shared.loadUserAchievements()
+        } else {
+            UserStateService.shared.loadOtherUserLeaderboardState(userId: userId)
+        }
     }
 }
