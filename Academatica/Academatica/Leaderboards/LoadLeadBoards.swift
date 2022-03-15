@@ -14,7 +14,7 @@ struct LoadLeadBoardsView: View {
         ZStack {
             if viewModel.serverState == .success, let state = UserStateService.shared.userLeaderboardState, state.league != .none {
                 LeadBoardsView()
-            } else if (viewModel.serverState == .success && (UserStateService.shared.userLeaderboardState == nil || UserStateService.shared.userLeaderboardState!.league == .none)) {
+            } else if (viewModel.serverState == .success && (viewModel.league == nil || viewModel.league! == .none)) {
                 LottieView(name: "work", loopMode: .loop)
                     .padding(UIScreen.main.bounds.height / 13)
                     .offset(y: -UIScreen.main.bounds.height / 7)

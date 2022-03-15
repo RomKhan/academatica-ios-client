@@ -104,7 +104,7 @@ final class CourseService: ObservableObject {
     @Published var lastAchievements: [AchievementModel] = []
     @Published var practiceLoaded: Bool = false
     
-    private let host = "https://news-platform.ru"
+    private let host = "http://acme.com"
     static let shared = CourseService()
     
     private init() {}
@@ -121,6 +121,10 @@ final class CourseService: ObservableObject {
             
             self?.upcomingClasses.removeAll()
             self?.upcomingClasses.append(contentsOf: result.upcomingClasses)
+        }.responseString { response in
+            if let value = response.value {
+                print(value)
+            }
         }
     }
     
@@ -291,6 +295,7 @@ final class CourseService: ObservableObject {
             self?.lastAchievements = result.achievements.map { value in
                 return AchievementModel(name: value.name, description: value.description, imageUrl: value.imageUrl, achievedAmount: 1)
             }
+            self?.getUpcomingLessons()
             completion(true)
         }.responseString { response in
             if let value = response.value {

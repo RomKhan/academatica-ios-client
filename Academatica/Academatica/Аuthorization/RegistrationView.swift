@@ -179,6 +179,7 @@ struct RegistrationView: View {
                 }
                 NavigationLink(isActive: $viewModel.transitionToAuthScreen) {
                     AuthorizationView()
+                        .navigationBarHidden(true)
                 } label: {
                     EmptyView()
                 }.navigationBarBackButtonHidden(true)

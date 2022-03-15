@@ -16,7 +16,7 @@ struct UserModel: Identifiable {
     var username: String
     var firstName: String
     var lastName: String
-    var profilePicUrl: URL
+    var profilePicUrl: URL?
     var exp: Int
     var expThisWeek: Int
     var level: Int
@@ -51,7 +51,7 @@ struct UserProfileModel: Decodable {
     let username: String
     let firstName: String
     let lastName: String
-    let profilePicUrl: URL
+    let profilePicUrl: URL?
     let exp: Int
     let expThisWeek: Int
     let level: Int
@@ -77,8 +77,9 @@ final class UserService: ObservableObject {
     @Published var authorizationNotification: String = ""
     var isAuthorized = CurrentValueSubject<Bool, Never>(false)
     let keychainHelper: KeychainService = KeychainService.shared
-    private let host = "https://news-platform.ru"
+    private let host = "http://acme.com"
     public static let shared = UserService()
+    private var userSetupInProgress: Bool = false
     
     var refreshToken: String? {
         get {
@@ -226,8 +227,8 @@ final class UserService: ObservableObject {
         
         AF.request(url, method: .get, interceptor: APIRequestInterceptor.shared).responseDecodable(of: UserProfileModel.self) { [weak self] response in
             guard let result = response.value else {
-                if response.error != nil, self?.userModel == nil {
-                    self?.logOff()
+                if let error = response.error {
+                    print(String(describing: error))
                 }
                 return
             }

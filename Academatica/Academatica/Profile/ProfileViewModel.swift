@@ -86,6 +86,11 @@ class ProfileViewModel : ObservableObject {
     
     func dataUpdate() {
         serverState = .loading
+        
+        if otherUser {
+            UserService.shared.otherUserSetup(userId: userId)
+        }
+        
         getAchievements()
         getLeagueState()
         serverState = .none

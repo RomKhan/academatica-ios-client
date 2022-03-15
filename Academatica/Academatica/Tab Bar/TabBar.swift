@@ -30,8 +30,11 @@ struct TabBar: View {
                     case .profile:
                         ProfileView()
                     case .leadboard:
-                        LeadBoardsView()
-                            .navigationBarHidden(true)
+                        if (UserStateService.shared.userLeaderboardState?.league == nil || UserStateService.shared.userLeaderboardState!.league == .none) {
+                            LoadLeadBoardsView().navigationBarHidden(true)
+                        } else {
+                            LeadBoardsView().navigationBarHidden(true)
+                        }
                     }
                 }.frame(maxWidth: .infinity, maxHeight: .infinity)
                 

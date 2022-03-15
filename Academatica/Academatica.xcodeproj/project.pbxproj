@@ -69,6 +69,7 @@
 		863A10B127DFD4CC00023E99 /* LeadBoardCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 863A10AB27DFD4CB00023E99 /* LeadBoardCardView.swift */; };
 		863A10B227DFD4CC00023E99 /* LoadLeadBoards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 863A10AC27DFD4CC00023E99 /* LoadLeadBoards.swift */; };
 		863A10B327DFD4CC00023E99 /* LeadBoardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 863A10AD27DFD4CC00023E99 /* LeadBoardsView.swift */; };
+		866D1E7D27E0FD3E00ED6535 /* work.json in Resources */ = {isa = PBXBuildFile; fileRef = 866D1E7C27E0FD3E00ED6535 /* work.json */; };
 		866E249427DA73C100EFDB23 /* APIRequestInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 866E249327DA73C100EFDB23 /* APIRequestInterceptor.swift */; };
 		866E249627DA76CF00EFDB23 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 866E249527DA76CF00EFDB23 /* KeychainService.swift */; };
 		866E249A27DB992E00EFDB23 /* UserStateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 866E249927DB992E00EFDB23 /* UserStateService.swift */; };
@@ -180,6 +181,7 @@
 		863A10AB27DFD4CB00023E99 /* LeadBoardCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeadBoardCardView.swift; sourceTree = "<group>"; };
 		863A10AC27DFD4CC00023E99 /* LoadLeadBoards.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadLeadBoards.swift; sourceTree = "<group>"; };
 		863A10AD27DFD4CC00023E99 /* LeadBoardsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeadBoardsView.swift; sourceTree = "<group>"; };
+		866D1E7C27E0FD3E00ED6535 /* work.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = work.json; sourceTree = "<group>"; };
 		866E249327DA73C100EFDB23 /* APIRequestInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequestInterceptor.swift; sourceTree = "<group>"; };
 		866E249527DA76CF00EFDB23 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
 		866E249927DB992E00EFDB23 /* UserStateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStateService.swift; sourceTree = "<group>"; };
@@ -467,6 +469,7 @@
 		86A653B327DD85CB00304FC6 /* Lottie */ = {
 			isa = PBXGroup;
 			children = (
+				866D1E7C27E0FD3E00ED6535 /* work.json */,
 				86A653B927DD85CB00304FC6 /* LottieView.swift */,
 				86A653B427DD85CB00304FC6 /* error.json */,
 				86A653B527DD85CB00304FC6 /* loading.json */,
@@ -612,6 +615,7 @@
 				86A653BB27DD85CB00304FC6 /* error.json in Resources */,
 				86A653C127DD85CB00304FC6 /* practiceFinished.json in Resources */,
 				86A653BF27DD85CB00304FC6 /* losePractice.json in Resources */,
+				866D1E7D27E0FD3E00ED6535 /* work.json in Resources */,
 				15982B942784361700440AEB /* Preview Assets.xcassets in Resources */,
 				86A653BC27DD85CB00304FC6 /* loading.json in Resources */,
 				15982B912784361700440AEB /* Assets.xcassets in Resources */,

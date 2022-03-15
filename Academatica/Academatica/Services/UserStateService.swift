@@ -83,7 +83,7 @@ enum League: String, Decodable {
 final class UserStateService: ObservableObject {
     public static let shared = UserStateService()
     private var userService = UserService.shared
-    private let host = "https://news-platform.ru"
+    private let host = "http://acme.com"
     
     @Published var userState: UserStateModel?
     @Published var userLeaderboardState: LeaderboardStateModel?
@@ -101,6 +101,8 @@ final class UserStateService: ObservableObject {
         let headers: HTTPHeaders = [
             "Accept": "application/json"
         ]
+        
+        print(host + "/api/users/" + userId + "/state")
         
         AF.request(host + "/api/users/" + userId + "/state", method: .get, headers: headers, interceptor: APIRequestInterceptor.shared).responseDecodable(of: UserStateModel.self) { [weak self] response in
             guard let result = response.value else {
