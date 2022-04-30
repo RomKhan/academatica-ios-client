@@ -14,7 +14,7 @@ enum CardMode {
     case none
 }
 
-struct CardView: View {
+struct HomeCardView: View {
     @State var tool: UpcomingClassModel
     var mode: CardMode
     var body: some View {
@@ -69,7 +69,7 @@ struct CardView: View {
 
 struct CardView_Previews: PreviewProvider {
     static var previews: some View {
-        CardView(tool: UpcomingClassModel(id: "0", topicId: "0", tierId: "0", name: "name", description: "desc", expReward: 100, imageUrl: nil, theoryUrl: URL(string: "https://google.com")!, problemNum: 10, isAlgebraClass: true, topicName: "topicname", classNumber: 2, topicClassCount: 4), mode: .middle)
+        HomeCardView(tool: UpcomingClassModel(id: "0", topicId: "0", tierId: "0", name: "name", description: "desc", expReward: 100, imageUrl: nil, theoryUrl: URL(string: "https://google.com")!, problemNum: 10, isAlgebraClass: true, topicName: "topicname", classNumber: 2, topicClassCount: 4), mode: .middle)
             .padding()
             .background(LinearGradient(colors: [Color(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)), Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))], startPoint: .top, endPoint: .bottom))
     }

@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-class CardStackViewModel : ObservableObject {
+class HomeCardStackViewModel : ObservableObject {
     @Published var cardData: [UpcomingClassModel] = []
     
     private var cancellables = Set<AnyCancellable>()

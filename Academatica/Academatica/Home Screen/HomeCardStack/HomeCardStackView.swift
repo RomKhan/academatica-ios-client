@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-struct CardStackView: View {
+struct HomeCardStackView: View {
     
     @State var indexFront = 0
     @State var indexMiddle = 1
     @State var indexBack = 2
     @State var swipe = 0
-    @StateObject var viewModel = CardStackViewModel()
+    @StateObject var viewModel = HomeCardStackViewModel()
     @Binding var showClass: Bool
     
     var body: some View {
@@ -57,7 +57,7 @@ struct CardStackView: View {
                     }
                 } else {
                     ForEach(Array(zip((viewModel.cardData).reversed().indices, (viewModel.cardData).reversed())), id: \.0) { (index, tool) in
-                        CardView(tool: tool, mode:
+                        HomeCardView(tool: tool, mode:
                                     index == indexFront ? .front :
                                     index == indexMiddle ? .middle :
                                     index == indexBack ? .back : .none)
@@ -112,7 +112,7 @@ struct CardStackView: View {
 
 struct CardStackView_Previews: PreviewProvider {
     static var previews: some View {
-        CardStackView(showClass: .constant(false))
+        HomeCardStackView(showClass: .constant(false))
             .background(LinearGradient(colors: [Color(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)), Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1))], startPoint: .top, endPoint: .bottom))
     }
 }
