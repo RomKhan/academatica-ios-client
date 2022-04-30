@@ -83,7 +83,7 @@ enum League: String, Decodable {
 final class UserStateService: ObservableObject {
     public static let shared = UserStateService()
     private var userService = UserService.shared
-    private let host = "http://acme.com"
+    private let host = "https://news-platform.ru"
     
     @Published var userState: UserStateModel?
     @Published var userLeaderboardState: LeaderboardStateModel?

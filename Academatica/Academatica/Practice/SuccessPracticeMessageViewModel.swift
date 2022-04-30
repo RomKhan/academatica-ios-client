@@ -67,7 +67,16 @@ class SuccessPracticeMessageViewModel: ObservableObject {
                     }
                 }
             case .completedLessons:
-                CourseService.shared.finishRandomPractice(mistakeCount: mistakeCount) { [weak self] success in
+                CourseService.shared.finishRandomPractice(isCustom: false, mistakeCount: mistakeCount) { [weak self] success in
+                    if !success {
+                        self?.serverState = .error
+                    } else {
+                        self?.cancelFunc([])
+                        self?.serverState = .none
+                    }
+                }
+            case .custom:
+                CourseService.shared.finishRandomPractice(isCustom: true, mistakeCount: mistakeCount) { [weak self] success in
                     if !success {
                         self?.serverState = .error
                     } else {

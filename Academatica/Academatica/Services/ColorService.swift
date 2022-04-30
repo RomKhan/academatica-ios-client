@@ -60,5 +60,27 @@ final class ColorService {
         }
     }
     
+    private static let gradients = [
+        Gradient(stops: [
+            .init(color: Color(uiColor: UIColor(red: 162 / 255.0, green: 65 / 255.0, blue: 238 / 255.0, alpha: 1)), location: 0),
+            .init(color: Color(uiColor: UIColor(red: 245 / 255.0, green: 173 / 255.0, blue: 89 / 255.0, alpha: 1)), location: 1)
+        ]),
+        Gradient(stops: [
+            .init(color: Color(uiColor: UIColor(red: 65 / 255.0, green: 186 / 255.0, blue: 238 / 255.0, alpha: 1)), location: 0),
+            .init(color: Color(uiColor: UIColor(red: 110 / 255.0, green: 107 / 255.0, blue: 255 / 255.0, alpha: 1)), location: 1)
+        ]),
+        Gradient(stops: [
+            .init(color: Color(uiColor: UIColor(red: 238 / 255.0, green: 65 / 255.0, blue: 86 / 255.0, alpha: 1)), location: 0),
+            .init(color: Color(uiColor: UIColor(red: 255 / 255.0, green: 143 / 255.0, blue: 107 / 255.0, alpha: 1)), location: 1)
+        ]),
+        Gradient(stops: [
+                .init(color: Color(#colorLiteral(red: 0.0097277686, green: 0.9990763068, blue: 0.8794588447, alpha: 1)), location: 0),
+                .init(color: Color(#colorLiteral(red: 0.8598107696, green: 0, blue: 0.999384582, alpha: 1)), location: 0.6)
+        ]),
+    ]
     private init() {}
+    
+    static func getRandomGradient() -> Gradient {
+        return gradients.randomElement()!
+    }
 }

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,10 +13,9 @@
 		1543D4C227899AD800168085 /* PacticeCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1543D4C127899AD800168085 /* PacticeCardModel.swift */; };
 		1543D4C42789D1C700168085 /* TrackableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1543D4C32789D1C700168085 /* TrackableScrollView.swift */; };
 		1544217F27B9A078007815E0 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1544217E27B9A078007815E0 /* ImagePicker.swift */; };
-		1544218927B9C4E8007815E0 /* ResizableSheet in Frameworks */ = {isa = PBXBuildFile; productRef = 1544218827B9C4E8007815E0 /* ResizableSheet */; };
 		1544F4B9278A003F00CDDFF9 /* PracticeCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1544F4B8278A003F00CDDFF9 /* PracticeCardViewModel.swift */; };
-		1547351927888A190010E71C /* CardStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1547351827888A190010E71C /* CardStackView.swift */; };
-		1547351B27888A6B0010E71C /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1547351A27888A6B0010E71C /* CardView.swift */; };
+		1547351927888A190010E71C /* HomeCardStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1547351827888A190010E71C /* HomeCardStackView.swift */; };
+		1547351B27888A6B0010E71C /* HomeCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1547351A27888A6B0010E71C /* HomeCardView.swift */; };
 		1547351F2788CD560010E71C /* PracticeCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1547351E2788CD560010E71C /* PracticeCardView.swift */; };
 		154872DA27BD7805005F4B22 /* LessonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154872D927BD7805005F4B22 /* LessonView.swift */; };
 		154872DC27BD7812005F4B22 /* LessonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154872DB27BD7812005F4B22 /* LessonViewModel.swift */; };
@@ -25,7 +24,7 @@
 		154872E227BD89A3005F4B22 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154872E127BD89A3005F4B22 /* WebView.swift */; };
 		1548E4FB27D7BE24009762B3 /* BuoysLeftCounterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1548E4FA27D7BE24009762B3 /* BuoysLeftCounterViewModel.swift */; };
 		1548E4FD27D7C027009762B3 /* CourseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1548E4FC27D7C027009762B3 /* CourseService.swift */; };
-		1548E50127D7EF4F009762B3 /* CardStackViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1548E50027D7EF4F009762B3 /* CardStackViewModel.swift */; };
+		1548E50127D7EF4F009762B3 /* HomeCardStackViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1548E50027D7EF4F009762B3 /* HomeCardStackViewModel.swift */; };
 		154B0B49278DBEB800A7C12A /* TopicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154B0B48278DBEB800A7C12A /* TopicView.swift */; };
 		15583E1527BC763F00F96B65 /* AuthorizationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15583E1427BC763F00F96B65 /* AuthorizationView.swift */; };
 		15583E1727BC764900F96B65 /* AuthorizationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15583E1627BC764900F96B65 /* AuthorizationViewModel.swift */; };
@@ -52,9 +51,14 @@
 		15982B9C2784377700440AEB /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15982B9B2784377700440AEB /* HomeView.swift */; };
 		15982B9E2784378600440AEB /* TierView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15982B9D2784378600440AEB /* TierView.swift */; };
 		15982BA427844BD900440AEB /* TabBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15982BA327844BD900440AEB /* TabBarViewModel.swift */; };
+		15AB40502818BBAB000DDD33 /* CustomPracticeCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15AB404F2818BBAB000DDD33 /* CustomPracticeCardView.swift */; };
+		15AB40522818C0EB000DDD33 /* CustumPracticeCardStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15AB40512818C0EB000DDD33 /* CustumPracticeCardStackView.swift */; };
+		15AB40542818C14B000DDD33 /* CustomPracticeCardStackViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15AB40532818C14B000DDD33 /* CustomPracticeCardStackViewModel.swift */; };
 		15C14FEC278C810300B31BA4 /* TopicModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C14FEB278C810300B31BA4 /* TopicModel.swift */; };
 		15C14FEE278C88D100B31BA4 /* TopicCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C14FED278C88D100B31BA4 /* TopicCardView.swift */; };
 		15C14FF0278C8BC300B31BA4 /* TopicCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C14FEF278C8BC300B31BA4 /* TopicCardViewModel.swift */; };
+		15C853A2281A71DB00E2D2B9 /* ChoicedTopicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C853A1281A71DB00E2D2B9 /* ChoicedTopicView.swift */; };
+		15C853A4281A722600E2D2B9 /* ChoicedTopicViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C853A3281A722600E2D2B9 /* ChoicedTopicViewModel.swift */; };
 		15ED318027D6D85D00BB1402 /* LogoScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15ED317F27D6D85D00BB1402 /* LogoScreen.swift */; };
 		15EFD7CE27D109C300C941DA /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15EFD7CD27D109C300C941DA /* HomeViewModel.swift */; };
 		863A109C27DEC47400023E99 /* DataChangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 863A109627DEC47400023E99 /* DataChangeView.swift */; };
@@ -124,8 +128,8 @@
 		1543D4C32789D1C700168085 /* TrackableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackableScrollView.swift; sourceTree = "<group>"; };
 		1544217E27B9A078007815E0 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		1544F4B8278A003F00CDDFF9 /* PracticeCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeCardViewModel.swift; sourceTree = "<group>"; };
-		1547351827888A190010E71C /* CardStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackView.swift; sourceTree = "<group>"; };
-		1547351A27888A6B0010E71C /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		1547351827888A190010E71C /* HomeCardStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCardStackView.swift; sourceTree = "<group>"; };
+		1547351A27888A6B0010E71C /* HomeCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCardView.swift; sourceTree = "<group>"; };
 		1547351E2788CD560010E71C /* PracticeCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeCardView.swift; sourceTree = "<group>"; };
 		154872D927BD7805005F4B22 /* LessonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonView.swift; sourceTree = "<group>"; };
 		154872DB27BD7812005F4B22 /* LessonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonViewModel.swift; sourceTree = "<group>"; };
@@ -134,7 +138,7 @@
 		154872E127BD89A3005F4B22 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		1548E4FA27D7BE24009762B3 /* BuoysLeftCounterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuoysLeftCounterViewModel.swift; sourceTree = "<group>"; };
 		1548E4FC27D7C027009762B3 /* CourseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseService.swift; sourceTree = "<group>"; };
-		1548E50027D7EF4F009762B3 /* CardStackViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackViewModel.swift; sourceTree = "<group>"; };
+		1548E50027D7EF4F009762B3 /* HomeCardStackViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCardStackViewModel.swift; sourceTree = "<group>"; };
 		154B0B48278DBEB800A7C12A /* TopicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicView.swift; sourceTree = "<group>"; };
 		15583E1427BC763F00F96B65 /* AuthorizationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationView.swift; sourceTree = "<group>"; };
 		15583E1627BC764900F96B65 /* AuthorizationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationViewModel.swift; sourceTree = "<group>"; };
@@ -163,9 +167,14 @@
 		15982B9B2784377700440AEB /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		15982B9D2784378600440AEB /* TierView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TierView.swift; sourceTree = "<group>"; };
 		15982BA327844BD900440AEB /* TabBarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewModel.swift; sourceTree = "<group>"; };
+		15AB404F2818BBAB000DDD33 /* CustomPracticeCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPracticeCardView.swift; sourceTree = "<group>"; };
+		15AB40512818C0EB000DDD33 /* CustumPracticeCardStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustumPracticeCardStackView.swift; sourceTree = "<group>"; };
+		15AB40532818C14B000DDD33 /* CustomPracticeCardStackViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPracticeCardStackViewModel.swift; sourceTree = "<group>"; };
 		15C14FEB278C810300B31BA4 /* TopicModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicModel.swift; sourceTree = "<group>"; };
 		15C14FED278C88D100B31BA4 /* TopicCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicCardView.swift; sourceTree = "<group>"; };
 		15C14FEF278C8BC300B31BA4 /* TopicCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicCardViewModel.swift; sourceTree = "<group>"; };
+		15C853A1281A71DB00E2D2B9 /* ChoicedTopicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoicedTopicView.swift; sourceTree = "<group>"; };
+		15C853A3281A722600E2D2B9 /* ChoicedTopicViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoicedTopicViewModel.swift; sourceTree = "<group>"; };
 		15ED317F27D6D85D00BB1402 /* LogoScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoScreen.swift; sourceTree = "<group>"; };
 		15EFD7CD27D109C300C941DA /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		50AC74060409C2D2EBF0FF22 /* Pods-SmartMath.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartMath.release.xcconfig"; path = "Target Support Files/Pods-SmartMath/Pods-SmartMath.release.xcconfig"; sourceTree = "<group>"; };
@@ -236,7 +245,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1544218927B9C4E8007815E0 /* ResizableSheet in Frameworks */,
 				A76D4E6F895C080755C07B1D /* Pods_Academatica.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -313,10 +321,9 @@
 		1563BCBA278B0558006F5510 /* Home Screen */ = {
 			isa = PBXGroup;
 			children = (
+				15AB404E2818BB69000DDD33 /* CustomPracticeCardView */,
 				86A653FE27DD89E700304FC6 /* Practice Sheets */,
-				1547351827888A190010E71C /* CardStackView.swift */,
-				1547351A27888A6B0010E71C /* CardView.swift */,
-				1548E50027D7EF4F009762B3 /* CardStackViewModel.swift */,
+				15AB404D2818BB42000DDD33 /* HomeCardStack */,
 				1543D4C127899AD800168085 /* PacticeCardModel.swift */,
 				1544F4B8278A003F00CDDFF9 /* PracticeCardViewModel.swift */,
 				1547351E2788CD560010E71C /* PracticeCardView.swift */,
@@ -386,6 +393,26 @@
 				15982B932784361700440AEB /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		15AB404D2818BB42000DDD33 /* HomeCardStack */ = {
+			isa = PBXGroup;
+			children = (
+				1548E50027D7EF4F009762B3 /* HomeCardStackViewModel.swift */,
+				1547351827888A190010E71C /* HomeCardStackView.swift */,
+				1547351A27888A6B0010E71C /* HomeCardView.swift */,
+			);
+			path = HomeCardStack;
+			sourceTree = "<group>";
+		};
+		15AB404E2818BB69000DDD33 /* CustomPracticeCardView */ = {
+			isa = PBXGroup;
+			children = (
+				15AB404F2818BBAB000DDD33 /* CustomPracticeCardView.swift */,
+				15AB40512818C0EB000DDD33 /* CustumPracticeCardStackView.swift */,
+				15AB40532818C14B000DDD33 /* CustomPracticeCardStackViewModel.swift */,
+			);
+			path = CustomPracticeCardView;
 			sourceTree = "<group>";
 		};
 		683B136924E5006DAB4642BE /* Frameworks */ = {
@@ -514,6 +541,8 @@
 			isa = PBXGroup;
 			children = (
 				86A653FF27DD89E700304FC6 /* CustomPracticeSheetView.swift */,
+				15C853A1281A71DB00E2D2B9 /* ChoicedTopicView.swift */,
+				15C853A3281A722600E2D2B9 /* ChoicedTopicViewModel.swift */,
 				86A6540027DD89E700304FC6 /* HalfPracticeSheet.swift */,
 				86A6540127DD89E700304FC6 /* HalfPracticeSheetModel.swift */,
 				86A6540227DD89E700304FC6 /* CustomPracticeSheetViewModel.swift */,
@@ -565,7 +594,6 @@
 			);
 			name = Academatica;
 			packageProductDependencies = (
-				1544218827B9C4E8007815E0 /* ResizableSheet */,
 			);
 			productName = SmartMath;
 			productReference = 15982B892784361600440AEB /* Academatica.app */;
@@ -595,7 +623,6 @@
 			);
 			mainGroup = 15982B802784361600440AEB;
 			packageReferences = (
-				1544218727B9C4E8007815E0 /* XCRemoteSwiftPackageReference "ResizableSheet" */,
 			);
 			productRefGroup = 15982B8A2784361600440AEB /* Products */;
 			projectDirPath = "";
@@ -674,6 +701,7 @@
 			files = (
 				86A6541427DE3A9900304FC6 /* AchievementCardView.swift in Sources */,
 				15982B9C2784377700440AEB /* HomeView.swift in Sources */,
+				15C853A2281A71DB00E2D2B9 /* ChoicedTopicView.swift in Sources */,
 				154872E027BD7CB8005F4B22 /* LessonCardViewModel.swift in Sources */,
 				86A653C027DD85CB00304FC6 /* LottieView.swift in Sources */,
 				1563BCBF278B1EEF006F5510 /* ProgressBarView.swift in Sources */,
@@ -683,7 +711,7 @@
 				86A653E927DD860A00304FC6 /* PracticeLoadView.swift in Sources */,
 				863A10AF27DFD4CC00023E99 /* LoadLeadBoardsViewModel.swift in Sources */,
 				15583E1B27BC9FFE00F96B65 /* RegistrationView.swift in Sources */,
-				1547351927888A190010E71C /* CardStackView.swift in Sources */,
+				1547351927888A190010E71C /* HomeCardStackView.swift in Sources */,
 				1547351F2788CD560010E71C /* PracticeCardView.swift in Sources */,
 				86A6540427DD89E800304FC6 /* HalfPracticeSheet.swift in Sources */,
 				86A653E727DD860A00304FC6 /* ProblemWithImageView.swift in Sources */,
@@ -715,6 +743,7 @@
 				866E249427DA73C100EFDB23 /* APIRequestInterceptor.swift in Sources */,
 				86A653E527DD860A00304FC6 /* ChoiceViewModel.swift in Sources */,
 				15C14FEC278C810300B31BA4 /* TopicModel.swift in Sources */,
+				15AB40542818C14B000DDD33 /* CustomPracticeCardStackViewModel.swift in Sources */,
 				863A109D27DEC47400023E99 /* AccountSettingsViewModel.swift in Sources */,
 				15728BA327BF279E00A3905D /* SheetExtention.swift in Sources */,
 				86A653DC27DD860A00304FC6 /* ProblemModel.swift in Sources */,
@@ -734,8 +763,9 @@
 				15583E1527BC763F00F96B65 /* AuthorizationView.swift in Sources */,
 				15982BA427844BD900440AEB /* TabBarViewModel.swift in Sources */,
 				86A6541327DE3A9900304FC6 /* HeatmapCalendarView.swift in Sources */,
-				1547351B27888A6B0010E71C /* CardView.swift in Sources */,
+				1547351B27888A6B0010E71C /* HomeCardView.swift in Sources */,
 				155C073E27D65DB30027EC2D /* UserService.swift in Sources */,
+				15AB40502818BBAB000DDD33 /* CustomPracticeCardView.swift in Sources */,
 				86A653E427DD860A00304FC6 /* GapProblemView.swift in Sources */,
 				154872DE27BD7C59005F4B22 /* LessonCardView.swift in Sources */,
 				86A653E227DD860A00304FC6 /* ProblemWithImageViewModel.swift in Sources */,
@@ -744,6 +774,7 @@
 				86A6540527DD89E800304FC6 /* HalfPracticeSheetModel.swift in Sources */,
 				15583E1927BC79B400F96B65 /* Background.swift in Sources */,
 				154872DC27BD7812005F4B22 /* LessonViewModel.swift in Sources */,
+				15C853A4281A722600E2D2B9 /* ChoicedTopicViewModel.swift in Sources */,
 				15C14FEE278C88D100B31BA4 /* TopicCardView.swift in Sources */,
 				15982B8D2784361600440AEB /* AcadematicaApp.swift in Sources */,
 				86A653DA27DD860A00304FC6 /* BadExitPracticeView.swift in Sources */,
@@ -767,7 +798,8 @@
 				155C074427D6C35E0027EC2D /* AcadematicaAppViewModel.swift in Sources */,
 				86A653D927DD860A00304FC6 /* ShowAchivementsViewModel.swift in Sources */,
 				1563BCC1278B1F4A006F5510 /* ProgressBarViewModel.swift in Sources */,
-				1548E50127D7EF4F009762B3 /* CardStackViewModel.swift in Sources */,
+				1548E50127D7EF4F009762B3 /* HomeCardStackViewModel.swift in Sources */,
+				15AB40522818C0EB000DDD33 /* CustumPracticeCardStackView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -809,6 +841,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -871,6 +904,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -900,7 +934,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Academatica/Preview Content\"";
-				DEVELOPMENT_TEAM = 8V9GAWEA72;
+				DEVELOPMENT_TEAM = MFM5R3Q3DW;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Academatica/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -908,7 +942,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = ru.hse.edu.Academatica;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.hse.edu.Academatica1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -925,7 +959,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Academatica/Preview Content\"";
-				DEVELOPMENT_TEAM = 8V9GAWEA72;
+				DEVELOPMENT_TEAM = MFM5R3Q3DW;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Academatica/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -933,7 +967,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = ru.hse.edu.Academatica;
+				PRODUCT_BUNDLE_IDENTIFIER = ru.hse.edu.Academatica1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -963,25 +997,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		1544218727B9C4E8007815E0 /* XCRemoteSwiftPackageReference "ResizableSheet" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/mtj0928/ResizableSheet";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		1544218827B9C4E8007815E0 /* ResizableSheet */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 1544218727B9C4E8007815E0 /* XCRemoteSwiftPackageReference "ResizableSheet" */;
-			productName = ResizableSheet;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 15982B812784361600440AEB /* Project object */;
 }

@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import ResizableSheet
 
 struct LessonCardView: View {
     @StateObject var viewModel: LessonCardViewModel
