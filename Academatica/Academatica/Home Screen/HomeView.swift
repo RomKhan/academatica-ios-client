@@ -34,6 +34,10 @@ struct HomeView: View {
                             .init(color: Color(#colorLiteral(red: 0.8598107696, green: 0, blue: 0.999384582, alpha: 1)), location: 0.6)]),
                     startPoint: .topTrailing,
                     endPoint: .bottomLeading)).ignoresSafeArea()
+            Image(uiImage: UIImage(named: "HomeBackground")!)
+                .resizable()
+                .scaledToFit()
+                .offset(y: -heightOfset)
             TrackableScrollView(showIndicators: false, contentOffset: $heightOfset) {
                 HStack(alignment: .top) {
                     BuoysLeftCounter()

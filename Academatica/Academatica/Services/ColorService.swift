@@ -74,9 +74,13 @@ final class ColorService {
             .init(color: Color(uiColor: UIColor(red: 255 / 255.0, green: 143 / 255.0, blue: 107 / 255.0, alpha: 1)), location: 1)
         ]),
         Gradient(stops: [
-                .init(color: Color(#colorLiteral(red: 0.0097277686, green: 0.9990763068, blue: 0.8794588447, alpha: 1)), location: 0),
-                .init(color: Color(#colorLiteral(red: 0.8598107696, green: 0, blue: 0.999384582, alpha: 1)), location: 0.6)
+            .init(color: Color(uiColor: UIColor(red: 54 / 255.0, green: 153 / 255.0, blue: 208 / 255.0, alpha: 1)), location: -0.1),
+            .init(color: Color(uiColor: UIColor(red: 131 / 255.0, green: 33 / 255.0, blue: 147 / 255.0, alpha: 1)), location: 1)
         ]),
+        Gradient(stops: [
+            .init(color: Color(uiColor: UIColor(red: 131 / 255.0, green: 33 / 255.0, blue: 147 / 255.0, alpha: 1)), location: -0.1),
+            .init(color: Color(uiColor: UIColor(red: 208 / 255.0, green: 119 / 255.0, blue: 54 / 255.0, alpha: 1)), location: 1)
+        ])
     ]
     private init() {}
     

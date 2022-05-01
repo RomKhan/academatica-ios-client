@@ -37,7 +37,7 @@ struct AchievementCardView: View {
                             { phase in
                                 switch phase {
                                 case .empty:
-                                    Rectangle().fill(.white)
+                                    Rectangle().fill(.clear)
                                         .blendMode(.overlay)
                                 case .success(let image):
                                     image

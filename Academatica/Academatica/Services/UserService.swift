@@ -487,6 +487,22 @@ final class UserService: ObservableObject {
         }
     }
     
+    func changeImage(newImage: UIImage?, completion: @escaping (Bool, String?) -> Void) {
+        guard let userId = userId else {
+            completion(false, "")
+            return
+        }
+        AF.upload(multipartFormData: { multipartFormData in
+            if let profilePic = newImage {
+                multipartFormData.append(profilePic.jpegData(compressionQuality: 0.8)!, withName: "formFile", fileName: "img.jpg", mimeType: "image/jpg")
+            }
+        }, to: host + "/api/users/" + userId + "/image", interceptor: APIRequestInterceptor.shared).responseString { response in
+            let success: Bool = response.response?.statusCode == 200
+            let message: String? = success ? nil : response.value
+            completion(success, message)
+        }
+    }
+    
     func loadActivity(completion: @escaping ([String: Int]?) -> Void) {
         let headersInfo: HTTPHeaders = [
             "Accept": "application/json"

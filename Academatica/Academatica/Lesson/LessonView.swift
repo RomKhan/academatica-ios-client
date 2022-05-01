@@ -27,6 +27,41 @@ struct LessonView: View {
                     startPoint: .topTrailing,
                     endPoint: .bottomLeading)
                     .offset(y: -UIScreen.main.bounds.height / 2)
+                    .overlay(
+                        AsyncImage(
+                            url: viewModel.model.imageUrl,
+                            transaction: Transaction(animation: .spring()))
+                        { phase in
+                            switch phase {
+                            case .success(let image):
+                                Rectangle()
+                                    .fill(.clear)
+                                    .scaledToFill()
+                                    .background(
+                                        image
+                                            .resizable()
+                                            .scaledToFill()
+                                    )
+                            case .failure:
+                                Rectangle()
+                                    .fill(.black.opacity(0.5))
+                                    .scaledToFill()
+                                    .background(
+                                        Image(systemName: "wifi.slash")
+                                            .resizable()
+                                            .scaledToFill()
+                                            .padding(25)
+                                            .foregroundColor(.white)
+                                    )
+                            case .empty:
+                                EmptyView()
+                            @unknown default:
+                                EmptyView()
+                            }
+                        }
+                            .offset(y: -UIScreen.main.bounds.height / 4.5)
+                            .frame(maxHeight: UIScreen.main.bounds.height / 1.8)
+                    )
                 TopViewBackgroundBack()
                     .fill(viewModel.colors[0])
                     .offset(y: UIScreen.main.bounds.height * 0.43)
@@ -65,7 +100,7 @@ struct LessonView: View {
                                showSheet: $showSheet)
                     .padding(.horizontal, 20)
                     .padding(.top, UIScreen.main.bounds.height / 8 - CGFloat(viewModel.model.description.count) / 5)
-                Webview(type: .public, url: viewModel.model.theoryUrl.absoluteString, dynamicHeight: $webViewHeight)
+                Webview(type: .public, url: viewModel.model.theoryUrl?.absoluteString, dynamicHeight: $webViewHeight)
                     .padding()
                     .frame(height: webViewHeight)
                 Text("")

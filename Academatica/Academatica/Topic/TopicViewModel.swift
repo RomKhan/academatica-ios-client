@@ -37,7 +37,7 @@ enum ClassesColors : Int {
 }
 
 class TopicViewModel: ObservableObject {
-    @Published var topicModel: TopicModel = TopicModel(id: "0", name: "sample", description: "desc", isAlgebraTopic: true, imageUrl: nil, isComplete: false, isUnlocked: true, completionRate: 0, classCount: 1)
+    @Published var topicModel: TopicModel = TopicModel(id: "0", name: "sample", description: "desc", isAlgebraTopic: true, imageUrl: URL(string: "https://img.freepik.com/free-vector/abstract-design-background-with-dots_23-2148497515.jpg?w=2000&t=st=1651399077~exp=1651399677~hmac=8e8e21a354374d5f0dba851fb62198e06f4fbe0d5fe415ff6cb6f14ea5057206"), isComplete: false, isUnlocked: true, completionRate: 0, classCount: 1)
     @Published var classes: [ClassModel] = []
     @Published var selectedClass: ClassModel = ClassModel(id: "0", name: "classname", description: "desc", expReward: 100, imageUrl: nil, theoryUrl: URL(string: "https://google.com")!, problemNum: 10, topicName: "topicname", isComplete: false, isUnlocked: true)
     

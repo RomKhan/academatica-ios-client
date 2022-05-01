@@ -16,6 +16,42 @@ struct TopicCardView: View {
         ZStack(alignment: .bottomLeading) {
             Rectangle()
                 .fill(LinearGradient(gradient: viewModel.gradient, startPoint: .topTrailing, endPoint: .bottomLeading))
+                .overlay(
+                    AsyncImage(
+                        url: viewModel.topicModel.imageUrl,
+                        transaction: Transaction(animation: .spring()))
+                    { phase in
+                        switch phase {
+                        case .success(let image):
+                            Rectangle()
+                                .fill(.clear)
+                                .scaledToFit()
+                                .background(
+                                    image
+                                        .resizable()
+                                        .scaledToFill()
+                                )
+                        case .failure:
+                            Rectangle()
+                                .fill(.black.opacity(0.5))
+                                .scaledToFit()
+                                .background(
+                                    Image(systemName: "wifi.slash")
+                                        .resizable()
+                                        .scaledToFill()
+                                        .padding(25)
+                                        .foregroundColor(.white)
+                                )
+                                .padding(UIScreen.main.bounds.height / 10)
+                        case .empty:
+                            EmptyView()
+                        @unknown default:
+                            EmptyView()
+                        }
+                    }
+                        .blendMode(.overlay)
+                )
+            
             VStack(alignment: .leading, spacing: 13) {
                 Text(viewModel.topicModel.name)
                     .font(.system(size: 18, weight: .bold))
@@ -54,7 +90,7 @@ struct TopicCardModel_Previews: PreviewProvider {
         TopicCardView(
             viewModel: TopicCardViewModel(
                 topicModel:
-                    TopicModel(id: "0", name: "Topic", description: "Desc", isAlgebraTopic: true, imageUrl: nil, isComplete: false, isUnlocked: true, completionRate: 0, classCount: 2)),
+                    TopicModel(id: "0", name: "Topic", description: "Desc", isAlgebraTopic: true, imageUrl: URL(string: "https://img.freepik.com/free-vector/abstract-design-background-with-dots_23-2148497515.jpg?w=2000&t=st=1651399077~exp=1651399677~hmac=8e8e21a354374d5f0dba851fb62198e06f4fbe0d5fe415ff6cb6f14ea5057206"), isComplete: false, isUnlocked: true, completionRate: 0, classCount: 2)),
             show: .constant(true),
             namespace: namespace
         )

@@ -321,7 +321,7 @@
 		1563BCBA278B0558006F5510 /* Home Screen */ = {
 			isa = PBXGroup;
 			children = (
-				15AB404E2818BB69000DDD33 /* CustomPracticeCardView */,
+				15AB404E2818BB69000DDD33 /* CustomPracticeCardStackView */,
 				86A653FE27DD89E700304FC6 /* Practice Sheets */,
 				15AB404D2818BB42000DDD33 /* HomeCardStack */,
 				1543D4C127899AD800168085 /* PacticeCardModel.swift */,
@@ -405,14 +405,14 @@
 			path = HomeCardStack;
 			sourceTree = "<group>";
 		};
-		15AB404E2818BB69000DDD33 /* CustomPracticeCardView */ = {
+		15AB404E2818BB69000DDD33 /* CustomPracticeCardStackView */ = {
 			isa = PBXGroup;
 			children = (
 				15AB404F2818BBAB000DDD33 /* CustomPracticeCardView.swift */,
 				15AB40512818C0EB000DDD33 /* CustumPracticeCardStackView.swift */,
 				15AB40532818C14B000DDD33 /* CustomPracticeCardStackViewModel.swift */,
 			);
-			path = CustomPracticeCardView;
+			path = CustomPracticeCardStackView;
 			sourceTree = "<group>";
 		};
 		683B136924E5006DAB4642BE /* Frameworks */ = {

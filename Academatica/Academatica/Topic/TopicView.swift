@@ -27,6 +27,42 @@ struct TopicView: View {
                     startPoint: .topTrailing,
                     endPoint: .bottomLeading)
                     .offset(y: -UIScreen.main.bounds.height / 2)
+                    .overlay(
+                        AsyncImage(
+                            url: viewModel.topicModel.imageUrl,
+                            transaction: Transaction(animation: .spring()))
+                        { phase in
+                            switch phase {
+                            case .success(let image):
+                                Rectangle()
+                                    .fill(.clear)
+                                    .scaledToFill()
+                                    .background(
+                                        image
+                                            .resizable()
+                                            .scaledToFill()
+                                    )
+                            case .failure:
+                                Rectangle()
+                                    .fill(.black.opacity(0.5))
+                                    .scaledToFill()
+                                    .background(
+                                        Image(systemName: "wifi.slash")
+                                            .resizable()
+                                            .scaledToFill()
+                                            .padding(25)
+                                            .foregroundColor(.white)
+                                    )
+                            case .empty:
+                                EmptyView()
+                            @unknown default:
+                                EmptyView()
+                            }
+                        }
+                            .blendMode(.overlay)
+                            .offset(y: -UIScreen.main.bounds.height / 4.5)
+                            .frame(maxHeight: UIScreen.main.bounds.height / 1.8)
+                    )
                 TopViewBackgroundBack()
                     .fill(viewModel.colors[0])
                     .offset(y: UIScreen.main.bounds.height * 0.43)

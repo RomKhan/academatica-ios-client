@@ -8,6 +8,7 @@
 import Foundation
 
 class ChoicedTopicViewModel: ObservableObject {
+    let gradient = ColorService.getRandomGradient()
     @Published var countOfTasks: Int {
         didSet {
             model.countOfTasks = countOfTasks

@@ -43,7 +43,7 @@ struct ChoicedTopicView: View {
             .frame(maxHeight: .infinity)
             .background(
                 LinearGradient(
-                    gradient: ColorService.getRandomGradient(),
+                    gradient: viewModel.gradient,
                     startPoint: .top,
                     endPoint: .bottom))
             VStack(alignment: .leading) {
