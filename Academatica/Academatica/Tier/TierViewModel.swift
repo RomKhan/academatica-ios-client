@@ -38,7 +38,6 @@ class TierViewModel: ObservableObject {
     }
     
     func loadTopics() {
-        topicModels.removeAll()
         serverState = .loading
         
         if (selectedTierIndex >= tierCardModels.count) {

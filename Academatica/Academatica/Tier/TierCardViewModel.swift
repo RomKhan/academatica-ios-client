@@ -15,6 +15,7 @@ class TierCardViewModel: ObservableObject {
         completionRate: 56,
         isComplete: false,
         isUnlocked: true)
+    
     init(model: TierModel) {
         self.model = model
     }

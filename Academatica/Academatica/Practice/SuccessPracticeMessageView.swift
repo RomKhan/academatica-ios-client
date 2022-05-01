@@ -96,7 +96,7 @@ struct SuccessPracticeMessageView: View {
 
 struct SuccessPracticeMessageView_Previews: PreviewProvider {
     static var previews: some View {
-        SuccessPracticeMessageView(viewModel: SuccessPracticeMessageViewModel(exit: {}, cancelFunc: {_ in }, classId: nil, topicId: nil, mistakeCount: 0, practiceType: .completedLessons, dismiss: {}))
+        SuccessPracticeMessageView(viewModel: SuccessPracticeMessageViewModel(exit: {}, cancelFunc: {_ in }, classId: nil, topicId: nil, practiceType: .completedLessons, dismiss: {}))
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(
                 LinearGradient(

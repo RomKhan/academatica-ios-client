@@ -77,6 +77,7 @@ struct RegistrationView: View {
                                 .background(.ultraThinMaterial)
                                 .cornerRadius(reader.size.width / 25)
                                 .disableAutocorrection(true)
+                                .autocapitalization(.none)
                             TextField("", text: $viewModel.username)
                                 .placeholder(when: viewModel.username.isEmpty) {
                                     Text("Псевдоним")
@@ -87,6 +88,7 @@ struct RegistrationView: View {
                                 .cornerRadius(reader.size.width / 25)
                                 .padding(.top, reader.size.width / 30)
                                 .disableAutocorrection(true)
+                                .autocapitalization(.none)
                         }
                         .padding(.top, reader.size.width / 18)
                         VStack(spacing: 0) {
@@ -100,6 +102,7 @@ struct RegistrationView: View {
                                 .cornerRadius(reader.size.width / 25)
                                 .foregroundColor(.white)
                                 .disableAutocorrection(true)
+                                .autocapitalization(.none)
                             SecureField("", text: $viewModel.confirmPassword)
                                 .placeholder(when: viewModel.confirmPassword.isEmpty) {
                                     Text("Подтвердите пароль")
@@ -111,6 +114,7 @@ struct RegistrationView: View {
                                 .padding(.top, reader.size.width / 30)
                                 .foregroundColor(.white)
                                 .disableAutocorrection(true)
+                                .autocapitalization(.none)
                         }
                         .padding(.top, reader.size.width / 18)
 

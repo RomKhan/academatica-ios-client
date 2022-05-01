@@ -27,6 +27,28 @@ struct TopicView: View {
                             .init(color: viewModel.colors[2], location: 1)]),
                     startPoint: .topTrailing,
                     endPoint: .bottomLeading)
+                    .frame(maxWidth: .infinity, maxHeight: UIScreen.main.bounds.height / 2)
+                    .overlay(
+                        AsyncImage(
+                            url: viewModel.topicModel.imageUrl,
+                            transaction: Transaction(animation: .spring()))
+                        { phase in
+                            switch phase {
+                            case .empty:
+                                Rectangle().fill(.white)
+                                    .blendMode(.overlay)
+                            case .success(let image):
+                                image
+                                    .resizable()
+                                    .scaledToFill()
+                                    .transition(.scale(scale: 0.1, anchor: .center))
+                            case .failure:
+                                Image(systemName: "wifi.slash")
+                            @unknown default:
+                                EmptyView()
+                            }
+                        }
+                    )
                     .offset(y: -UIScreen.main.bounds.height / 2)
                 TopViewBackgroundBack()
                     .fill(viewModel.colors[0])

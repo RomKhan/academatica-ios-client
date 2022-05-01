@@ -7,7 +7,6 @@
 
 import SwiftUI
 import Combine
-import ResizableSheet
 
 enum practiceType {
     case completedPractive
@@ -19,7 +18,6 @@ struct HomeView: View {
     @State private var heightOfset: CGFloat = 0
     @State var selectedDetentIdentifier: UISheetPresentationController.Detent.Identifier? = .medium
     @State var state: Bool = false
-    @State var practiceShow: Bool = false
     @State var practiceType: PracticeType = .completedLessons
     @State private var showConstructor = false
     @Binding var showClass: Bool
@@ -36,6 +34,10 @@ struct HomeView: View {
                             .init(color: Color(#colorLiteral(red: 0.8598107696, green: 0, blue: 0.999384582, alpha: 1)), location: 0.6)]),
                     startPoint: .topTrailing,
                     endPoint: .bottomLeading)).ignoresSafeArea()
+            Image(uiImage: UIImage(named: "HomeBackground")!)
+                .resizable()
+                .scaledToFit()
+                .offset(y: -heightOfset)
             TrackableScrollView(showIndicators: false, contentOffset: $heightOfset) {
                 HStack(alignment: .top) {
                     BuoysLeftCounter()
@@ -115,7 +117,7 @@ struct HomeView: View {
                     .padding(.horizontal, 20)
                     .font(.system(size: 13))
                     .textCase(.uppercase).foregroundColor(.white)
-                CardStackView(showClass: $showClass).padding(.horizontal, 20).frame(maxWidth: .infinity).frame(height: 160).onAppear {
+                HomeCardStackView(showClass: $showClass).padding(.horizontal, 20).frame(maxWidth: .infinity).frame(height: 160).onAppear {
                     CourseService.shared.getUpcomingLessons()
                 }
                 Text("Практика")
@@ -126,7 +128,7 @@ struct HomeView: View {
                     .textCase(.uppercase)
                     .frame(maxWidth: .infinity, alignment: .leading).zIndex(1)
                 VStack(spacing: 16) {
-                    ForEach(0...1, id: \.self) {index in
+                    ForEach(0...2, id: \.self) {index in
                         Button {
                             switch index {
                             case 0:
@@ -161,14 +163,14 @@ struct HomeView: View {
             }
             
             if practiceType == .recomended {
-                NavigationLink(isActive: $practiceShow) {
+                NavigationLink(isActive: $viewModel.practiceShow) {
                     PracticeLoadView(viewModel: PracticeLoadViewModel(mode: practiceType, topicId: viewModel.recommendedTopicId), showPractice: .constant(true))
                         .navigationBarHidden(true)
                 } label: {
                     EmptyView()
                 }
-            } else if practiceType == .completedLessons {
-                NavigationLink(isActive: $practiceShow) {
+            } else if practiceType == .completedLessons || practiceType == .custom {
+                NavigationLink(isActive: $viewModel.practiceShow) {
                     PracticeLoadView(viewModel: PracticeLoadViewModel(mode: practiceType, topicId: nil), showPractice: .constant(true))
                         .navigationBarHidden(true)
                         .overlay(Color.black.opacity(viewModel.completedTopicsCount != 0 ? 0 : 0.5))
@@ -186,7 +188,10 @@ struct HomeView: View {
         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
             .navigationBarHidden(true)
             .detentSheet(isPresented: $state, preferredCornerRadius: 40, detents: practiceType == .custom ? [.medium(), .large()] : [.medium()], allowsDismissalGesture: true) {
-                HalfPracticeSheet(viewModel: HalfPracticeSheetModel(), practiceShow: $practiceShow, sheetMode: $state, mode: $practiceType, showConstructor: $showConstructor)
+                HalfPracticeSheet(viewModel: HalfPracticeSheetModel(), practiceShow: $viewModel.practiceShow, sheetMode: $state, mode: $practiceType, showConstructor: $showConstructor)
+            }
+            .sheet(isPresented: $showConstructor) {
+                CustomPracticeSheetView(showConstructor: $showConstructor, practiceShow: $viewModel.practiceShow)
             }
             .ignoresSafeArea()
             .onAppear {

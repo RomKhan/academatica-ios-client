@@ -9,6 +9,6 @@ import Foundation
 
 struct PracticeCardModel {
     var title: String
-    var countOfTasks: Int
+    var countOfTasks: Int?
     var imageName: String = "xmark.octagon"
 }

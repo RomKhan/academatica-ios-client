@@ -67,7 +67,6 @@ class HeatmapCalendarViewController: UIViewController {
             calendarHeatMap.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0)
         ])
         
-        
         UserService.shared.loadActivity { [weak self] newValue in
             if let newValue = newValue {
                 self?.data = newValue.mapValues { (colorIndex) -> UIColor in

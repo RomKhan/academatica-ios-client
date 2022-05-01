@@ -11,8 +11,9 @@ struct BuoysLeftCounter: View {
     @StateObject var viewModel = BuoysLeftCounterViewModel()
     var body: some View {
         HStack(spacing: 7) {
-            Circle()
-                .strokeBorder(.white, lineWidth: 10)
+            Image("buoy")
+                .resizable()
+                .scaledToFit()
                 .frame(width: 32, height: 32)
             if (viewModel.amount == nil) {
                 RoundedRectangle(cornerRadius: 10)

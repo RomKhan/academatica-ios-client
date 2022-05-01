@@ -60,6 +60,15 @@ struct UserProfileModel: Decodable {
     let maxLevelReached: Bool
 }
 
+struct LogInErrorModel: Decodable {
+    let error: String
+    let errorDescription: String
+    
+    private enum CodingKeys: String, CodingKey {
+        case error, errorDescription = "error_description"
+    }
+}
+
 struct CodeCheckResponseModel: Decodable {
     let success: Bool
 }
@@ -77,7 +86,7 @@ final class UserService: ObservableObject {
     @Published var authorizationNotification: String = ""
     var isAuthorized = CurrentValueSubject<Bool, Never>(false)
     let keychainHelper: KeychainService = KeychainService.shared
-    private let host = "http://acme.com"
+    private let host = "https://news-platform.ru"
     public static let shared = UserService()
     private var userSetupInProgress: Bool = false
     
@@ -152,6 +161,10 @@ final class UserService: ObservableObject {
             self?.refreshToken = result.refreshToken
             
             self?.loadUserInfo(completion: completion)
+        }.responseString { response in
+            if let value = response.value {
+                print(value)
+            }
         }
     }
     
@@ -183,7 +196,6 @@ final class UserService: ObservableObject {
     }
     
     func logOff() {
-        print(Thread.callStackSymbols)
         isAuthorized.value = false
         accessToken = nil
         refreshToken = nil
@@ -214,6 +226,10 @@ final class UserService: ObservableObject {
             let success: Bool = response.response?.statusCode == 200
             let message: String? = success ? nil : response.value
             completion(success, message)
+        }.responseString { response in
+            if let value = response.value {
+                print(value)
+            }
         }
     }
     
@@ -279,6 +295,10 @@ final class UserService: ObservableObject {
                 expLevelCap: result.expLevelCap,
                 maxLevelReached: result.maxLevelReached
             )
+        }.responseString { response in
+            if let value = response.value {
+                print(value)
+            }
         }
     }
     
@@ -484,6 +504,22 @@ final class UserService: ObservableObject {
             } else {
                 completion(true)
             }
+        }
+    }
+    
+    func changeImage(newImage: UIImage?, completion: @escaping (Bool, String?) -> Void) {
+        guard let userId = userId else {
+            completion(false, "")
+            return
+        }
+        AF.upload(multipartFormData: { multipartFormData in
+            if let profilePic = newImage {
+                multipartFormData.append(profilePic.jpegData(compressionQuality: 0.8)!, withName: "formFile", fileName: "img.jpg", mimeType: "image/jpg")
+            }
+        }, to: host + "/api/users/" + userId + "/image", interceptor: APIRequestInterceptor.shared).responseString { response in
+            let success: Bool = response.response?.statusCode == 200
+            let message: String? = success ? nil : response.value
+            completion(success, message)
         }
     }
     

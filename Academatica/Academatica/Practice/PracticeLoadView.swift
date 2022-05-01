@@ -12,6 +12,7 @@ struct PracticeLoadView: View {
     @Binding var showPractice: Bool
     @State private var heightOfset: CGFloat = 0
     @Environment(\.dismiss) var dismiss
+    
     var body: some View {
         ZStack {
             if viewModel.serverState == .success {

@@ -9,7 +9,7 @@ import SwiftUI
 import Combine
 
 class LessonViewModel: ObservableObject {
-    @Published var model: ClassModel = ClassModel(id: "0", name: "classname", description: "desc", expReward: 100, imageUrl: nil, theoryUrl: URL(string: "https://google.com")!, problemNum: 10, topicName: "topicname", isComplete: false, isUnlocked: true)
+    @Published var model: ClassModel = ClassModel(id: "0", name: "", description: "", expReward: -1, imageUrl: nil, theoryUrl: nil, problemNum: 10, topicName: "", isComplete: false, isUnlocked: true)
     @Published var classId: String = ""
     var topicName: String = ""
     let colors = [

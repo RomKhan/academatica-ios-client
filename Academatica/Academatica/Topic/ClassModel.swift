@@ -13,7 +13,7 @@ struct ClassModel : Identifiable, Decodable {
     var description: String
     var expReward: Int
     var imageUrl: URL?
-    var theoryUrl: URL
+    var theoryUrl: URL?
     var problemNum: Int
     var topicName: String
     var isComplete: Bool

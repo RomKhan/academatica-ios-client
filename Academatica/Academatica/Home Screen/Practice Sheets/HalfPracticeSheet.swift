@@ -23,8 +23,13 @@ struct HalfPracticeSheet: View {
                 .padding(-UIScreen.main.bounds.height / 5)
                 .offset(y: -UIScreen.main.bounds.height / 15)
         VStack(alignment: .leading, spacing: 5) {
-                    Text("10 заданий".uppercased())
-                        .font(.system(size: UIScreen.main.bounds.height / 45))
+            if mode != .custom {
+                Text("До 10 заданий".uppercased())
+                            .font(.system(size: UIScreen.main.bounds.height / 45))
+            } else {
+                Text("Любое число заданий".uppercased())
+                            .font(.system(size: UIScreen.main.bounds.height / 45))
+            }
             Text("\(viewModel.getTitle(type: mode))")
                         .font(.system(size: UIScreen.main.bounds.height / 30, weight: .heavy))
             Spacer()

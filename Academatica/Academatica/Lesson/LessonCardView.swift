@@ -13,9 +13,8 @@ struct LessonCardView: View {
     @Binding var practivceIsActive: Bool
     @Binding var practiceShow: Bool
     @Binding var showSheet: Bool
-//    @Binding var startPractise: Bool
-//    @Binding var state: ResizableSheetState
     private let height = UIScreen.main.bounds.height;
+    
     var body: some View {
         VStack(alignment: .leading, spacing: height / 65) {
             Text("\(viewModel.topicName)".uppercased())

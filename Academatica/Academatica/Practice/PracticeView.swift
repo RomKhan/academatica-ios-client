@@ -15,8 +15,8 @@ struct PracticeView: View {
             TabView(selection: $viewModel.selected) {
                 ForEach ((0..<viewModel.problems.count), id: \.self) { index in
                     ProblemView(
-                        index: viewModel.selected - viewModel.errorsCount,
-                        problems_count: viewModel.problems.count - viewModel.errorsCount,
+                        index: viewModel.selected - CourseService.shared.lastMistakeCount,
+                        problems_count: viewModel.problems.count - CourseService.shared.lastMistakeCount,
                         viewModel: ProblemViewModel(
                             cancel: viewModel.next,
                             model: viewModel.problems[index]))
@@ -26,7 +26,7 @@ struct PracticeView: View {
                         .simultaneousGesture(DragGesture())
                 }
                 
-                SuccessPracticeMessageView(viewModel: SuccessPracticeMessageViewModel(exit: viewModel.cancel, cancelFunc: viewModel.finishPractice, classId: viewModel.classId, topicId: viewModel.topicId, mistakeCount: viewModel.errorsCount, practiceType: viewModel.practiceType, dismiss: viewModel.cancel))
+                SuccessPracticeMessageView(viewModel: SuccessPracticeMessageViewModel(exit: viewModel.cancel, cancelFunc: viewModel.finishPractice, classId: viewModel.classId, topicId: viewModel.topicId, practiceType: viewModel.practiceType, dismiss: viewModel.cancel))
                     .tag(viewModel.problems.count)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .contentShape(Rectangle())

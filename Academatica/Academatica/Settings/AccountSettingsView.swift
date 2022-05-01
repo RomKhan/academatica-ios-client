@@ -94,10 +94,10 @@ struct AccountSettingsView: View {
                         .blendMode(.overlay)
                         .frame(width: UIScreen.main.bounds.size.width / 2, height: UIScreen.main.bounds.width / 15)
                 } else {
-                Text("\(UserService.shared.userModel!.firstName) \(UserService.shared.userModel!.lastName)")
-                    .font(.system(size: UIScreen.main.bounds.width / 15, weight: .bold))
-                    .foregroundColor(.white)
-                    .lineLimit(1)
+                    Text("\(UserService.shared.userModel!.firstName) \(UserService.shared.userModel!.lastName)")
+                        .font(.system(size: UIScreen.main.bounds.width / 15, weight: .bold))
+                        .foregroundColor(.white)
+                        .lineLimit(1)
                 }
                 Spacer()
                     .frame(maxHeight: 10)
@@ -107,10 +107,10 @@ struct AccountSettingsView: View {
                         .blendMode(.overlay)
                         .frame(width: UIScreen.main.bounds.size.width / 2.7, height: UIScreen.main.bounds.width / 21)
                 } else {
-                Text("@\(UserService.shared.userModel!.username)")
-                    .font(.system(size: UIScreen.main.bounds.width / 22))
-                    .foregroundColor(.white)
-                    .blendMode(.overlay)
+                    Text("@\(UserService.shared.userModel!.username)")
+                        .font(.system(size: UIScreen.main.bounds.width / 22))
+                        .foregroundColor(.white)
+                        .blendMode(.overlay)
                 }
                 Spacer()
                 Spacer()
@@ -166,6 +166,22 @@ struct AccountSettingsView: View {
             .padding(.horizontal, 20)
             .shadow(color: .black.opacity(0.4), radius: 20, x: 0, y: 0)
             
+            Group {
+                if (viewModel.serverStatus == .loading) {
+                    ProgressView("Идет загрузка...")
+                        .foregroundColor(.white)
+                        .tint(.white)
+                } else if (viewModel.serverStatus == .success) {
+                    Text("Изображение профиля обновлено")
+                        .foregroundColor(ButtonState.active.getColor())
+                        .shadow(color: ButtonState.active.getColor(), radius: 10, x: 0, y: 0)
+                } else if (viewModel.serverStatus == .error) {
+                    Text("Произошла ошибка :(")
+                        .foregroundColor(Color(.systemRed))
+                        .shadow(color: Color(.systemRed), radius: 20, x: 0, y: 0)
+                }
+            }
+            .padding(.top, UIScreen.main.bounds.height / 8)
         }
         .background(
             LinearGradient(

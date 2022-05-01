@@ -87,8 +87,12 @@ struct TierView: View {
                             case .none:
                                 EmptyView()
                             case .loading:
-                                ProgressView()
-                                    .progressViewStyle(CircularProgressViewStyle(tint: Color.black))
+                                if viewModel.topicModels.isEmpty {
+                                    ProgressView()
+                                        .progressViewStyle(CircularProgressViewStyle(tint: Color.black))
+                                } else {
+                                    EmptyView()
+                                }
                             case .error:
                                 Text("Попробуйте еще раз")
                                     .foregroundColor(.red)

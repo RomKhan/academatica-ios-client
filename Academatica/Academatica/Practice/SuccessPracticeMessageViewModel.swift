@@ -18,17 +18,16 @@ class SuccessPracticeMessageViewModel: ObservableObject {
     @Published var achievements: [AchievementModel] = []
     var classId: String?
     var topicId: String?
-    var mistakeCount: Int
+    var mistakeCount: Int = 0
     var practiceType: PracticeType
     
     private var cancellables = Set<AnyCancellable>()
     
-    init(exit: @escaping (() -> ()), cancelFunc: @escaping (([AchievementModel]) -> ()), classId: String?, topicId: String?, mistakeCount: Int, practiceType: PracticeType, dismiss: @escaping (() -> ())) {
+    init(exit: @escaping (() -> ()), cancelFunc: @escaping (([AchievementModel]) -> ()), classId: String?, topicId: String?, practiceType: PracticeType, dismiss: @escaping (() -> ())) {
         self.cancelFunc = cancelFunc
         self.exitFunc = exit
         self.classId = classId
         self.topicId = topicId
-        self.mistakeCount = mistakeCount
         self.practiceType = practiceType
         self.dismissFunc = dismiss
         
@@ -42,6 +41,10 @@ class SuccessPracticeMessageViewModel: ObservableObject {
         
         CourseService.shared.$lastAchievements.sink { [weak self] newValue in
             self?.achievements = newValue
+        }.store(in: &cancellables)
+        
+        CourseService.shared.$lastMistakeCount.sink { [weak self] newValue in
+            self?.mistakeCount = newValue
         }.store(in: &cancellables)
     }
     
@@ -75,6 +78,15 @@ class SuccessPracticeMessageViewModel: ObservableObject {
                         self?.serverState = .none
                     }
                 }
+            case .custom:
+                CourseService.shared.finishCustomPractice { [weak self] success in
+                    if !success {
+                        self?.serverState = .error
+                    } else {
+                        self?.cancelFunc([])
+                        self?.serverState = .none
+                    }
+                }
             default:
                 break
             }
@@ -94,6 +106,9 @@ class SuccessPracticeMessageViewModel: ObservableObject {
             dismissFunc()
         case .lesson:
             cancelFunc(achievements)
+            if (achievements.count == 0) {
+                dismissFunc()
+            }
         }
     }
 }

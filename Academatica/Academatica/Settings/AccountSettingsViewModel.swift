@@ -22,6 +22,19 @@ struct DataSettingsRow: Identifiable {
 }
 
 class AccountSettingsViewModel: ObservableObject {
+    var animationStart = false
+    @Published var serverStatus = ServerState.none {
+        didSet {
+            if (serverStatus != .loading && !animationStart) {
+                animationStart = true
+                    withAnimation(.easeOut(duration: 2)) {
+                        serverStatus = .none
+                    }
+                animationStart = false
+            }
+        }
+    }
+    @Published var serverMessgae: String = ""
     var colors: [Color] = [
         Color(uiColor: UIColor(red: 92 / 255.0, green: 0 / 255.0, blue: 149 / 255.0, alpha: 1)),
         Color(uiColor: UIColor(red: 81 / 255.0, green: 132 / 255.0, blue: 209 / 255.0, alpha: 1))
@@ -39,8 +52,19 @@ class AccountSettingsViewModel: ObservableObject {
         ])
     ]
     
-    // Метод запроса с сервера apiUsersIdImagePatch
     func patchPicture(image: UIImage) {
-        UserService.shared.userModel?.profilePicUrl = URL(string: "https://static01.nyt.com/images/2017/11/08/well/family/well-fam-damour/well-fam-damour-articleLarge.jpg?quality=75&auto=webp&disable=upscale")!
+        serverStatus = .loading
+        UserService.shared.changeImage(newImage: image) { [weak self] state, message in
+            if let message = message {
+                self?.serverMessgae = message
+            }
+            
+            if state {
+                UserService.shared.userSetup()
+                self?.serverStatus = .success
+            } else {
+                self?.serverStatus = .error
+            }
+        }
     }
 }
