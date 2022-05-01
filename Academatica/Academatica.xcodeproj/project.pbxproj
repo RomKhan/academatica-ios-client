@@ -10,7 +10,7 @@
 		15026FAB27984B5D00D8A6A8 /* FullTopicCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15026FAA27984B5D00D8A6A8 /* FullTopicCardView.swift */; };
 		15026FAD27985AC400D8A6A8 /* TopicViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15026FAC27985AC400D8A6A8 /* TopicViewModel.swift */; };
 		15026FAF27985B1A00D8A6A8 /* ClassModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15026FAE27985B1A00D8A6A8 /* ClassModel.swift */; };
-		1543D4C227899AD800168085 /* PacticeCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1543D4C127899AD800168085 /* PacticeCardModel.swift */; };
+		1543D4C227899AD800168085 /* PracticeCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1543D4C127899AD800168085 /* PracticeCardModel.swift */; };
 		1543D4C42789D1C700168085 /* TrackableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1543D4C32789D1C700168085 /* TrackableScrollView.swift */; };
 		1544217F27B9A078007815E0 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1544217E27B9A078007815E0 /* ImagePicker.swift */; };
 		1544218927B9C4E8007815E0 /* ResizableSheet in Frameworks */ = {isa = PBXBuildFile; productRef = 1544218827B9C4E8007815E0 /* ResizableSheet */; };
@@ -67,7 +67,6 @@
 		863A10B227DFD4CC00023E99 /* LoadLeadBoards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 863A10AC27DFD4CC00023E99 /* LoadLeadBoards.swift */; };
 		863A10B327DFD4CC00023E99 /* LeadBoardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 863A10AD27DFD4CC00023E99 /* LeadBoardsView.swift */; };
 		8648AAA4281F2F97009F8F77 /* CustomPracticeCardStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8648AA9D281F2F96009F8F77 /* CustomPracticeCardStackView.swift */; };
-		8648AAA8281F2F97009F8F77 /* CustomPracticeCardStackViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8648AAA2281F2F97009F8F77 /* CustomPracticeCardStackViewModel.swift */; };
 		8648AAA9281F2F97009F8F77 /* CustomPracticeCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8648AAA3281F2F97009F8F77 /* CustomPracticeCardView.swift */; };
 		8648AAB0281F2FCF009F8F77 /* HalfPracticeSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8648AAAA281F2FCE009F8F77 /* HalfPracticeSheet.swift */; };
 		8648AAB1281F2FCF009F8F77 /* CustomPracticeSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8648AAAB281F2FCE009F8F77 /* CustomPracticeSheetView.swift */; };
@@ -78,6 +77,7 @@
 		8648AABA281F315B009F8F77 /* HomeCardStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8648AAB7281F315B009F8F77 /* HomeCardStackView.swift */; };
 		8648AABB281F315B009F8F77 /* HomeCardStackViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8648AAB8281F315B009F8F77 /* HomeCardStackViewModel.swift */; };
 		8648AABC281F315B009F8F77 /* HomeCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8648AAB9281F315B009F8F77 /* HomeCardView.swift */; };
+		8648AABF281F51D0009F8F77 /* CustomPracticeCardStackViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8648AABE281F51D0009F8F77 /* CustomPracticeCardStackViewModel.swift */; };
 		866D1E7D27E0FD3E00ED6535 /* work.json in Resources */ = {isa = PBXBuildFile; fileRef = 866D1E7C27E0FD3E00ED6535 /* work.json */; };
 		866E249427DA73C100EFDB23 /* APIRequestInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 866E249327DA73C100EFDB23 /* APIRequestInterceptor.swift */; };
 		866E249627DA76CF00EFDB23 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 866E249527DA76CF00EFDB23 /* KeychainService.swift */; };
@@ -125,7 +125,7 @@
 		15026FAA27984B5D00D8A6A8 /* FullTopicCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullTopicCardView.swift; sourceTree = "<group>"; };
 		15026FAC27985AC400D8A6A8 /* TopicViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicViewModel.swift; sourceTree = "<group>"; };
 		15026FAE27985B1A00D8A6A8 /* ClassModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassModel.swift; sourceTree = "<group>"; };
-		1543D4C127899AD800168085 /* PacticeCardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacticeCardModel.swift; sourceTree = "<group>"; };
+		1543D4C127899AD800168085 /* PracticeCardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeCardModel.swift; sourceTree = "<group>"; };
 		1543D4C32789D1C700168085 /* TrackableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackableScrollView.swift; sourceTree = "<group>"; };
 		1544217E27B9A078007815E0 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		1544F4B8278A003F00CDDFF9 /* PracticeCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PracticeCardViewModel.swift; sourceTree = "<group>"; };
@@ -183,9 +183,8 @@
 		863A10AB27DFD4CB00023E99 /* LeadBoardCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeadBoardCardView.swift; sourceTree = "<group>"; };
 		863A10AC27DFD4CC00023E99 /* LoadLeadBoards.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadLeadBoards.swift; sourceTree = "<group>"; };
 		863A10AD27DFD4CC00023E99 /* LeadBoardsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeadBoardsView.swift; sourceTree = "<group>"; };
-		8648AA9D281F2F96009F8F77 /* CustomPracticeCardStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomPracticeCardStackView.swift; path = ../CustomPracticeCardStackView.swift; sourceTree = "<group>"; };
-		8648AAA2281F2F97009F8F77 /* CustomPracticeCardStackViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomPracticeCardStackViewModel.swift; path = "Academatica/Home Screen/CustomPracticeCardStackViewModel.swift"; sourceTree = SOURCE_ROOT; };
-		8648AAA3281F2F97009F8F77 /* CustomPracticeCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomPracticeCardView.swift; path = ../CustomPracticeCardView.swift; sourceTree = "<group>"; };
+		8648AA9D281F2F96009F8F77 /* CustomPracticeCardStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPracticeCardStackView.swift; sourceTree = "<group>"; };
+		8648AAA3281F2F97009F8F77 /* CustomPracticeCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPracticeCardView.swift; sourceTree = "<group>"; };
 		8648AAAA281F2FCE009F8F77 /* HalfPracticeSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HalfPracticeSheet.swift; sourceTree = "<group>"; };
 		8648AAAB281F2FCE009F8F77 /* CustomPracticeSheetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPracticeSheetView.swift; sourceTree = "<group>"; };
 		8648AAAC281F2FCF009F8F77 /* ChoicedTopicView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChoicedTopicView.swift; sourceTree = "<group>"; };
@@ -195,6 +194,7 @@
 		8648AAB7281F315B009F8F77 /* HomeCardStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeCardStackView.swift; sourceTree = "<group>"; };
 		8648AAB8281F315B009F8F77 /* HomeCardStackViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeCardStackViewModel.swift; sourceTree = "<group>"; };
 		8648AAB9281F315B009F8F77 /* HomeCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeCardView.swift; sourceTree = "<group>"; };
+		8648AABE281F51D0009F8F77 /* CustomPracticeCardStackViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPracticeCardStackViewModel.swift; sourceTree = "<group>"; };
 		866D1E7C27E0FD3E00ED6535 /* work.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = work.json; sourceTree = "<group>"; };
 		866E249327DA73C100EFDB23 /* APIRequestInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequestInterceptor.swift; sourceTree = "<group>"; };
 		866E249527DA76CF00EFDB23 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
@@ -323,10 +323,10 @@
 		1563BCBA278B0558006F5510 /* Home Screen */ = {
 			isa = PBXGroup;
 			children = (
+				8648AABD281F5126009F8F77 /* CustomPracticeCardStackView */,
 				8648AAB6281F315B009F8F77 /* HomeCardStack */,
-				8648AA9E281F2F96009F8F77 /* CustomPracticeCardStackView */,
 				86A653FE27DD89E700304FC6 /* Practice Sheets */,
-				1543D4C127899AD800168085 /* PacticeCardModel.swift */,
+				1543D4C127899AD800168085 /* PracticeCardModel.swift */,
 				1544F4B8278A003F00CDDFF9 /* PracticeCardViewModel.swift */,
 				1547351E2788CD560010E71C /* PracticeCardView.swift */,
 				15982B9B2784377700440AEB /* HomeView.swift */,
@@ -455,16 +455,6 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		8648AA9E281F2F96009F8F77 /* CustomPracticeCardStackView */ = {
-			isa = PBXGroup;
-			children = (
-				8648AAA2281F2F97009F8F77 /* CustomPracticeCardStackViewModel.swift */,
-				8648AAA3281F2F97009F8F77 /* CustomPracticeCardView.swift */,
-				8648AA9D281F2F96009F8F77 /* CustomPracticeCardStackView.swift */,
-			);
-			path = CustomPracticeCardStackView;
-			sourceTree = "<group>";
-		};
 		8648AAB6281F315B009F8F77 /* HomeCardStack */ = {
 			isa = PBXGroup;
 			children = (
@@ -473,6 +463,16 @@
 				8648AAB9281F315B009F8F77 /* HomeCardView.swift */,
 			);
 			path = HomeCardStack;
+			sourceTree = "<group>";
+		};
+		8648AABD281F5126009F8F77 /* CustomPracticeCardStackView */ = {
+			isa = PBXGroup;
+			children = (
+				8648AABE281F51D0009F8F77 /* CustomPracticeCardStackViewModel.swift */,
+				8648AAA3281F2F97009F8F77 /* CustomPracticeCardView.swift */,
+				8648AA9D281F2F96009F8F77 /* CustomPracticeCardStackView.swift */,
+			);
+			path = CustomPracticeCardStackView;
 			sourceTree = "<group>";
 		};
 		866E249B27DB9BBD00EFDB23 /* Services */ = {
@@ -728,9 +728,9 @@
 				1548E4FD27D7C027009762B3 /* CourseService.swift in Sources */,
 				1563BCC7278B2BF7006F5510 /* TierModel.swift in Sources */,
 				15583E1727BC764900F96B65 /* AuthorizationViewModel.swift in Sources */,
+				8648AABF281F51D0009F8F77 /* CustomPracticeCardStackViewModel.swift in Sources */,
 				86A653DF27DD860A00304FC6 /* PracticeView.swift in Sources */,
 				86A653E827DD860A00304FC6 /* SuccessPracticeMessageView.swift in Sources */,
-				8648AAA8281F2F97009F8F77 /* CustomPracticeCardStackViewModel.swift in Sources */,
 				863A10B327DFD4CC00023E99 /* LeadBoardsView.swift in Sources */,
 				154872E227BD89A3005F4B22 /* WebView.swift in Sources */,
 				1543D4C42789D1C700168085 /* TrackableScrollView.swift in Sources */,
@@ -758,7 +758,7 @@
 				8648AAB0281F2FCF009F8F77 /* HalfPracticeSheet.swift in Sources */,
 				15982B9E2784378600440AEB /* TierView.swift in Sources */,
 				86A6541127DE3A9900304FC6 /* HeatmapCalendarViewController.swift in Sources */,
-				1543D4C227899AD800168085 /* PacticeCardModel.swift in Sources */,
+				1543D4C227899AD800168085 /* PracticeCardModel.swift in Sources */,
 				8648AAB4281F2FCF009F8F77 /* HalfPracticeSheetModel.swift in Sources */,
 				1593883D2785E1A300BEC566 /* BuoysLeftCounter.swift in Sources */,
 				86A653E027DD860A00304FC6 /* GapProblemViewModel.swift in Sources */,
