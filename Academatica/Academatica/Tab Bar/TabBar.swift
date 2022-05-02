@@ -45,7 +45,6 @@ struct TabBar: View {
                 
                 if (showClass) {
                     LessonView(viewModel: LessonViewModel(
-                        lesson: CourseService.shared.currentClass ?? ClassModel(id: "0", name: "classname", description: "desc", expReward: 100, imageUrl: nil, theoryUrl: URL(string: "https://google.com")!, problemNum: 10, topicName: "topicname", isComplete: false, isUnlocked: true),
                         topicName: CourseService.shared.currentClass?.topicName ?? ""),
                             showSheet: $showClass)
                         .offset(y: showClass ? 0 : UIScreen.main.bounds.height * 1.5)

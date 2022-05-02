@@ -177,7 +177,6 @@ struct TopicView: View {
                     .frame(height: 30)
             }
             LessonView(viewModel: LessonViewModel(
-                lesson: viewModel.selectedClass,
                         topicName: viewModel.topicModel.name),
                     showSheet: $showSheet)
                 .offset(y: showSheet ? 0 : UIScreen.main.bounds.height * 1.5)

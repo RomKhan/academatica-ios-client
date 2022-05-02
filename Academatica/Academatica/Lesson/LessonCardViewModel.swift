@@ -8,7 +8,7 @@ import SwiftUI
 import Combine
 
 class LessonCardViewModel: ObservableObject {
-    @Published var model: ClassModel
+    @Published var model: ClassModel?
     var topicName: String = ""
     
     var colors: [Color] = [
@@ -18,8 +18,7 @@ class LessonCardViewModel: ObservableObject {
     
     private var cancellables = Set<AnyCancellable>()
     
-    init(lesson: ClassModel, topicName: String) {
-        model = lesson
+    init(topicName: String) {
         self.topicName = topicName
         
         CourseService.shared.$currentClass.sink { [weak self] newValue in

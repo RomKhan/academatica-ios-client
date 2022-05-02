@@ -20,8 +20,7 @@ class LessonViewModel: ObservableObject {
     
     private var cancellables = Set<AnyCancellable>()
     
-    init(lesson: ClassModel, topicName: String) {
-        model = lesson
+    init(topicName: String) {
         self.topicName = topicName
         
         CourseService.shared.$currentClass.sink { [weak self] newValue in

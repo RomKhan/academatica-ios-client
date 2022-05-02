@@ -94,7 +94,7 @@ struct LessonView: View {
                 }
                 .frame(maxWidth: .infinity)
                 .padding(.horizontal, 20)
-                LessonCardView(viewModel: LessonCardViewModel(lesson: viewModel.model, topicName: viewModel.topicName),
+                LessonCardView(viewModel: LessonCardViewModel(topicName: viewModel.topicName),
                                practivceIsActive: $practiceActive,
                                practiceShow: $practiceShow,
                                showSheet: $showSheet)
@@ -134,7 +134,6 @@ struct LessonView_Previews: PreviewProvider {
     static var previews: some View {
         LessonView(
             viewModel: LessonViewModel(
-                lesson: ClassModel(id: "0", name: "classname", description: "desc", expReward: 100, imageUrl: nil, theoryUrl: URL(string: "https://google.com")!, problemNum: 10, topicName: "topicname", isComplete: false, isUnlocked: true),
                 topicName: "Natural Numbers"),
             showSheet: .constant(false)
         )

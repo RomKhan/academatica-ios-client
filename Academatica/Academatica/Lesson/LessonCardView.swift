@@ -13,7 +13,7 @@ struct LessonCardView: View {
     @Binding var showSheet: Bool
     private let height = UIScreen.main.bounds.height;
     var body: some View {
-        if (viewModel.model.expReward == -1) {
+        if (viewModel.model?.expReward == nil) {
             VStack(alignment: .leading, spacing: height / 65) {
                 Text("\(viewModel.topicName)".uppercased())
                     .font(.system(size: height / 65, weight: .bold))
@@ -57,10 +57,10 @@ struct LessonCardView: View {
                     .foregroundColor(Color(uiColor: UIColor(red: 89 / 255.0, green: 89 / 255.0, blue: 89 / 255.0, alpha: 1)))
                     .padding(.top, height / 60)
                     .lineLimit(1)
-                Text(viewModel.model.name)
+                Text(viewModel.model!.name)
                     .font(.system(size: height / 33.8, weight: .heavy))
                     .lineLimit(2)
-                Text(viewModel.model.description)
+                Text(viewModel.model!.description)
                     .font(.system(size: height / 58))
                     .foregroundColor(Color(uiColor: UIColor(red: 89 / 255.0, green: 89 / 255.0, blue: 89 / 255.0, alpha: 1)))
                     .lineLimit(15)
@@ -80,7 +80,7 @@ struct LessonCardView: View {
                 }
                 .padding(.top, height / 25)
                 .disabled(!practivceIsActive)
-                Text("+\(viewModel.model.expReward) EXP")
+                Text("+\(viewModel.model!.expReward) EXP")
                     .font(.system(size: height / 45, weight: .bold))
                     .foregroundColor(practivceIsActive ? viewModel.colors[0] : .gray)
                     .frame(maxWidth: .infinity)
@@ -103,7 +103,6 @@ struct LessonCardiew_Previews: PreviewProvider {
     static var previews: some View {
         LessonCardView(
             viewModel: LessonCardViewModel(
-                lesson: ClassModel(id: "0", name: "classname", description: "desc", expReward: 100, imageUrl: nil, theoryUrl: URL(string: "https://google.com")!, problemNum: 10, topicName: "topicname", isComplete: false, isUnlocked: true),
                 topicName: "Natural Numbers"),
             practivceIsActive: .constant(false),
             practiceShow: .constant(false),
