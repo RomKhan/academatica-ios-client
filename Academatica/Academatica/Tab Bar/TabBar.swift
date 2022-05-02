@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ResizableSheet
 
 struct TabBar: View {
     @State var selected: ScreenType = .home

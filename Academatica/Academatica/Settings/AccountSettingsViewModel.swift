@@ -52,13 +52,13 @@ class AccountSettingsViewModel: ObservableObject {
         ])
     ]
     
-    // Метод запроса с сервера apiUsersIdImagePatch
     func patchPicture(image: UIImage) {
         serverStatus = .loading
         UserService.shared.changeImage(newImage: image) { [weak self] state, message in
             if let message = message {
                 self?.serverMessgae = message
             }
+            
             if state {
                 UserService.shared.userSetup()
                 self?.serverStatus = .success

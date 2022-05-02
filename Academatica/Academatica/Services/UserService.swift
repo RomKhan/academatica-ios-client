@@ -60,6 +60,15 @@ struct UserProfileModel: Decodable {
     let maxLevelReached: Bool
 }
 
+struct LogInErrorModel: Decodable {
+    let error: String
+    let errorDescription: String
+    
+    private enum CodingKeys: String, CodingKey {
+        case error, errorDescription = "error_description"
+    }
+}
+
 struct CodeCheckResponseModel: Decodable {
     let success: Bool
 }
@@ -152,6 +161,10 @@ final class UserService: ObservableObject {
             self?.refreshToken = result.refreshToken
             
             self?.loadUserInfo(completion: completion)
+        }.responseString { response in
+            if let value = response.value {
+                print(value)
+            }
         }
     }
     
@@ -183,7 +196,6 @@ final class UserService: ObservableObject {
     }
     
     func logOff() {
-        print(Thread.callStackSymbols)
         isAuthorized.value = false
         accessToken = nil
         refreshToken = nil
@@ -214,6 +226,10 @@ final class UserService: ObservableObject {
             let success: Bool = response.response?.statusCode == 200
             let message: String? = success ? nil : response.value
             completion(success, message)
+        }.responseString { response in
+            if let value = response.value {
+                print(value)
+            }
         }
     }
     
@@ -279,6 +295,10 @@ final class UserService: ObservableObject {
                 expLevelCap: result.expLevelCap,
                 maxLevelReached: result.maxLevelReached
             )
+        }.responseString { response in
+            if let value = response.value {
+                print(value)
+            }
         }
     }
     

@@ -12,6 +12,7 @@ struct CustomPracticeSheetView: View {
     @State var selectedTier: String = "5"
     @Binding var showConstructor: Bool
     @Binding var practiceShow: Bool
+    
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             ZStack(alignment: .top) {

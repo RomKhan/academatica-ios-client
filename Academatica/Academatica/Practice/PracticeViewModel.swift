@@ -13,7 +13,6 @@ class PracticeViewModel: ObservableObject {
     @Published var badExitShow = false
     @Published var badAnswerShow = false
     @Published var showAchievements = false
-    @Published var errorsCount: Int = 0
     @Published var problems: [ProblemModel]
     @Published var achievements: [AchievementModel] = []
     @Published var badAnswerShowState: ServerState = .none
@@ -51,7 +50,7 @@ class PracticeViewModel: ObservableObject {
                     }
                 }
             }
-            errorsCount += 1
+            CourseService.shared.lastMistakeCount += 1
             selected += 1
         } else {
             if practiceType == .lesson {

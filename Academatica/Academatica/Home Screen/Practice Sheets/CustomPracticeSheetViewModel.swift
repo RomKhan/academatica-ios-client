@@ -20,8 +20,8 @@ class CustomPracticeSheetViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>();
     
     init() {
-        CourseService.shared.getCustomPracticeTiers {[weak self] isSuccsess in
-            if isSuccsess {
+        CourseService.shared.getCustomPracticeTiers {[weak self] isSuccess in
+            if isSuccess {
                 self?.serverState = .success
             } else {
                 self?.serverState = .error

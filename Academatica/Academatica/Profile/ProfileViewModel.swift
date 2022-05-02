@@ -108,7 +108,7 @@ class ProfileViewModel : ObservableObject {
         if !otherUser {
             UserStateService.shared.loadUserAchievements()
         } else {
-            UserStateService.shared.loadOtherUserLeaderboardState(userId: userId)
+            UserStateService.shared.loadOtherUserAchievements(userId: userId)
         }
     }
 }

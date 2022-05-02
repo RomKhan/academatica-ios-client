@@ -102,8 +102,6 @@ final class UserStateService: ObservableObject {
             "Accept": "application/json"
         ]
         
-        print(host + "/api/users/" + userId + "/state")
-        
         AF.request(host + "/api/users/" + userId + "/state", method: .get, headers: headers, interceptor: APIRequestInterceptor.shared).responseDecodable(of: UserStateModel.self) { [weak self] response in
             guard let result = response.value else {
                 if let error = response.error {

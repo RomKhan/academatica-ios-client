@@ -192,7 +192,7 @@ struct HomeView: View {
             }
             .sheet(isPresented: $showConstructor) {
                 CustomPracticeSheetView(showConstructor: $showConstructor, practiceShow: $viewModel.practiceShow)
-                        }
+            }
             .ignoresSafeArea()
             .onAppear {
                 viewModel.updateData()

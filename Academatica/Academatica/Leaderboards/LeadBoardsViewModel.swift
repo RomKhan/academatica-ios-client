@@ -12,7 +12,7 @@ struct LeadBoardUserModel: Identifiable, Decodable {
     let id: String // id Юзера
     let firstName: String
     let lastName: String
-    let profilePic: URL
+    let profilePic: URL?
     let username: String
     let expThisWeek: Int
     let rank: Int

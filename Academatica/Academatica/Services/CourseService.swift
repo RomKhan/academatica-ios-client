@@ -40,6 +40,19 @@ struct ChoicedTopicModel: Identifiable {
     var countOfTasks: Int
 }
 
+struct CustomPracticeTopicModel: Identifiable, Decodable {
+    let id: String
+    let tierId: String
+    let name: String
+    let description: String
+    let imageUrl: URL?
+    let isAlgebraTopic: Bool
+}
+
+struct CustomPracticeTopicListModel: Decodable {
+    let topics: [CustomPracticeTopicModel]
+}
+
 struct UpcomingClassModel: Decodable, Identifiable {
     let id: String
     let topicId: String
@@ -56,19 +69,9 @@ struct UpcomingClassModel: Decodable, Identifiable {
     let topicClassCount: Int
 }
 
-struct CustomPracticeTopicModel: Identifiable, Decodable {
-    let id: String
-    let tierId: String
-    let name: String
-    let description: String
-    let imageUrl: URL?
-    let isAlgebraTopic: Bool
-}
-
 struct UpcomingClassListModel: Decodable {
     let upcomingClasses: [UpcomingClassModel]
 }
-
 
 struct TiersListModel: Decodable {
     let tiers: [TierModel]
@@ -84,10 +87,6 @@ struct ClassListModel: Decodable {
 
 struct ProblemListModel: Decodable {
     let problems: [ProblemModel]
-}
-
-struct CustomPracticeTopicListModel: Decodable {
-    let topics: [CustomPracticeTopicModel]
 }
 
 struct ClassAchievementModel: Identifiable, Decodable {
@@ -129,9 +128,6 @@ struct CompletedTopicListModel: Decodable {
 
 final class CourseService: ObservableObject {
     @Published var upcomingClasses: [UpcomingClassModel] = []
-    @Published var customPracticeTopics: [String: [CustomPracticeTopicModel]] = [:]
-    @Published var customPracticeTiers: [TierModel] = []
-    @Published var choicedCustomPracticeTopics: [ChoicedTopicModel] = []
     @Published var tiers: [TierModel] = []
     @Published var topics: [TopicModel] = []
     @Published var classes: [ClassModel] = []
@@ -143,7 +139,11 @@ final class CourseService: ObservableObject {
     @Published var lastExpReward: Int = 0
     @Published var lastBuoysAdded: Bool = false
     @Published var lastAchievements: [AchievementModel] = []
+    @Published var lastMistakeCount: Int = 0
     @Published var practiceLoaded: Bool = false
+    @Published var customPracticeTopics: [String:[CustomPracticeTopicModel]] = [:]
+    @Published var customPracticeTiers: [TierModel] = []
+    @Published var choicedCustomPracticeTopics: [ChoicedTopicModel] = []
     
     private let host = "https://news-platform.ru"
     static let shared = CourseService()
@@ -162,99 +162,6 @@ final class CourseService: ObservableObject {
             
             self?.upcomingClasses.removeAll()
             self?.upcomingClasses.append(contentsOf: result.upcomingClasses)
-        }.responseString { response in
-            if let value = response.value {
-                print(value)
-            }
-        }
-    }
-    
-    func changeCountOfTasksForCustomPracticeTopic(model: ChoicedTopicModel) {
-        guard let index = choicedCustomPracticeTopics.firstIndex(where: { value in
-            value.id == model.id
-        }) else {return}
-        choicedCustomPracticeTopics[index].countOfTasks = model.countOfTasks
-    }
-    func changeDifficultyForCustomPracticeTopic(model: ChoicedTopicModel) {
-        guard let index = choicedCustomPracticeTopics.firstIndex(where: { value in
-            value.id == model.id
-        }) else {return}
-        choicedCustomPracticeTopics[index].difficulty = model.difficulty
-    }
-    
-    func choiceTopicForCustomPractice(tierId: String, index: Int) {
-        guard var data = customPracticeTopics[tierId] else {return}
-        customPracticeTopics[tierId]?.removeAll()
-        let newObject = ChoicedTopicModel(difficulty: .normal, topicModel: data[index], countOfTasks: 10)
-        choicedCustomPracticeTopics.append(newObject)
-        data.remove(at: index)
-        customPracticeTopics[tierId]?.append(contentsOf: data)
-        
-        if customPracticeTopics[tierId]?.isEmpty ?? false {
-            guard let index = customPracticeTiers.firstIndex(where: { value in
-                value.id == tierId
-            }) else {return}
-            customPracticeTiers.remove(at: index)
-        }
-    }
-    
-    func removeTopicFromTheSelected(offsets: IndexSet) {
-        let model = offsets.map { self.choicedCustomPracticeTopics[$0] }[0].topicModel
-        choicedCustomPracticeTopics.remove(atOffsets: offsets)
-        guard let data = customPracticeTopics[model.tierId] else {return}
-        guard data.first(where: { value in
-            value.id == model.id
-        }) == nil else {return}
-        customPracticeTopics[model.tierId]!.append(model)
-        
-        if customPracticeTiers.firstIndex(where: { value in
-            value.id == model.tierId
-        }) == nil {
-            if let tier = tiers.first(where: { value in value.id == model.tierId}) {
-                customPracticeTiers.append(tier)
-            }
-        }
-    }
-    
-    func getCustomPracticeTiers(completion: @escaping (Bool) -> Void) {
-        let headers: HTTPHeaders = [
-            "Accept": "application/json"
-        ]
-        
-        AF.request(host + "/api/course/tiers", method: .get, headers: headers, interceptor: APIRequestInterceptor.shared).responseDecodable(of: TiersListModel.self) { [weak self] response in
-            guard let result = response.value else {
-                return
-            }
-            
-            self?.tiers.removeAll()
-            self?.tiers.append(contentsOf: result.tiers)
-            self?.getCompletedTopics(completion: completion)
-        }
-    }
-    
-    func getCompletedTopics(completion: @escaping (Bool) -> Void) {
-        let headers: HTTPHeaders = [
-            "Accept": "application/json"
-        ]
-        
-        AF.request(host + "/api/course/topics/completed", method: .get, headers: headers, interceptor: APIRequestInterceptor.shared).responseDecodable(of: CustomPracticeTopicListModel.self) { [weak self] response in
-            guard let result = response.value else {
-                completion(false)
-                return
-            }
-            
-            self?.customPracticeTopics.removeAll()
-            self?.customPracticeTiers.removeAll()
-            for topic in result.topics {
-                if self?.customPracticeTopics[topic.tierId] == nil {
-                    self?.customPracticeTopics[topic.tierId] = []
-                    if let tier = self?.tiers.first(where: { value in value.id == topic.tierId}) {
-                        self?.customPracticeTiers.append(tier)
-                    }
-                }
-                self?.customPracticeTopics[topic.tierId]?.append(topic)
-            }
-            completion(true)
         }.responseString { response in
             if let value = response.value {
                 print(value)
@@ -289,6 +196,10 @@ final class CourseService: ObservableObject {
             
             self?.topics.removeAll()
             self?.topics.append(contentsOf: result.topics)
+        }.responseString { response in
+            if let value = response.value {
+                print(value)
+            }
         }
     }
     
@@ -404,33 +315,6 @@ final class CourseService: ObservableObject {
         }
     }
     
-    func getProblemsForCustomPractice(completion: @escaping (Bool, [ProblemModel]) -> Void) {
-        let headers: HTTPHeaders = [
-            "Accept": "application/json",
-            "Content-Type": "application/json"
-        ]
-        
-        let parameters = [
-            "topicData": getTopicProblemsDataDto()
-        ]
-        
-        AF.request(host +  "/api/course/practice/custom/problems", method: .post, parameters: parameters,  encoding: JSONEncoding.default, headers: headers, interceptor: APIRequestInterceptor.shared).responseDecodable(of: ProblemListModel.self) { response in
-            guard let result = response.value else {
-                if let error = response.error {
-                    print("RESULTS LOAD ERROR: " + error.localizedDescription)
-                    completion(false, [])
-                }
-                return
-            }
-            
-            completion(true, result.problems)
-        }.responseString { response in
-            if let value = response.value {
-                print(value)
-            }
-        }
-    }
-    
     func finishClass(classId: String, mistakeCount: Int, completion: @escaping (Bool) -> Void) {
         let headers: HTTPHeaders = [
             "Accept": "application/json",
@@ -457,6 +341,16 @@ final class CourseService: ObservableObject {
                 return AchievementModel(name: value.name, description: value.description, imageUrl: value.imageUrl, achievedAmount: 1)
             }
             self?.getUpcomingLessons()
+            CourseService.shared.getTiers()
+            
+            if let tierId = self?.currentTier?.id {
+                CourseService.shared.getTopics(tierId: tierId)
+            }
+            
+            if let topicId = self?.currentTopic?.id {
+                CourseService.shared.getClasses(topicId: topicId)
+            }
+            
             completion(true)
         }.responseString { response in
             if let value = response.value {
@@ -498,7 +392,7 @@ final class CourseService: ObservableObject {
         }
     }
     
-    func finishRandomPractice(isCustom: Bool, mistakeCount: Int, completion: @escaping (Bool) -> Void) {
+    func finishRandomPractice(mistakeCount: Int, completion: @escaping (Bool) -> Void) {
         let headers: HTTPHeaders = [
             "Accept": "application/json",
             "Content-Type": "application/json"
@@ -506,7 +400,7 @@ final class CourseService: ObservableObject {
         
         let parameters: [String: Any] = [
             "mistakeCount": mistakeCount,
-            "isCustomPractice": isCustom
+            "isCustomPractice": false
         ]
         
         AF.request(host + "/api/course/practice/finish", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers, interceptor: APIRequestInterceptor.shared).responseDecodable(of: PracticeResultModel.self) { [weak self] response in
@@ -523,6 +417,154 @@ final class CourseService: ObservableObject {
             self?.lastExpReward = result.exp
             self?.lastBuoysAdded = result.buoyAdded
             completion(true)
+        }
+    }
+    
+    func finishCustomPractice(completion: @escaping (Bool) -> Void) {
+        let headers: HTTPHeaders = [
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        ]
+        
+        let parameters: [String: Any] = [
+            "isCustomPractice": true
+        ]
+        
+        AF.request(host + "/api/course/practice/finish", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers, interceptor: APIRequestInterceptor.shared).responseDecodable(of: PracticeResultModel.self) { [weak self] response in
+            guard let result = response.value else {
+                if let error = response.error {
+                    print("RESULTS LOAD ERROR: " + error.localizedDescription)
+                    completion(false)
+                    self?.lastExpReward = 0
+                    self?.lastBuoysAdded = false
+                }
+                return
+            }
+            
+            self?.lastExpReward = result.exp
+            self?.lastBuoysAdded = result.buoyAdded
+            completion(true)
+        }
+    }
+    
+    func changeCountOfTasksForCustomPracticeTopic(model: ChoicedTopicModel) {
+        guard let index = choicedCustomPracticeTopics.firstIndex(where: { value in
+            value.id == model.id
+        }) else {return}
+        choicedCustomPracticeTopics[index].countOfTasks = model.countOfTasks
+    }
+    
+    func changeDifficultyForCustomPracticeTopic(model: ChoicedTopicModel) {
+        guard let index = choicedCustomPracticeTopics.firstIndex(where: { value in
+            value.id == model.id
+        }) else {return}
+        choicedCustomPracticeTopics[index].difficulty = model.difficulty
+    }
+    
+    func choiceTopicForCustomPractice(tierId: String, index: Int) {
+        guard var data = customPracticeTopics[tierId] else {return}
+        customPracticeTopics[tierId]?.removeAll()
+        let newObject = ChoicedTopicModel(difficulty: .normal, topicModel: data[index], countOfTasks: 10)
+        choicedCustomPracticeTopics.append(newObject)
+        data.remove(at: index)
+        customPracticeTopics[tierId]?.append(contentsOf: data)
+        
+        if customPracticeTopics[tierId]?.isEmpty ?? false {
+            guard let index = customPracticeTiers.firstIndex(where: { value in
+                value.id == tierId
+            }) else {return}
+            customPracticeTiers.remove(at: index)
+        }
+    }
+    
+    func removeTopicFromTheSelected(offsets: IndexSet) {
+        let model = offsets.map { self.choicedCustomPracticeTopics[$0] }[0].topicModel
+        choicedCustomPracticeTopics.remove(atOffsets: offsets)
+        guard let data = customPracticeTopics[model.tierId] else {return}
+        guard data.first(where: { value in
+            value.id == model.id
+        }) == nil else {return}
+        customPracticeTopics[model.tierId]!.append(model)
+        
+        if customPracticeTiers.firstIndex(where: { value in
+            value.id == model.tierId
+        }) == nil {
+            if let tier = tiers.first(where: { value in value.id == model.tierId}) {
+                customPracticeTiers.append(tier)
+            }
+        }
+    }
+    
+    func getCustomPracticeTiers(completion: @escaping (Bool) -> Void) {
+        let headers: HTTPHeaders = [
+            "Accept": "application/json"
+        ]
+        
+        AF.request(host + "/api/course/tiers", method: .get, headers: headers, interceptor: APIRequestInterceptor.shared).responseDecodable(of: TiersListModel.self) { [weak self] response in
+            guard let result = response.value else {
+                return
+            }
+            
+            self?.tiers.removeAll()
+            self?.tiers.append(contentsOf: result.tiers)
+            self?.getCompletedTopics(completion: completion)
+        }
+    }
+    
+    func getCompletedTopics(completion: @escaping (Bool) -> Void) {
+        let headers: HTTPHeaders = [
+            "Accept": "application/json"
+        ]
+        
+        AF.request(host + "/api/course/topics/completed", method: .get, headers: headers, interceptor: APIRequestInterceptor.shared).responseDecodable(of: CustomPracticeTopicListModel.self) { [weak self] response in
+            guard let result = response.value else {
+                completion(false)
+                return
+            }
+            
+            self?.customPracticeTopics.removeAll()
+            self?.customPracticeTiers.removeAll()
+            for topic in result.topics {
+                if self?.customPracticeTopics[topic.tierId] == nil {
+                    self?.customPracticeTopics[topic.tierId] = []
+                    if let tier = self?.tiers.first(where: { value in value.id == topic.tierId}) {
+                        self?.customPracticeTiers.append(tier)
+                    }
+                }
+                self?.customPracticeTopics[topic.tierId]?.append(topic)
+            }
+            completion(true)
+        }.responseString { response in
+            if let value = response.value {
+                print(value)
+            }
+        }
+    }
+    
+    func getProblemsForCustomPractice(completion: @escaping (Bool, [ProblemModel]) -> Void) {
+        let headers: HTTPHeaders = [
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        ]
+        
+        let parameters = [
+            "topicData": getTopicProblemsDataDto()
+        ]
+        
+        AF.request(host +  "/api/course/practice/custom/problems", method: .post, parameters: parameters,  encoding: JSONEncoding.default, headers: headers, interceptor: APIRequestInterceptor.shared).responseDecodable(of: ProblemListModel.self) { response in
+            guard let result = response.value else {
+                if let error = response.error {
+                    print("RESULTS LOAD ERROR: " + error.localizedDescription)
+                    completion(false, [])
+                }
+                return
+            }
+            
+            completion(true, result.problems)
+        }.responseString { response in
+            if let value = response.value {
+                print(value)
+            }
         }
     }
     

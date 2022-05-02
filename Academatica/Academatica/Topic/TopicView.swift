@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ResizableSheet
 
 struct TopicView: View {
     @StateObject var viewModel: TopicViewModel = TopicViewModel()
@@ -26,43 +27,29 @@ struct TopicView: View {
                             .init(color: viewModel.colors[2], location: 1)]),
                     startPoint: .topTrailing,
                     endPoint: .bottomLeading)
-                    .offset(y: -UIScreen.main.bounds.height / 2)
+                    .frame(maxWidth: .infinity, maxHeight: UIScreen.main.bounds.height / 2)
                     .overlay(
                         AsyncImage(
                             url: viewModel.topicModel.imageUrl,
                             transaction: Transaction(animation: .spring()))
                         { phase in
                             switch phase {
-                            case .success(let image):
-                                Rectangle()
-                                    .fill(.clear)
-                                    .scaledToFill()
-                                    .background(
-                                        image
-                                            .resizable()
-                                            .scaledToFill()
-                                    )
-                            case .failure:
-                                Rectangle()
-                                    .fill(.black.opacity(0.5))
-                                    .scaledToFill()
-                                    .background(
-                                        Image(systemName: "wifi.slash")
-                                            .resizable()
-                                            .scaledToFill()
-                                            .padding(25)
-                                            .foregroundColor(.white)
-                                    )
                             case .empty:
-                                EmptyView()
+                                Rectangle().fill(.white)
+                                    .blendMode(.overlay)
+                            case .success(let image):
+                                image
+                                    .resizable()
+                                    .scaledToFill()
+                                    .transition(.scale(scale: 0.1, anchor: .center))
+                            case .failure:
+                                Image(systemName: "wifi.slash")
                             @unknown default:
                                 EmptyView()
                             }
                         }
-                            .blendMode(.overlay)
-                            .offset(y: -UIScreen.main.bounds.height / 4.5)
-                            .frame(maxHeight: UIScreen.main.bounds.height / 1.8)
                     )
+                    .offset(y: -UIScreen.main.bounds.height / 2)
                 TopViewBackgroundBack()
                     .fill(viewModel.colors[0])
                     .offset(y: UIScreen.main.bounds.height * 0.43)

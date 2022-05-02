@@ -18,9 +18,10 @@ struct LoadLeadBoardsView: View {
                 LottieView(name: "work", loopMode: .loop)
                     .padding(UIScreen.main.bounds.height / 13)
                     .offset(y: -UIScreen.main.bounds.height / 7)
-                VStack {
+                VStack(spacing: 10) {
                     Text("Похоже, что вы не состоите в лиге!")
                     Text("Завершайте уроки, чтобы попасть в таблицу лидеров")
+                        .multilineTextAlignment(.center)
                 }
                 .offset(y: UIScreen.main.bounds.height / 15)
         }

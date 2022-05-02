@@ -11,11 +11,11 @@ import Combine
 
 struct RuntimeError: Error {
     let message: String
-    
+
     init(_ message: String) {
         self.message = message
     }
-    
+
     public var localizedDescription: String {
         return message
     }
@@ -57,29 +57,19 @@ class PracticeLoadViewModel: ObservableObject {
     init(mode: PracticeType, topicId: String?) {
         practiceType = mode
         switch mode {
-        case .recomended:
-            recommendedPracticeLoad(topicId: topicId!)
-        case .completedLessons:
-            completedTopicsPracticeLoad()
-        case .custom:
-            customPracticeLoad()
-        default:
-            break
+            case .recomended:
+                recommendedPracticeLoad(topicId: topicId!)
+            case .completedLessons:
+                completedTopicsPracticeLoad()
+            case .custom:
+                customPracticeLoad()
+            default: break
         }
         
         CourseService.shared.$practiceLoaded.sink { [weak self] newValue in
             self?.problemsSet = newValue
         }.store(in: &cancellables)
     }
-    
-//    // Для кастомной практики
-//    init(models: [CustomPracticeTupicModel]) {
-//        practiceType = .custom
-//
-//        CourseService.shared.$practiceLoaded.sink { [weak self] newValue in
-//            self?.problemsSet = newValue
-//        }.store(in: &cancellables)
-//    }
     
     // Для практики по уроку
     init(lessonID: String) {
@@ -91,6 +81,7 @@ class PracticeLoadViewModel: ObservableObject {
         
         CourseService.shared.$currentClass.sink { [weak self] newValue in
             self?.classId = newValue?.id
+            self?.expReward = newValue?.expReward ?? 100
         }.store(in: &cancellables)
         
         lessonPracticeLoad(id: lessonID)
@@ -157,7 +148,6 @@ class PracticeLoadViewModel: ObservableObject {
                 self?.practiceProblems = problems
                 self?.classId = id
                 self?.serverState = .success
-                self?.expReward = 100
                 CourseService.shared.practiceLoaded = true
             } else {
                 self?.serverState = .error

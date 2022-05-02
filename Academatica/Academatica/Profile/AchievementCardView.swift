@@ -42,7 +42,7 @@ struct AchievementCardView: View {
                                 case .success(let image):
                                     image
                                         .resizable()
-                                        .scaledToFill()
+                                        .scaledToFit()
                                         .transition(.scale(scale: 0.1, anchor: .center))
                                 case .failure:
                                     Image(systemName: "wifi.slash")

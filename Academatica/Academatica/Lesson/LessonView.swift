@@ -100,7 +100,7 @@ struct LessonView: View {
                                showSheet: $showSheet)
                     .padding(.horizontal, 20)
                     .padding(.top, UIScreen.main.bounds.height / 8 - CGFloat(viewModel.model.description.count) / 5)
-                Webview(type: .public, url: viewModel.model.theoryUrl?.absoluteString, dynamicHeight: $webViewHeight)
+                WebView(type: .public, url: viewModel.model.theoryUrl?.absoluteString, dynamicHeight: $webViewHeight)
                     .padding()
                     .frame(height: webViewHeight)
                 Text("")

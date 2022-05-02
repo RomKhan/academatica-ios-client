@@ -47,7 +47,7 @@ struct ChoicedTopicView: View {
                     startPoint: .top,
                     endPoint: .bottom))
             VStack(alignment: .leading) {
-                Text("Уровень \(CourseService.shared.customPracticeTiers.first(where: { value in viewModel.model.topicModel.tierId == value.id})?.name ?? "nan") \(viewModel.model.topicModel.isAlgebraTopic ? "Алгебра" : "Геометрия")"
+                Text("Уровень \(CourseService.shared.tiers.first(where: { value in viewModel.model.topicModel.tierId == value.id})?.name ?? "nan") \(viewModel.model.topicModel.isAlgebraTopic ? "Алгебра" : "Геометрия")"
                 )
                     .font(.system(size: UIScreen.main.bounds.height / 67, weight: .bold))
                     .textCase(.uppercase)
