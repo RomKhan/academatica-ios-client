@@ -19,49 +19,39 @@ struct LessonView: View {
     var body: some View {
         ZStack(alignment: .bottom) {
             Group {
-                LinearGradient(
-                    gradient: Gradient(
-                        stops: [
-                            .init(color: viewModel.colors[1], location: 0.4),
-                            .init(color: viewModel.colors[2], location: 1)]),
-                    startPoint: .topTrailing,
-                    endPoint: .bottomLeading)
-                    .offset(y: -UIScreen.main.bounds.height / 2)
-                    .overlay(
-                        AsyncImage(
-                            url: viewModel.model.imageUrl,
-                            transaction: Transaction(animation: .spring()))
-                        { phase in
-                            switch phase {
-                            case .success(let image):
-                                Rectangle()
-                                    .fill(.clear)
+                AsyncImage(
+                    url: viewModel.model?.imageUrl,
+                    transaction: Transaction(animation: .spring()))
+                { phase in
+                    switch phase {
+                    case .success(let image):
+                        Rectangle()
+                            .fill(.clear)
+                            .scaledToFill()
+                            .background(
+                                image
+                                    .resizable()
                                     .scaledToFill()
-                                    .background(
-                                        image
-                                            .resizable()
-                                            .scaledToFill()
-                                    )
-                            case .failure:
-                                Rectangle()
-                                    .fill(.black.opacity(0.5))
+                            )
+                    case .failure:
+                        Rectangle()
+                            .fill(.black.opacity(0.5))
+                            .scaledToFill()
+                            .background(
+                                Image(systemName: "wifi.slash")
+                                    .resizable()
                                     .scaledToFill()
-                                    .background(
-                                        Image(systemName: "wifi.slash")
-                                            .resizable()
-                                            .scaledToFill()
-                                            .padding(25)
-                                            .foregroundColor(.white)
-                                    )
-                            case .empty:
-                                EmptyView()
-                            @unknown default:
-                                EmptyView()
-                            }
-                        }
-                            .offset(y: -UIScreen.main.bounds.height / 4.5)
-                            .frame(maxHeight: UIScreen.main.bounds.height / 1.8)
-                    )
+                                    .padding(25)
+                                    .foregroundColor(.white)
+                            )
+                    case .empty:
+                        EmptyView()
+                    @unknown default:
+                        EmptyView()
+                    }
+                }
+                .offset(y: -UIScreen.main.bounds.height / 4.5)
+                .frame(maxHeight: UIScreen.main.bounds.height / 1.8)
                 TopViewBackgroundBack()
                     .fill(viewModel.colors[0])
                     .offset(y: UIScreen.main.bounds.height * 0.43)
@@ -72,6 +62,7 @@ struct LessonView: View {
             .animation(.easeOut, value: heightOfset)
             .offset(y: -heightOfset)
             .ignoresSafeArea()
+            
             
             TrackableScrollView(showIndicators: false, contentOffset: $heightOfset) {
                 HStack {
@@ -99,11 +90,11 @@ struct LessonView: View {
                                practiceShow: $practiceShow,
                                showSheet: $showSheet)
                     .padding(.horizontal, 20)
-                    .padding(.top, UIScreen.main.bounds.height / 8 - CGFloat(viewModel.model.description.count) / 5)
-                WebView(type: .public, url: viewModel.model.theoryUrl?.absoluteString, dynamicHeight: $webViewHeight)
+                    .padding(.top, UIScreen.main.bounds.height / 8 - CGFloat(viewModel.model?.description.count ?? 0) / 5)
+                WebView(type: .public, url: viewModel.model?.theoryUrl?.absoluteString, dynamicHeight: $webViewHeight)
                     .padding()
+                    .background(.white)
                     .frame(height: webViewHeight)
-                Text("")
             }
             .onChange(of: heightOfset) { newValue in
                 practiceActive = true
@@ -116,16 +107,22 @@ struct LessonView: View {
                 }
                 .offset(y: -UIScreen.main.bounds.height / 6 - heightOfset)
             }
-            PracticeLoadView(viewModel: PracticeLoadViewModel(lessonID: viewModel.classId), showPractice: $practiceShow)
-                .offset(y: practiceShow ? 0 : UIScreen.main.bounds.height * 1.5)
-                .animation(.spring(), value: practiceShow)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment:  .bottom)
-        .background(.white)
-        .onAppear() {
-            if let currentClass = CourseService.shared.currentClass {
-                viewModel.model = currentClass
-            }
+        .background(
+            LinearGradient(gradient: Gradient(
+                stops: [
+                    .init(color: viewModel.colors[1], location: 0),
+                    .init(color: viewModel.colors[2], location: heightOfset > UIScreen.main.bounds.height / 2 ? 0.2 : 0.6),
+                    .init(color: .white, location: heightOfset > UIScreen.main.bounds.height / 2 ? 0.2 : 1.5)
+                ]),
+                           startPoint: .topTrailing,
+                           endPoint: .bottomLeading)
+        )
+        .fullScreenCover(isPresented: $practiceShow) {
+            PracticeLoadView(viewModel: PracticeLoadViewModel(lessonID: viewModel.classId), showPractice: .constant(true))
+            //                .offset(y: practiceShow ? 0 : UIScreen.main.bounds.height * 1.5)
+                .animation(.spring(), value: practiceShow)
         }
     }
 }

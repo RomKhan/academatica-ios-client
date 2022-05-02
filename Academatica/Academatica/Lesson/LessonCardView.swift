@@ -66,7 +66,6 @@ struct LessonCardView: View {
                     .lineLimit(15)
                 Button {
                     practiceShow.toggle()
-                    CourseService.shared.currentClass = CourseService.shared.currentClass
                 } label: {
                     Text("Начать практику")
                         .font(.system(size: height / 52, weight: .bold))
@@ -90,11 +89,6 @@ struct LessonCardView: View {
             .padding(.vertical, height / 60)
             .background(.ultraThinMaterial)
             .cornerRadius(height / 32)
-            .onAppear() {
-                if let currentClass = CourseService.shared.currentClass {
-                    viewModel.model = currentClass
-                }
-            }
         }
     }
 }

@@ -6,13 +6,20 @@
 //
 
 import SwiftUI
+import Combine
 
 class TopicCardViewModel: ObservableObject {
     let gradient: Gradient = ColorService.getRandomGradient()
     
-    var topicModel: TopicModel
+    @Published var topicModel: TopicModel?
     
-    init(topicModel: TopicModel) {
-        self.topicModel = topicModel
+    private var cancellables = Set<AnyCancellable>();
+    
+    init(topicId: String) {
+        CourseService.shared.$topics.sink { [weak self] newValue in
+            self?.topicModel = newValue.first(where: { value in
+                value.id == topicId
+            })
+        }.store(in: &cancellables)
     }
 }

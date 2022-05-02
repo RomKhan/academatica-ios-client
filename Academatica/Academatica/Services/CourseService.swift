@@ -196,6 +196,9 @@ final class CourseService: ObservableObject {
             
             self?.topics.removeAll()
             self?.topics.append(contentsOf: result.topics)
+            self?.currentTopic = self?.topics.first(where: { topic in
+                topic.id == self?.currentTopic?.id
+            })
         }.responseString { response in
             if let value = response.value {
                 print(value)

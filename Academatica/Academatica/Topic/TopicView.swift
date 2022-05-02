@@ -35,15 +35,14 @@ struct TopicView: View {
                         { phase in
                             switch phase {
                             case .empty:
-                                Rectangle().fill(.white)
-                                    .blendMode(.overlay)
+                                EmptyView()
                             case .success(let image):
                                 image
                                     .resizable()
                                     .scaledToFill()
-                                    .transition(.scale(scale: 0.1, anchor: .center))
+                                    .transition(.opacity)
                             case .failure:
-                                Image(systemName: "wifi.slash")
+                                EmptyView()
                             @unknown default:
                                 EmptyView()
                             }
@@ -176,13 +175,15 @@ struct TopicView: View {
                 Text("")
                     .frame(height: 30)
             }
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment:  .bottom)
+        .fullScreenCover(isPresented: $showSheet) {
             LessonView(viewModel: LessonViewModel(
                         topicName: viewModel.topicModel.name),
                     showSheet: $showSheet)
-                .offset(y: showSheet ? 0 : UIScreen.main.bounds.height * 1.5)
+//                .offset(y: showSheet ? 0 : UIScreen.main.bounds.height * 1.5)
                 .animation(.spring(), value: showSheet)
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment:  .bottom)
         .matchedGeometryEffect(id: viewModel.topicModel.id, in: namespace)
         .onAppear() {
             if let currentTopic = CourseService.shared.currentTopic {

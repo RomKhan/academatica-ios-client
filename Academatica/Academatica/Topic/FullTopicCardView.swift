@@ -24,7 +24,7 @@ struct FullTopicCardView: View {
                 .font(.system(size: height / 58))
                 .foregroundColor(Color(uiColor: UIColor(red: 89 / 255.0, green: 89 / 255.0, blue: 89 / 255.0, alpha: 1)))
                 .lineLimit(15)
-            ProgressBarView(viewModel: ProgressBarViewModel(percentages: CGFloat(viewModel.topicModel.completionRate) / 100))
+            ProgressBarView(viewModel: ProgressBarViewModel(.topic))
                 .padding(.vertical, 10)
             Text("\(viewModel.topicModel.completionRate)% завершено")
                 .font(.system(size: height / 58))

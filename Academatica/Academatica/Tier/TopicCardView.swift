@@ -18,7 +18,7 @@ struct TopicCardView: View {
                 .fill(LinearGradient(gradient: viewModel.gradient, startPoint: .topTrailing, endPoint: .bottomLeading))
                 .overlay(
                     AsyncImage(
-                        url: viewModel.topicModel.imageUrl,
+                        url: viewModel.topicModel?.imageUrl,
                         transaction: Transaction(animation: .spring()))
                     { phase in
                         switch phase {
@@ -53,9 +53,9 @@ struct TopicCardView: View {
                 )
             
             VStack(alignment: .leading, spacing: 13) {
-                Text(viewModel.topicModel.name)
+                Text(viewModel.topicModel?.name ?? "")
                     .font(.system(size: 18, weight: .bold))
-                Text("\(viewModel.topicModel.classCount) уроков".uppercased())
+                Text("\(viewModel.topicModel?.classCount ?? 0) уроков".uppercased())
                     .font(.system(size: 12, weight: .bold))
                     .blendMode(.overlay)
             }
@@ -64,17 +64,17 @@ struct TopicCardView: View {
             .foregroundColor(.white)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .overlay(Color.black.opacity(viewModel.topicModel.isUnlocked ? 0 : 0.5))
+        .overlay(Color.black.opacity(viewModel.topicModel?.isUnlocked ?? true ? 0 : 0.5))
         .overlay(
             Image("locked")
                 .resizable()
                 .frame(width: 64, height: 64, alignment: .center)
-                .opacity(viewModel.topicModel.isUnlocked ? 0 : 1)
+                .opacity(viewModel.topicModel?.isUnlocked ?? true ? 0 : 1)
         )
         .cornerRadius(25)
-        .matchedGeometryEffect(id: viewModel.topicModel.id, in: namespace)
+        .matchedGeometryEffect(id: viewModel.topicModel?.id, in: namespace)
         .onTapGesture {
-            if viewModel.topicModel.isUnlocked {
+            if viewModel.topicModel != nil && viewModel.topicModel!.isUnlocked {
                 withAnimation(.spring(response: 0.6, dampingFraction: 0.8)) {
                     CourseService.shared.currentTopic = viewModel.topicModel
                     show.toggle()
@@ -88,9 +88,7 @@ struct TopicCardModel_Previews: PreviewProvider {
     @Namespace static var namespace
     static var previews: some View {
         TopicCardView(
-            viewModel: TopicCardViewModel(
-                topicModel:
-                    TopicModel(id: "0", name: "Topic", description: "Desc", isAlgebraTopic: true, imageUrl: URL(string: "https://img.freepik.com/free-vector/abstract-design-background-with-dots_23-2148497515.jpg?w=2000&t=st=1651399077~exp=1651399677~hmac=8e8e21a354374d5f0dba851fb62198e06f4fbe0d5fe415ff6cb6f14ea5057206"), isComplete: false, isUnlocked: true, completionRate: 0, classCount: 2)),
+            viewModel: TopicCardViewModel(topicId: ""),
             show: .constant(true),
             namespace: namespace
         )

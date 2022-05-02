@@ -56,6 +56,7 @@ class PracticeLoadViewModel: ObservableObject {
     // Для практики по завершенным и рекомендованной.
     init(mode: PracticeType, topicId: String?) {
         practiceType = mode
+        CourseService.shared.lastMistakeCount = 0
         switch mode {
             case .recomended:
                 recommendedPracticeLoad(topicId: topicId!)
@@ -74,7 +75,7 @@ class PracticeLoadViewModel: ObservableObject {
     // Для практики по уроку
     init(lessonID: String) {
         practiceType = .lesson
-        
+        CourseService.shared.lastMistakeCount = 0
         CourseService.shared.$practiceLoaded.sink { [weak self] newValue in
             self?.problemsSet = newValue
         }.store(in: &cancellables)

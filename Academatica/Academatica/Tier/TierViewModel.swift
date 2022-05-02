@@ -44,6 +44,8 @@ class TierViewModel: ObservableObject {
             return
         }
         
+        topicModels = []
+        CourseService.shared.currentTier = tierCardModels[selectedTierIndex]
         CourseService.shared.getTopics(tierId: tierCardModels[selectedTierIndex].id)
     }
 }

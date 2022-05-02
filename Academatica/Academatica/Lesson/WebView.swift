@@ -29,7 +29,7 @@ struct WebView: UIViewRepresentable {
                     webView.evaluateJavaScript("document.documentElement.scrollHeight", completionHandler: { (height, error) in
                         if height != nil {
                             DispatchQueue.main.async {
-                                self.parent.dynamicHeight = height as! CGFloat
+                                self.parent.dynamicHeight = height as! CGFloat + 15
                             }
                         }
                     })
