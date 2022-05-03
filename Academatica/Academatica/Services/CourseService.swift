@@ -144,6 +144,7 @@ final class CourseService: ObservableObject {
     @Published var customPracticeTopics: [String:[CustomPracticeTopicModel]] = [:]
     @Published var customPracticeTiers: [TierModel] = []
     @Published var choicedCustomPracticeTopics: [ChoicedTopicModel] = []
+    @Published var upcomingClassesLoaded = false
     
     private let host = "https://news-platform.ru"
     static let shared = CourseService()
@@ -154,7 +155,7 @@ final class CourseService: ObservableObject {
         let headers: HTTPHeaders = [
             "Accept": "application/json"
         ]
-        
+        upcomingClassesLoaded = false
         AF.request(host + "/api/course/classes/upcoming", method: .get, headers: headers, interceptor: APIRequestInterceptor.shared).responseDecodable(of: UpcomingClassListModel.self) { [weak self] response in
             guard let result = response.value else {
                 return
@@ -162,6 +163,7 @@ final class CourseService: ObservableObject {
             
             self?.upcomingClasses.removeAll()
             self?.upcomingClasses.append(contentsOf: result.upcomingClasses)
+            self?.upcomingClassesLoaded = true
         }.responseString { response in
             if let value = response.value {
                 print(value)

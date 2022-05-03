@@ -110,15 +110,46 @@ struct HomeView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .animation(.easeOut, value: viewModel.userModel?.firstName)
                 .transition(.opacity)
-                    
+                
                 Text("Предстоящие занятия")
                     .bold()
                     .padding(.top, UIScreen.main.bounds.size.height / 25)
                     .padding(.horizontal, 20)
                     .font(.system(size: 13))
                     .textCase(.uppercase).foregroundColor(.white)
-                HomeCardStackView(showClass: $showClass).padding(.horizontal, 20).frame(maxWidth: .infinity).frame(height: 160).onAppear {
-                    CourseService.shared.getUpcomingLessons()
+                if (viewModel.cardStackStateIsLoaded && CourseService.shared.upcomingClasses.isEmpty) {
+                    HStack(spacing: 20) {
+                        Image("sad-face-in-rounded-square")
+                            .resizable()
+                            .scaledToFit()
+                            .padding(.vertical, UIScreen.main.bounds.height / 20)
+                            .padding(.leading, UIScreen.main.bounds.height / 20)
+                            .blendMode(.overlay)
+                        Text("Больше нет доступных уроков 🤷")
+                            .font(.system(size: UIScreen.main.bounds.height / 60))
+                            .multilineTextAlignment(.center)
+                            .blendMode(.overlay)
+                            .padding(.trailing, UIScreen.main.bounds.height / 20)
+                    }
+                    .transition(AnyTransition.opacity.animation(.easeIn(duration: 0.3)))
+                    .background(
+                        LinearGradient(
+                            gradient: ColorService.gradients[3],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing)
+                            .opacity(0.4)
+                    )
+                    .background(.ultraThinMaterial)
+                    .cornerRadius(UIScreen.main.bounds.height / 30)
+                    .padding(.horizontal, 20)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 180)
+                    .shadow(color: .black.opacity(0.3), radius: 20, x: 0, y: 0)
+                    .padding(.bottom, -20)
+                    .offset(y: 10)
+                } else {
+                    HomeCardStackView(showClass: $showClass).padding(.horizontal, 20).frame(maxWidth: .infinity).frame(height: 160)
+                        .transition(AnyTransition.opacity.animation(.easeInOut(duration: 0.3)))
                 }
                 Text("Практика")
                     .textCase(.uppercase)
@@ -186,17 +217,17 @@ struct HomeView: View {
             }
         }
         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
-            .navigationBarHidden(true)
-            .detentSheet(isPresented: $state, preferredCornerRadius: 40, detents: practiceType == .custom ? [.medium(), .large()] : [.medium()], allowsDismissalGesture: true) {
-                HalfPracticeSheet(viewModel: HalfPracticeSheetModel(), practiceShow: $viewModel.practiceShow, sheetMode: $state, mode: $practiceType, showConstructor: $showConstructor)
-            }
-            .sheet(isPresented: $showConstructor) {
-                CustomPracticeSheetView(showConstructor: $showConstructor, practiceShow: $viewModel.practiceShow)
-            }
-            .ignoresSafeArea()
-            .onAppear {
-                viewModel.updateData()
-            }
+        .navigationBarHidden(true)
+        .detentSheet(isPresented: $state, preferredCornerRadius: 40, detents: practiceType == .custom ? [.medium(), .large()] : [.medium()], allowsDismissalGesture: true) {
+            HalfPracticeSheet(viewModel: HalfPracticeSheetModel(), practiceShow: $viewModel.practiceShow, sheetMode: $state, mode: $practiceType, showConstructor: $showConstructor)
+        }
+        .sheet(isPresented: $showConstructor) {
+            CustomPracticeSheetView(showConstructor: $showConstructor, practiceShow: $viewModel.practiceShow)
+        }
+        .ignoresSafeArea()
+        .onAppear {
+            viewModel.updateData()
+        }
     }
 }
 

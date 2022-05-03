@@ -19,39 +19,32 @@ struct LessonView: View {
     var body: some View {
         ZStack(alignment: .bottom) {
             Group {
-                AsyncImage(
-                    url: viewModel.model?.imageUrl,
-                    transaction: Transaction(animation: .spring()))
-                { phase in
-                    switch phase {
-                    case .success(let image):
-                        Rectangle()
-                            .fill(.clear)
-                            .scaledToFill()
-                            .background(
-                                image
-                                    .resizable()
-                                    .scaledToFill()
-                            )
-                    case .failure:
-                        Rectangle()
-                            .fill(.black.opacity(0.5))
-                            .scaledToFill()
-                            .background(
-                                Image(systemName: "wifi.slash")
-                                    .resizable()
-                                    .scaledToFill()
-                                    .padding(25)
-                                    .foregroundColor(.white)
-                            )
-                    case .empty:
-                        EmptyView()
-                    @unknown default:
-                        EmptyView()
+                Rectangle().fill(.clear).overlay(
+                    AsyncImage(
+                        url: viewModel.model?.imageUrl,
+                        transaction: Transaction(animation: .spring()))
+                    { phase in
+                        switch phase {
+                        case .success(let image):
+                            Rectangle()
+                                .fill(.clear)
+                                .scaledToFill()
+                                .background(
+                                    image
+                                        .resizable()
+                                        .scaledToFill()
+                                )
+                        case .failure:
+                            EmptyView()
+                        case .empty:
+                            EmptyView()
+                        @unknown default:
+                            EmptyView()
+                        }
                     }
-                }
-                .offset(y: -UIScreen.main.bounds.height / 4.5)
-                .frame(maxHeight: UIScreen.main.bounds.height / 1.8)
+                    .offset(y: -UIScreen.main.bounds.height / 4.5)
+                    .frame(maxHeight: UIScreen.main.bounds.height / 1.8)
+                )
                 TopViewBackgroundBack()
                     .fill(viewModel.colors[0])
                     .offset(y: UIScreen.main.bounds.height * 0.43)
@@ -95,6 +88,7 @@ struct LessonView: View {
                     .padding()
                     .background(.white)
                     .frame(height: webViewHeight)
+                    .offset(y: webViewHeight < 20 ? 100: 0)
             }
             .onChange(of: heightOfset) { newValue in
                 practiceActive = true
@@ -113,8 +107,8 @@ struct LessonView: View {
             LinearGradient(gradient: Gradient(
                 stops: [
                     .init(color: viewModel.colors[1], location: 0),
-                    .init(color: viewModel.colors[2], location: heightOfset > UIScreen.main.bounds.height / 2 ? 0.2 : 0.6),
-                    .init(color: .white, location: heightOfset > UIScreen.main.bounds.height / 2 ? 0.2 : 1.5)
+                    .init(color: viewModel.colors[2], location: heightOfset > UIScreen.main.bounds.height / 2.5 ? 0.2 : 0.6),
+                    .init(color: .white, location: heightOfset > UIScreen.main.bounds.height / 2.5 ? 0.2 : 1.5)
                 ]),
                            startPoint: .topTrailing,
                            endPoint: .bottomLeading)

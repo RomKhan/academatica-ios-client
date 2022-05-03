@@ -66,6 +66,7 @@ class HomeViewModel: ObservableObject {
     @Published var practicesUnlocked: Bool = false
     @Published var showPracticeNavigationLink: Bool = false
     @Published var practiceShow: Bool = false
+    @Published var cardStackStateIsLoaded = false
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -73,6 +74,11 @@ class HomeViewModel: ObservableObject {
         UserService.shared.$userModel.sink { [weak self] newValue in
             self?.userModel = newValue
         }.store(in: &cancellables)
+        
+        CourseService.shared.$upcomingClassesLoaded.sink { [weak self] newValue in
+            self?.cardStackStateIsLoaded = newValue
+        }.store(in: &cancellables)
+    
         
         UserStateService.shared.$userState.sink { [weak self] newValue in
             self?.userState = newValue
@@ -102,5 +108,6 @@ class HomeViewModel: ObservableObject {
         UserStateService.shared.updateUserState()
         CourseService.shared.getRecommendedPracticeTopic()
         CourseService.shared.getCompletedTopicsCount()
+        CourseService.shared.getUpcomingLessons()
     }
 }

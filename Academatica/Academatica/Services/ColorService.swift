@@ -60,7 +60,7 @@ final class ColorService {
         }
     }
     
-    private static let gradients = [
+    static let gradients = [
         Gradient(stops: [
             .init(color: Color(uiColor: UIColor(red: 162 / 255.0, green: 65 / 255.0, blue: 238 / 255.0, alpha: 1)), location: 0),
             .init(color: Color(uiColor: UIColor(red: 245 / 255.0, green: 173 / 255.0, blue: 89 / 255.0, alpha: 1)), location: 1)
