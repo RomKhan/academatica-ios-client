@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 enum UserDefaultsKeys: String {
     case notifications
@@ -28,8 +29,17 @@ class GeneralSettingsViewModel: ObservableObject {
         }
     }
     
+    @Published var userModel: UserModel?
+    
+    private var cancellables = Set<AnyCancellable>()
+    
     init() {
         toggle = UserDefaults.standard.bool(forKey: UserDefaultsKeys.notifications.rawValue)
+        UserService.shared.$userModel.sink { [weak self] newValue in
+            if let newValue = newValue {
+                self?.userModel = newValue
+            }
+        }.store(in: &cancellables)
     }
     
     func logOut() {

@@ -48,7 +48,7 @@ struct AccountSettingsView: View {
                     showImagePicker.toggle()
                 } label: {
                     AsyncImage(
-                        url: UserService.shared.userModel?.profilePicUrl,
+                        url: viewModel.userModel?.profilePicUrl,
                         transaction: Transaction(animation: .spring()))
                     { phase in
                         switch phase {
@@ -89,12 +89,12 @@ struct AccountSettingsView: View {
                     .cornerRadius(15)
                 }
                 Spacer()
-                if (UserService.shared.userModel?.firstName == nil || UserService.shared.userModel?.lastName == nil) {
+                if (viewModel.userModel?.firstName == nil || viewModel.userModel?.lastName == nil) {
                     RoundedRectangle(cornerRadius: 10).fill(.white.opacity(0.5))
                         .blendMode(.overlay)
                         .frame(width: UIScreen.main.bounds.size.width / 2, height: UIScreen.main.bounds.width / 15)
                 } else {
-                    Text("\(UserService.shared.userModel!.firstName) \(UserService.shared.userModel!.lastName)")
+                    Text("\(viewModel.userModel!.firstName) \(viewModel.userModel!.lastName)")
                         .font(.system(size: UIScreen.main.bounds.width / 15, weight: .bold))
                         .foregroundColor(.white)
                         .lineLimit(1)
@@ -102,12 +102,12 @@ struct AccountSettingsView: View {
                 Spacer()
                     .frame(maxHeight: 10)
                 
-                if (UserService.shared.userModel?.username == nil) {
+                if (viewModel.userModel?.username == nil) {
                     RoundedRectangle(cornerRadius: 10).fill(.white.opacity(0.5))
                         .blendMode(.overlay)
                         .frame(width: UIScreen.main.bounds.size.width / 2.7, height: UIScreen.main.bounds.width / 21)
                 } else {
-                    Text("@\(UserService.shared.userModel!.username)")
+                    Text("@\(viewModel.userModel!.username)")
                         .font(.system(size: UIScreen.main.bounds.width / 22))
                         .foregroundColor(.white)
                         .blendMode(.overlay)

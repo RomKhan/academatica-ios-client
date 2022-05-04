@@ -53,7 +53,7 @@ class LeadBoardsViewModel: ObservableObject {
                             return user.id
                         }
                         
-                        if !ids!.contains(entry.id) {
+                        if !(ids?.contains(entry.id) ?? true) {
                             self?.leadboardUsers.append(entry)
                         }
                     }

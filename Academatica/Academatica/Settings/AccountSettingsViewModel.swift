@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 struct DisclosureRow: Identifiable {
     let id: Int
@@ -40,6 +41,8 @@ class AccountSettingsViewModel: ObservableObject {
         Color(uiColor: UIColor(red: 81 / 255.0, green: 132 / 255.0, blue: 209 / 255.0, alpha: 1))
     ]
     
+    @Published var userModel: UserModel?
+    
     let disclosureRows = [
         DisclosureRow(id: 0, title: "Персональные данные", icon: "person.fill", subRows: [
             DataSettingsRow(title: "Имя", isLast: false, settingsMode: .firstnameChange),
@@ -51,6 +54,16 @@ class AccountSettingsViewModel: ObservableObject {
             DataSettingsRow(title: "Почта", isLast: true, settingsMode: .codeConfirm)
         ])
     ]
+    
+    private var cancellables = Set<AnyCancellable>()
+    
+    init() {
+        UserService.shared.$userModel.sink { [weak self] newValue in
+            if let newValue = newValue {
+                self?.userModel = newValue
+            }
+        }.store(in: &cancellables)
+    }
     
     func patchPicture(image: UIImage) {
         serverStatus = .loading

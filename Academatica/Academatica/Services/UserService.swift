@@ -392,7 +392,7 @@ final class UserService: ObservableObject {
                 completion(false, nil)
                 return
             }
-            
+
             completion(result.success, result.error)
         }
     }
@@ -446,13 +446,12 @@ final class UserService: ObservableObject {
             "username": newUsername
         ]
         
-        AF.request(host + "/api/users/" + userId + "/username", method: .patch, parameters: parameters, encoding: JSONEncoding.default, headers: headersInfo, interceptor: APIRequestInterceptor.shared).response { [weak self] response in
+        AF.request(host + "/api/users/" + userId + "/username", method: .patch, parameters: parameters, encoding: JSONEncoding.default, headers: headersInfo, interceptor: APIRequestInterceptor.shared).response { response in
             if let error = response.error {
                 print(String(describing: error))
                 completion(false)
             } else {
                 completion(true)
-                self?.userSetup()
             }
         }
     }

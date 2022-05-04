@@ -147,7 +147,7 @@ struct HomeView: View {
                     .shadow(color: .black.opacity(0.3), radius: 20, x: 0, y: 0)
                     .padding(.bottom, -20)
                     .offset(y: 10)
-                } else {
+                } else if (!CourseService.shared.practiceLoaded) {
                     HomeCardStackView(showClass: $showClass).padding(.horizontal, 20).frame(maxWidth: .infinity).frame(height: 160)
                         .transition(AnyTransition.opacity.animation(.easeInOut(duration: 0.3)))
                 }

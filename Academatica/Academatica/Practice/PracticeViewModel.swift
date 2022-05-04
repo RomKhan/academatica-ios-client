@@ -37,7 +37,7 @@ class PracticeViewModel: ObservableObject {
         } else if (isCorrect == true && selected < problems.count + 2 &&
                    (UserStateService.shared.userState?.buoysLeft ?? 0 > 0 || practiceType != .lesson)) {
             selected += 1
-        } else if (isCorrect == false && selected < problems.count && (UserStateService.shared.userState?.buoysLeft ?? 0 > 0 || practiceType != .lesson)) {
+        } else if (isCorrect == false && selected < problems.count && (UserStateService.shared.userState?.buoysLeft ?? 1 > 1 || practiceType != .lesson)) {
             let currentProblem = problems[selected]
             problems.append(currentProblem)
             if practiceType == .lesson {
@@ -62,7 +62,6 @@ class PracticeViewModel: ObservableObject {
                     }
                 }
                 badExitShow = true
-                CourseService.shared.practiceLoaded = false
             }
         }
     }

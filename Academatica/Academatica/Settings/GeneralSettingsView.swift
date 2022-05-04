@@ -60,7 +60,7 @@ struct GeneralSettingsView: View {
                 } label: {
                     HStack(spacing: 0) {
                         AsyncImage(
-                            url: UserService.shared.userModel?.profilePicUrl,
+                            url: viewModel.userModel?.profilePicUrl,
                             transaction: Transaction(animation: .spring()))
                         { phase in
                             switch phase {
@@ -101,17 +101,17 @@ struct GeneralSettingsView: View {
                         .cornerRadius(15)
                         
                         VStack(alignment: .leading, spacing: 2) {
-                            if (UserService.shared.userModel?.firstName == nil || UserService.shared.userModel?.lastName == nil) {
+                            if (viewModel.userModel?.firstName == nil || viewModel.userModel?.lastName == nil) {
                                 RoundedRectangle(cornerRadius: 10).fill(.black.opacity(0.5))
                                     .blendMode(.overlay)
                                     .frame(width: UIScreen.main.bounds.size.width / 2.7, height: UIScreen.main.bounds.width / 20)
                             } else {
-                                Text("\(UserService.shared.userModel!.firstName) \(UserService.shared.userModel!.lastName)")
+                                Text("\(viewModel.userModel!.firstName) \(viewModel.userModel!.lastName)")
                                     .font(.system(size: UIScreen.main.bounds.width / 20.8, weight: .bold))
                                     .lineLimit(1)
                             }
                             Spacer()
-                            Text("\(UserService.shared.userModel?.firstName ?? "...........") \(UserService.shared.userModel?.lastName ?? "..........")")
+                            Text("\(viewModel.userModel?.firstName ?? "...........") \(viewModel.userModel?.lastName ?? "..........")")
                                 .font(.system(size: UIScreen.main.bounds.width / 20.8, weight: .bold))
                                 .lineLimit(1)
                                 .foregroundColor(.clear)
@@ -120,20 +120,20 @@ struct GeneralSettingsView: View {
                                 .background(viewModel.colors[4])
                                 .cornerRadius(2)
                                 .offset(y: -8)
-                            if (UserService.shared.userModel?.email == nil) {
+                            if (viewModel.userModel?.email == nil) {
                                 RoundedRectangle(cornerRadius: 10).fill(.black.opacity(0.5))
                                     .blendMode(.overlay)
                                     .frame(width: UIScreen.main.bounds.size.width / 2.7, height: UIScreen.main.bounds.width / 31)
                             } else {
-                            Text("\(UserService.shared.userModel!.email)")
+                            Text("\(viewModel.userModel!.email)")
                                 .font(.system(size: UIScreen.main.bounds.width / 31.25, weight: .thin))
                             }
-                            if (UserService.shared.userModel?.username == nil) {
+                            if (viewModel.userModel?.username == nil) {
                                 RoundedRectangle(cornerRadius: 10).fill(.black.opacity(0.5))
                                     .blendMode(.overlay)
                                     .frame(width: UIScreen.main.bounds.size.width / 2.7, height: UIScreen.main.bounds.width / 31)
                             } else {
-                                Text("@\(UserService.shared.userModel!.username)")
+                                Text("@\(viewModel.userModel!.username)")
                                     .font(.system(size: UIScreen.main.bounds.width / 31.25, weight: .thin))
                             }
                         }

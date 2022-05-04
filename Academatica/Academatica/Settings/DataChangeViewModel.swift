@@ -125,6 +125,7 @@ class DataChangeViewModel: ObservableObject {
         UserService.shared.changeFirstName(newFirstName: text) { [weak self] success in
             if success {
                 self?.serverState = .success
+                UserService.shared.userSetup()
             } else {
                 self?.serverState = .error
                 self?.errorMessage = "Что-то пошло не так"
@@ -139,6 +140,7 @@ class DataChangeViewModel: ObservableObject {
         UserService.shared.changeLastName(newLastName: text) { [weak self] success in
             if success {
                 self?.serverState = .success
+                UserService.shared.userSetup()
             } else {
                 self?.serverState = .error
                 self?.errorMessage = "Что-то пошло не так"
@@ -153,6 +155,7 @@ class DataChangeViewModel: ObservableObject {
         UserService.shared.changeUsername(newUsername: text) { [weak self] success in
             if success {
                 self?.serverState = .success
+                UserService.shared.userSetup()
             } else {
                 self?.serverState = .error
                 self?.errorMessage = "Что-то пошло не так"
