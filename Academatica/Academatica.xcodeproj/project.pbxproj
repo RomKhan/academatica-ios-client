@@ -83,7 +83,6 @@
 		866E249627DA76CF00EFDB23 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 866E249527DA76CF00EFDB23 /* KeychainService.swift */; };
 		866E249A27DB992E00EFDB23 /* UserStateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 866E249927DB992E00EFDB23 /* UserStateService.swift */; };
 		86A653BB27DD85CB00304FC6 /* error.json in Resources */ = {isa = PBXBuildFile; fileRef = 86A653B427DD85CB00304FC6 /* error.json */; };
-		86A653BC27DD85CB00304FC6 /* loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 86A653B527DD85CB00304FC6 /* loading.json */; };
 		86A653BD27DD85CB00304FC6 /* minus.json in Resources */ = {isa = PBXBuildFile; fileRef = 86A653B627DD85CB00304FC6 /* minus.json */; };
 		86A653BE27DD85CB00304FC6 /* success.json in Resources */ = {isa = PBXBuildFile; fileRef = 86A653B727DD85CB00304FC6 /* success.json */; };
 		86A653BF27DD85CB00304FC6 /* losePractice.json in Resources */ = {isa = PBXBuildFile; fileRef = 86A653B827DD85CB00304FC6 /* losePractice.json */; };
@@ -118,6 +117,7 @@
 		86A6541427DE3A9900304FC6 /* AchievementCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A6540D27DE3A9900304FC6 /* AchievementCardView.swift */; };
 		86A6541527DE3A9900304FC6 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A6540E27DE3A9900304FC6 /* ProfileViewModel.swift */; };
 		86A6541627DE3A9900304FC6 /* CircleProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A6540F27DE3A9900304FC6 /* CircleProgressBar.swift */; };
+		86E3DD122824608B00CCAB3B /* loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 86E3DD112824608B00CCAB3B /* loading.json */; };
 		A76D4E6F895C080755C07B1D /* Pods_Academatica.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEE7876904D1EA6C81EBC8C3 /* Pods_Academatica.framework */; };
 /* End PBXBuildFile section */
 
@@ -200,7 +200,6 @@
 		866E249527DA76CF00EFDB23 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
 		866E249927DB992E00EFDB23 /* UserStateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStateService.swift; sourceTree = "<group>"; };
 		86A653B427DD85CB00304FC6 /* error.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = error.json; sourceTree = "<group>"; };
-		86A653B527DD85CB00304FC6 /* loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loading.json; sourceTree = "<group>"; };
 		86A653B627DD85CB00304FC6 /* minus.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = minus.json; sourceTree = "<group>"; };
 		86A653B727DD85CB00304FC6 /* success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = success.json; sourceTree = "<group>"; };
 		86A653B827DD85CB00304FC6 /* losePractice.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = losePractice.json; sourceTree = "<group>"; };
@@ -235,6 +234,7 @@
 		86A6540D27DE3A9900304FC6 /* AchievementCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AchievementCardView.swift; sourceTree = "<group>"; };
 		86A6540E27DE3A9900304FC6 /* ProfileViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		86A6540F27DE3A9900304FC6 /* CircleProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleProgressBar.swift; sourceTree = "<group>"; };
+		86E3DD112824608B00CCAB3B /* loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loading.json; sourceTree = "<group>"; };
 		8826F6CBBFD33EDE33F4EF19 /* Pods-Academatica.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Academatica.release.xcconfig"; path = "Target Support Files/Pods-Academatica/Pods-Academatica.release.xcconfig"; sourceTree = "<group>"; };
 		9994F375D5C4B4D3B4042640 /* Pods-Academatica.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Academatica.debug.xcconfig"; path = "Target Support Files/Pods-Academatica/Pods-Academatica.debug.xcconfig"; sourceTree = "<group>"; };
 		EEE7876904D1EA6C81EBC8C3 /* Pods_Academatica.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Academatica.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -498,10 +498,10 @@
 		86A653B327DD85CB00304FC6 /* Lottie */ = {
 			isa = PBXGroup;
 			children = (
+				86E3DD112824608B00CCAB3B /* loading.json */,
 				866D1E7C27E0FD3E00ED6535 /* work.json */,
 				86A653B927DD85CB00304FC6 /* LottieView.swift */,
 				86A653B427DD85CB00304FC6 /* error.json */,
-				86A653B527DD85CB00304FC6 /* loading.json */,
 				86A653B627DD85CB00304FC6 /* minus.json */,
 				86A653B727DD85CB00304FC6 /* success.json */,
 				86A653B827DD85CB00304FC6 /* losePractice.json */,
@@ -648,9 +648,9 @@
 				86A653BF27DD85CB00304FC6 /* losePractice.json in Resources */,
 				866D1E7D27E0FD3E00ED6535 /* work.json in Resources */,
 				15982B942784361700440AEB /* Preview Assets.xcassets in Resources */,
-				86A653BC27DD85CB00304FC6 /* loading.json in Resources */,
 				15982B912784361700440AEB /* Assets.xcassets in Resources */,
 				86A653BE27DD85CB00304FC6 /* success.json in Resources */,
+				86E3DD122824608B00CCAB3B /* loading.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

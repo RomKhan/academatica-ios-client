@@ -19,7 +19,9 @@ struct LoadingView: View {
             case .loading:
                 LottieView(name: "loading", loopMode: .loop)
                     Group {
-                    Text("Загрузка...")
+                        Text("Загрузка...")
+                            .foregroundColor(.white)
+                            .fontWeight(.semibold)
                     }
                     .offset(y: -UIScreen.main.bounds.height / 4)
             case .success:
