@@ -161,10 +161,6 @@ final class UserService: ObservableObject {
             self?.refreshToken = result.refreshToken
             
             self?.loadUserInfo(completion: completion)
-        }.responseString { response in
-            if let value = response.value {
-                print(value)
-            }
         }
     }
     
@@ -226,10 +222,6 @@ final class UserService: ObservableObject {
             let success: Bool = response.response?.statusCode == 200
             let message: String? = success ? nil : response.value
             completion(success, message)
-        }.responseString { response in
-            if let value = response.value {
-                print(value)
-            }
         }
     }
     
@@ -263,10 +255,6 @@ final class UserService: ObservableObject {
                 expLevelCap: result.expLevelCap,
                 maxLevelReached: result.maxLevelReached
             )
-        }.responseString { response in
-            if let value = response.value {
-                print(value)
-            }
         }
     }
     
@@ -295,10 +283,6 @@ final class UserService: ObservableObject {
                 expLevelCap: result.expLevelCap,
                 maxLevelReached: result.maxLevelReached
             )
-        }.responseString { response in
-            if let value = response.value {
-                print(value)
-            }
         }
     }
     
@@ -424,10 +408,6 @@ final class UserService: ObservableObject {
             }
             
             completion(result.success, result.error)
-        }.responseString { response in
-            if let value = response.value {
-                print(value)
-            }
         }
     }
     

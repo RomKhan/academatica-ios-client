@@ -113,10 +113,6 @@ final class UserStateService: ObservableObject {
             }
             
             self?.userState = result
-        }.responseString { response in
-            if let value = response.value {
-                print(value)
-            }
         }
     }
     
@@ -140,10 +136,6 @@ final class UserStateService: ObservableObject {
             }
             
             self?.userLeaderboardState = result
-        }.responseString { response in
-            if let value = response.value {
-                print(value)
-            }
         }
     }
     
@@ -163,10 +155,6 @@ final class UserStateService: ObservableObject {
             }
             
             self?.otherUserLeaderboardState = result
-        }.responseString { response in
-            if let value = response.value {
-                print(value)
-            }
         }
     }
     
@@ -190,10 +178,6 @@ final class UserStateService: ObservableObject {
             }
             
             self?.userAchievements = result.achievements
-        }.responseString { response in
-            if let value = response.value {
-                print(value)
-            }
         }
     }
     
@@ -213,10 +197,6 @@ final class UserStateService: ObservableObject {
             }
             
             self?.otherUserAchievements = result.achievements
-        }.responseString { response in
-            if let value = response.value {
-                print(value)
-            }
         }
     }
     
@@ -260,10 +240,6 @@ final class UserStateService: ObservableObject {
             }
             
             completion(result.leaderboard)
-        }.responseString { response in
-            if let value = response.value {
-                print(value)
-            }
         }
     }
 }

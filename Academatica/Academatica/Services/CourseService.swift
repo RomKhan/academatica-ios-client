@@ -164,10 +164,6 @@ final class CourseService: ObservableObject {
             self?.upcomingClasses.removeAll()
             self?.upcomingClasses.append(contentsOf: result.upcomingClasses)
             self?.upcomingClassesLoaded = true
-        }.responseString { response in
-            if let value = response.value {
-                print(value)
-            }
         }
     }
     
@@ -201,10 +197,6 @@ final class CourseService: ObservableObject {
             self?.currentTopic = self?.topics.first(where: { topic in
                 topic.id == self?.currentTopic?.id
             })
-        }.responseString { response in
-            if let value = response.value {
-                print(value)
-            }
         }
     }
     
@@ -240,10 +232,6 @@ final class CourseService: ObservableObject {
             }
             
             self?.completedTopicCount = result.topics.count
-        }.responseString { response in
-            if let value = response.value {
-                print(value)
-            }
         }
     }
     
@@ -272,10 +260,6 @@ final class CourseService: ObservableObject {
             }
             
             completion(true, result.problems)
-        }.responseString { response in
-            if let value = response.value {
-                print(value)
-            }
         }
     }
     
@@ -295,10 +279,6 @@ final class CourseService: ObservableObject {
             }
             
             completion(true, result.problems)
-        }.responseString { response in
-            if let value = response.value {
-                print(value)
-            }
         }
     }
     
@@ -357,10 +337,6 @@ final class CourseService: ObservableObject {
             }
             
             completion(true)
-        }.responseString { response in
-            if let value = response.value {
-                print(value)
-            }
         }
     }
     
@@ -390,10 +366,6 @@ final class CourseService: ObservableObject {
             self?.lastExpReward = result.exp
             self?.lastBuoysAdded = result.buoyAdded
             completion(true)
-        }.responseString { response in
-            if let value = response.value {
-                print(value)
-            }
         }
     }
     
@@ -539,10 +511,6 @@ final class CourseService: ObservableObject {
                 self?.customPracticeTopics[topic.tierId]?.append(topic)
             }
             completion(true)
-        }.responseString { response in
-            if let value = response.value {
-                print(value)
-            }
         }
     }
     
@@ -566,10 +534,6 @@ final class CourseService: ObservableObject {
             }
             
             completion(true, result.problems)
-        }.responseString { response in
-            if let value = response.value {
-                print(value)
-            }
         }
     }
     
