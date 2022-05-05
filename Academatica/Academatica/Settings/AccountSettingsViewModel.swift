@@ -56,11 +56,15 @@ class AccountSettingsViewModel: ObservableObject {
     ]
     
     private var cancellables = Set<AnyCancellable>()
-    
+    var counter = 0
     init() {
         UserService.shared.$userModel.sink { [weak self] newValue in
             if let newValue = newValue {
                 self?.userModel = newValue
+                self?.userModel?.profilePicUrl = nil
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+                    self?.userModel?.profilePicUrl = newValue.profilePicUrl
+                }
             }
         }.store(in: &cancellables)
     }
@@ -73,7 +77,6 @@ class AccountSettingsViewModel: ObservableObject {
             }
             
             if state {
-                UserService.shared.userSetup()
                 self?.serverStatus = .success
             } else {
                 self?.serverStatus = .error

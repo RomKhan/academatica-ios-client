@@ -515,10 +515,11 @@ final class UserService: ObservableObject {
             if let profilePic = newImage {
                 multipartFormData.append(profilePic.jpegData(compressionQuality: 0.8)!, withName: "picture", fileName: "img.jpg", mimeType: "image/jpg")
             }
-        }, to: host + "/api/users/" + userId + "/image", method: .patch, interceptor: APIRequestInterceptor.shared).responseString { response in
+        }, to: host + "/api/users/" + userId + "/image", method: .patch, interceptor: APIRequestInterceptor.shared).responseString { [weak self] response in
             print(response.response?.statusCode ?? "200")
             let success: Bool = response.response?.statusCode == 200
             let message: String? = success ? nil : response.value
+            self?.userSetup()
             completion(success, message)
         }
     }

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,7 +13,6 @@
 		1543D4C227899AD800168085 /* PracticeCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1543D4C127899AD800168085 /* PracticeCardModel.swift */; };
 		1543D4C42789D1C700168085 /* TrackableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1543D4C32789D1C700168085 /* TrackableScrollView.swift */; };
 		1544217F27B9A078007815E0 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1544217E27B9A078007815E0 /* ImagePicker.swift */; };
-		1544218927B9C4E8007815E0 /* ResizableSheet in Frameworks */ = {isa = PBXBuildFile; productRef = 1544218827B9C4E8007815E0 /* ResizableSheet */; };
 		1544F4B9278A003F00CDDFF9 /* PracticeCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1544F4B8278A003F00CDDFF9 /* PracticeCardViewModel.swift */; };
 		1547351F2788CD560010E71C /* PracticeCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1547351E2788CD560010E71C /* PracticeCardView.swift */; };
 		154872DA27BD7805005F4B22 /* LessonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154872D927BD7805005F4B22 /* LessonView.swift */; };
@@ -246,7 +245,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1544218927B9C4E8007815E0 /* ResizableSheet in Frameworks */,
 				A76D4E6F895C080755C07B1D /* Pods_Academatica.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -596,7 +594,6 @@
 			);
 			name = Academatica;
 			packageProductDependencies = (
-				1544218827B9C4E8007815E0 /* ResizableSheet */,
 			);
 			productName = SmartMath;
 			productReference = 15982B892784361600440AEB /* Academatica.app */;
@@ -626,7 +623,6 @@
 			);
 			mainGroup = 15982B802784361600440AEB;
 			packageReferences = (
-				1544218727B9C4E8007815E0 /* XCRemoteSwiftPackageReference "ResizableSheet" */,
 			);
 			productRefGroup = 15982B8A2784361600440AEB /* Products */;
 			projectDirPath = "";
@@ -999,25 +995,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		1544218727B9C4E8007815E0 /* XCRemoteSwiftPackageReference "ResizableSheet" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/mtj0928/ResizableSheet";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		1544218827B9C4E8007815E0 /* ResizableSheet */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 1544218727B9C4E8007815E0 /* XCRemoteSwiftPackageReference "ResizableSheet" */;
-			productName = ResizableSheet;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 15982B812784361600440AEB /* Project object */;
 }

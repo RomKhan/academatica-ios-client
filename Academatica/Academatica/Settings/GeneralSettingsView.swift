@@ -185,6 +185,9 @@ struct GeneralSettingsView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .navigationBarHidden(true)
+        .onAppear {
+            viewModel.updatePicture()
+        }
     }
 }
 
