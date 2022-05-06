@@ -155,6 +155,8 @@ struct DataChangeView: View {
                     Text(viewModel.errorMessage)
                         .foregroundColor(.red)
                         .font(.system(size: 15))
+                        .multilineTextAlignment(.center)
+                        .frame(maxWidth: UIScreen.main.bounds.width / 1.5)
                 case .success:
                         Text(mode != .codeConfirm ? "Изменено" : "")
                         .foregroundColor(viewModel.colors[2])

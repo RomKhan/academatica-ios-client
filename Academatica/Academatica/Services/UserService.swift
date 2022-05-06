@@ -148,11 +148,18 @@ final class UserService: ObservableObject {
         
         AF.request(host + "/connect/token", method: .post, parameters: parameters, encoder: URLEncodedFormParameterEncoder.default, headers: headers, interceptor: APIRequestInterceptor.shared).responseDecodable(of: TokenModel.self) { [weak self] response in
             guard let result = response.value else {
-                if let error = response.error {
-                    completion(false, error.failureReason)
+                if let errorJSON = response.data {
+                    let error = try! JSONDecoder().decode(LogInErrorModel.self, from: errorJSON)
+                    
+                    if (error.errorDescription == "invalid_username_or_password") {
+                        completion(false, "Неверный адрес электронной почты или пароль")
+                    } else {
+                        completion(false, error.errorDescription)
+                    }
+                } else {
+                    completion(false, "Неизвестная ошибка")
                 }
                 
-                completion(false, "Неизвестная ошибка")
                 self?.logOff()
                 return
             }
@@ -403,7 +410,7 @@ final class UserService: ObservableObject {
                 if let error = response.error {
                     print(String(describing: error))
                 }
-                completion(false, nil)
+                completion(false, response.data.map { String(decoding: $0, as: UTF8.self) })
                 return
             }
             
