@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import ResizableSheet
 
 struct TopicView: View {
     @StateObject var viewModel: TopicViewModel = TopicViewModel()

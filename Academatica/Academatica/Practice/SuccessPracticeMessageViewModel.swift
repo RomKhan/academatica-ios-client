@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import AVFAudio
 
 class SuccessPracticeMessageViewModel: ObservableObject {
     @Published var serverState: ServerState = .none
@@ -21,6 +22,7 @@ class SuccessPracticeMessageViewModel: ObservableObject {
     var mistakeCount: Int = 0
     var practiceType: PracticeType
     
+    private var audioPlayer: AVAudioPlayer!
     private var cancellables = Set<AnyCancellable>()
     
     init(exit: @escaping (() -> ()), cancelFunc: @escaping (([AchievementModel]) -> ()), classId: String?, topicId: String?, practiceType: PracticeType, dismiss: @escaping (() -> ())) {
@@ -50,6 +52,14 @@ class SuccessPracticeMessageViewModel: ObservableObject {
     
     func finish() {
         serverState = .loading
+        
+        try! AVAudioSession.sharedInstance().setCategory(.playback)
+        let sound = Bundle.main.path(forResource: "success", ofType: "mp3")
+        audioPlayer = try! AVAudioPlayer(contentsOf: URL(fileURLWithPath: sound!), fileTypeHint: "mp3")
+        audioPlayer.volume = 0.7
+        audioPlayer.prepareToPlay()
+        audioPlayer.play()
+        
         if let classId = classId {
             CourseService.shared.finishClass(classId: classId, mistakeCount: mistakeCount) { [weak self] success in
                 if !success {

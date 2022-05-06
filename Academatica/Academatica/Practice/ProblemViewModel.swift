@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import AVFAudio
 
 enum ProblemType {
     case oneChoice
@@ -45,6 +46,7 @@ class ProblemViewModel: ObservableObject {
     @Published var problemState: ProblemState = .waiting
     @Published var answers: [String] = []
     @Published var correctAnswerString: String = ""
+    private var audioPlayer: AVAudioPlayer!
     
     init(cancel: @escaping ((Bool?)->()), model: ProblemModel) {
         cancelFunc = cancel
@@ -66,11 +68,21 @@ class ProblemViewModel: ObservableObject {
         for answer in problemModel.correctAnswers {
             if (!tempAnswers.contains(answer)) {
                 problemState = .incorrectAnswer
+                try! AVAudioSession.sharedInstance().setCategory(.playback)
+                let sound = Bundle.main.path(forResource: "incorrect", ofType: "wav")
+                audioPlayer = try! AVAudioPlayer(contentsOf: URL(fileURLWithPath: sound!), fileTypeHint: "wav")
+                audioPlayer.prepareToPlay()
+                audioPlayer.play()
                 return
             }
             tempAnswers.remove(at: tempAnswers.firstIndex(of: answer)!)
         }
         
         problemState = .correctAnswer
+        try! AVAudioSession.sharedInstance().setCategory(.playback)
+        let sound = Bundle.main.path(forResource: "correct", ofType: "wav")
+        audioPlayer = try! AVAudioPlayer(contentsOf: URL(fileURLWithPath: sound!), fileTypeHint: "wav")
+        audioPlayer.prepareToPlay()
+        audioPlayer.play()
     }
 }

@@ -117,6 +117,9 @@
 		86A6541527DE3A9900304FC6 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A6540E27DE3A9900304FC6 /* ProfileViewModel.swift */; };
 		86A6541627DE3A9900304FC6 /* CircleProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A6540F27DE3A9900304FC6 /* CircleProgressBar.swift */; };
 		86E3DD122824608B00CCAB3B /* loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 86E3DD112824608B00CCAB3B /* loading.json */; };
+		86E3DD162825ABCB00CCAB3B /* correct.wav in Resources */ = {isa = PBXBuildFile; fileRef = 86E3DD142825ABCB00CCAB3B /* correct.wav */; };
+		86E3DD172825ABCB00CCAB3B /* incorrect.wav in Resources */ = {isa = PBXBuildFile; fileRef = 86E3DD152825ABCB00CCAB3B /* incorrect.wav */; };
+		86E3DD1B2825C03100CCAB3B /* success.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 86E3DD1A2825C03100CCAB3B /* success.mp3 */; };
 		A76D4E6F895C080755C07B1D /* Pods_Academatica.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEE7876904D1EA6C81EBC8C3 /* Pods_Academatica.framework */; };
 /* End PBXBuildFile section */
 
@@ -234,6 +237,9 @@
 		86A6540E27DE3A9900304FC6 /* ProfileViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		86A6540F27DE3A9900304FC6 /* CircleProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleProgressBar.swift; sourceTree = "<group>"; };
 		86E3DD112824608B00CCAB3B /* loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loading.json; sourceTree = "<group>"; };
+		86E3DD142825ABCB00CCAB3B /* correct.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = correct.wav; sourceTree = "<group>"; };
+		86E3DD152825ABCB00CCAB3B /* incorrect.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = incorrect.wav; sourceTree = "<group>"; };
+		86E3DD1A2825C03100CCAB3B /* success.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = success.mp3; sourceTree = "<group>"; };
 		8826F6CBBFD33EDE33F4EF19 /* Pods-Academatica.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Academatica.release.xcconfig"; path = "Target Support Files/Pods-Academatica/Pods-Academatica.release.xcconfig"; sourceTree = "<group>"; };
 		9994F375D5C4B4D3B4042640 /* Pods-Academatica.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Academatica.debug.xcconfig"; path = "Target Support Files/Pods-Academatica/Pods-Academatica.debug.xcconfig"; sourceTree = "<group>"; };
 		EEE7876904D1EA6C81EBC8C3 /* Pods_Academatica.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Academatica.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -363,6 +369,7 @@
 		15982B8B2784361600440AEB /* Academatica */ = {
 			isa = PBXGroup;
 			children = (
+				86E3DD132825AB3F00CCAB3B /* Audio */,
 				863A10A527DFCB6000023E99 /* Views */,
 				863A10A427DFCB3C00023E99 /* Academatica App */,
 				863A10A327DFCB1800023E99 /* Buoys Counter */,
@@ -564,6 +571,16 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
+		86E3DD132825AB3F00CCAB3B /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				86E3DD1A2825C03100CCAB3B /* success.mp3 */,
+				86E3DD142825ABCB00CCAB3B /* correct.wav */,
+				86E3DD152825ABCB00CCAB3B /* incorrect.wav */,
+			);
+			path = Audio;
+			sourceTree = "<group>";
+		};
 		F887A0976EA5274CAFC7BF88 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -641,11 +658,14 @@
 				86A653BD27DD85CB00304FC6 /* minus.json in Resources */,
 				86A653BB27DD85CB00304FC6 /* error.json in Resources */,
 				86A653C127DD85CB00304FC6 /* practiceFinished.json in Resources */,
+				86E3DD162825ABCB00CCAB3B /* correct.wav in Resources */,
 				86A653BF27DD85CB00304FC6 /* losePractice.json in Resources */,
 				866D1E7D27E0FD3E00ED6535 /* work.json in Resources */,
 				15982B942784361700440AEB /* Preview Assets.xcassets in Resources */,
+				86E3DD172825ABCB00CCAB3B /* incorrect.wav in Resources */,
 				15982B912784361700440AEB /* Assets.xcassets in Resources */,
 				86A653BE27DD85CB00304FC6 /* success.json in Resources */,
+				86E3DD1B2825C03100CCAB3B /* success.mp3 in Resources */,
 				86E3DD122824608B00CCAB3B /* loading.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
