@@ -164,7 +164,7 @@ struct GeneralSettingsView: View {
                             width: UIScreen.main.bounds.height / 40,
                             height: UIScreen.main.bounds.height / 40
                         )
-                    Text("Уведомления")
+                    Text("Звук")
                         .font(.system(size: UIScreen.main.bounds.height / 58, weight: .thin))
                     Toggle("", isOn: $viewModel.toggle)
                         .toggleStyle(SwitchToggleStyle(tint: viewModel.colors[2]))

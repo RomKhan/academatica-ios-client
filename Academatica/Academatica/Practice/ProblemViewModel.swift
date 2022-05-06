@@ -68,21 +68,26 @@ class ProblemViewModel: ObservableObject {
         for answer in problemModel.correctAnswers {
             if (!tempAnswers.contains(answer)) {
                 problemState = .incorrectAnswer
-                try! AVAudioSession.sharedInstance().setCategory(.playback)
-                let sound = Bundle.main.path(forResource: "incorrect", ofType: "wav")
-                audioPlayer = try! AVAudioPlayer(contentsOf: URL(fileURLWithPath: sound!), fileTypeHint: "wav")
-                audioPlayer.prepareToPlay()
-                audioPlayer.play()
+                if UserDefaults.standard.bool(forKey: UserDefaultsKeys.sound.rawValue) {
+                    try! AVAudioSession.sharedInstance().setCategory(.playback)
+                    let sound = Bundle.main.path(forResource: "incorrect", ofType: "wav")
+                    audioPlayer = try! AVAudioPlayer(contentsOf: URL(fileURLWithPath: sound!), fileTypeHint: "wav")
+                    audioPlayer.prepareToPlay()
+                    audioPlayer.play()
+                }
                 return
             }
             tempAnswers.remove(at: tempAnswers.firstIndex(of: answer)!)
         }
         
         problemState = .correctAnswer
-        try! AVAudioSession.sharedInstance().setCategory(.playback)
-        let sound = Bundle.main.path(forResource: "correct", ofType: "wav")
-        audioPlayer = try! AVAudioPlayer(contentsOf: URL(fileURLWithPath: sound!), fileTypeHint: "wav")
-        audioPlayer.prepareToPlay()
-        audioPlayer.play()
+        
+        if UserDefaults.standard.bool(forKey: UserDefaultsKeys.sound.rawValue) {
+            try! AVAudioSession.sharedInstance().setCategory(.playback)
+            let sound = Bundle.main.path(forResource: "correct", ofType: "wav")
+            audioPlayer = try! AVAudioPlayer(contentsOf: URL(fileURLWithPath: sound!), fileTypeHint: "wav")
+            audioPlayer.prepareToPlay()
+            audioPlayer.play()
+        }
     }
 }

@@ -9,7 +9,7 @@ import SwiftUI
 import Combine
 
 enum UserDefaultsKeys: String {
-    case notifications
+    case sound
 }
 
 class GeneralSettingsViewModel: ObservableObject {
@@ -23,9 +23,7 @@ class GeneralSettingsViewModel: ObservableObject {
     
     @Published var toggle: Bool! {
         didSet {
-            let defaults = UserDefaults.standard
-            let key = UserDefaultsKeys.notifications.rawValue
-            defaults.set(toggle, forKey: key)
+            UserDefaults.standard.set(toggle, forKey: UserDefaultsKeys.sound.rawValue)
         }
     }
     
@@ -34,7 +32,8 @@ class GeneralSettingsViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     
     init() {
-        toggle = UserDefaults.standard.bool(forKey: UserDefaultsKeys.notifications.rawValue)
+        toggle = UserDefaults.standard.bool(forKey: UserDefaultsKeys.sound.rawValue)
+        
         UserService.shared.$userModel.sink { [weak self] newValue in
             if let newValue = newValue {
                 self?.userModel = newValue

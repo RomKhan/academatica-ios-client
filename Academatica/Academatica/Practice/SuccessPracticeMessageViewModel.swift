@@ -53,12 +53,14 @@ class SuccessPracticeMessageViewModel: ObservableObject {
     func finish() {
         serverState = .loading
         
-        try! AVAudioSession.sharedInstance().setCategory(.playback)
-        let sound = Bundle.main.path(forResource: "success", ofType: "mp3")
-        audioPlayer = try! AVAudioPlayer(contentsOf: URL(fileURLWithPath: sound!), fileTypeHint: "mp3")
-        audioPlayer.volume = 0.7
-        audioPlayer.prepareToPlay()
-        audioPlayer.play()
+        if UserDefaults.standard.bool(forKey: UserDefaultsKeys.sound.rawValue) {
+            try! AVAudioSession.sharedInstance().setCategory(.playback)
+            let sound = Bundle.main.path(forResource: "success", ofType: "mp3")
+            audioPlayer = try! AVAudioPlayer(contentsOf: URL(fileURLWithPath: sound!), fileTypeHint: "mp3")
+            audioPlayer.volume = 0.7
+            audioPlayer.prepareToPlay()
+            audioPlayer.play()
+        }
         
         if let classId = classId {
             CourseService.shared.finishClass(classId: classId, mistakeCount: mistakeCount) { [weak self] success in
