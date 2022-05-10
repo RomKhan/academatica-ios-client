@@ -11,9 +11,10 @@ struct ProblemView: View {
     var index: Int
     var problems_count: Int
     @StateObject var viewModel: ProblemViewModel
+    @State var heightOfset: CGFloat = 0
     var body: some View {
         GeometryReader { reader in
-            ScrollView(showsIndicators: false) {
+            TrackableScrollView(showIndicators: false, contentOffset: $heightOfset) {
                 ZStack {
                     HStack {
                         Button {
@@ -82,23 +83,25 @@ struct ProblemView: View {
                 }
                 .padding(.horizontal, 20)
                 .frame(height: UIScreen.main.bounds.height / 2, alignment: .top)
-                
-                if (viewModel.problemState == .waiting) {
-                    Button {
-                        viewModel.checkAnswer()
-                    } label: {
-                        Text("Проверить".uppercased())
-                            .foregroundColor(.white)
-                            .font(.system(size: UIScreen.main.bounds.height / 55, weight: .bold))
-                    }
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(Color(uiColor: UIColor(red: 0, green: 212 / 255.0, blue: 212 / 255.0, alpha: 1)))
-                    .cornerRadius(UIScreen.main.bounds.height / 60)
-                    .padding(.horizontal, 40)
-                    .padding(.top, UIScreen.main.bounds.height / 8)
-                    .shadow(color: Color(uiColor: UIColor(red: 0, green: 212 / 255.0, blue: 212 / 255.0, alpha: 1)), radius: 8, x: 0, y: 0)
+            }
+            
+            if (viewModel.problemState == .waiting) {
+                Button {
+                    viewModel.checkAnswer()
+                } label: {
+                    Text("Проверить".uppercased())
+                        .foregroundColor(.white)
+                        .font(.system(size: UIScreen.main.bounds.height / 55, weight: .bold))
                 }
+                .padding()
+                .frame(maxWidth: .infinity)
+                .background(Color(uiColor: UIColor(red: 0, green: 212 / 255.0, blue: 212 / 255.0, alpha: 1)))
+                .cornerRadius(UIScreen.main.bounds.height / 60)
+                .padding(.horizontal, 40)
+                .frame(maxHeight: .infinity, alignment: .bottom)
+                .padding(.bottom, UIScreen.main.bounds.height / 20)
+                .shadow(color: Color(uiColor: UIColor(red: 0, green: 212 / 255.0, blue: 212 / 255.0, alpha: 1)), radius: 8, x: 0, y: 0)
+                .offset(y: -heightOfset)
             }
             
             if viewModel.problemState == .incorrectAnswer {
@@ -173,7 +176,7 @@ struct ProblemView: View {
 
 struct ProblemView_Previews: PreviewProvider {
     static var previews: some View {
-        ProblemView(index: 1, problems_count: 10, viewModel: ProblemViewModel(cancel: {_ in }, model: ProblemModel(id: "ff1", classId: "fff", topicId: "fff", description: "Пример описания", task: " ihsihodf fdsfosh udfhsdfi shf uhdsfu fgsdfdshifsdfs", problemType: "gap", options: ["1", "2", "3", "4"], imageUrl: URL(string: "https://cdn2.vectorstock.com/i/1000x1000/40/71/definition-of-geometry-vector-22954071.jpg"), correctAnswers: ["1"], expression: "1+_GAP_=2", difficulty: 1)))
+        ProblemView(index: 1, problems_count: 10, viewModel: ProblemViewModel(cancel: {_ in }, model: ProblemModel(id: "ff1", classId: "fff", topicId: "fff", description: "Пример описания rgfgdfgrettreteterterghfghrthtrbrtbttnrtnrnrtrtnr", task: "пример задания", problemType: "pic", options: ["1", "2", "3", "4"], imageUrl: URL(string: "https://res.cloudinary.com/dk-find-out/image/upload/q_70,c_pad,w_1200,h_630,f_auto/Geometry2_hdxtr9.jpg"), correctAnswers: ["1"], expression: "", difficulty: 1)))
             .background(
                 LinearGradient(
                     gradient: Gradient(

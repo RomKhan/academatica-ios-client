@@ -11,6 +11,7 @@ import Combine
 class LessonViewModel: ObservableObject {
     @Published var model: ClassModel?
     @Published var classId: String = ""
+    @Published var practiceActive: Bool = false
     var topicName: String = ""
     let colors = [
         Color(uiColor: UIColor(red: 162 / 255.0, green: 51 / 255.0, blue: 215 / 255.0, alpha: 1)),
@@ -27,6 +28,9 @@ class LessonViewModel: ObservableObject {
             if let newValue = newValue {
                 self?.model = newValue
                 self?.classId = newValue.id
+                if (self?.model?.isComplete == true) {
+                    self?.practiceActive = true
+                }
             }
         }.store(in: &cancellables)
     }

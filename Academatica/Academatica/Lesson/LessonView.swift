@@ -11,7 +11,6 @@ import Combine
 struct LessonView: View {
     @StateObject var viewModel: LessonViewModel
     @State private var heightOfset: CGFloat = 0
-    @State private var practiceActive: Bool = true
     @State var practiceShow: Bool = false
     @State private var webViewHeight: CGFloat = .zero
     @Binding var showSheet: Bool
@@ -79,7 +78,7 @@ struct LessonView: View {
                 .frame(maxWidth: .infinity)
                 .padding(.horizontal, 20)
                 LessonCardView(viewModel: LessonCardViewModel(topicName: viewModel.topicName),
-                               practivceIsActive: $practiceActive,
+                               practivceIsActive: $viewModel.practiceActive,
                                practiceShow: $practiceShow,
                                showSheet: $showSheet)
                     .padding(.horizontal, 20)
@@ -91,7 +90,14 @@ struct LessonView: View {
                     .offset(y: webViewHeight < 20 ? 100: 0)
             }
             .onChange(of: heightOfset) { newValue in
-                practiceActive = true
+                if (webViewHeight - newValue - UIScreen.main.bounds.height / 2 < 0) {
+                    viewModel.practiceActive = true
+                }
+            }
+            .onChange(of: webViewHeight) { newValue in
+                if (newValue > 100 && newValue - heightOfset - UIScreen.main.bounds.height / 2 < 0) {
+                    viewModel.practiceActive = true
+                }
             }
             if (webViewHeight <= 0) {
                 VStack(spacing: 20) {

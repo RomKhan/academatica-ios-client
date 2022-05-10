@@ -20,7 +20,7 @@ struct ProblemWithImageView: View {
                 switch phase {
                 case .empty:
                     Rectangle().fill(.white)
-                        .frame(height: UIScreen.main.bounds.width)
+                        .frame(height: UIScreen.main.bounds.width / 2)
                         .blendMode(.overlay)
                 case .success(let image):
                     image

@@ -128,7 +128,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "411"
             endingLineNumber = "411"
-            landmarkName = "finishRandomPractice(mistakeCount:completion:)"
+            landmarkName = "finishCustomPractice(completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -174,8 +174,8 @@
             filePath = "Academatica/Lesson/LessonViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "24"
-            endingLineNumber = "24"
+            startingLineNumber = "25"
+            endingLineNumber = "25"
             landmarkName = "init(topicName:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -208,7 +208,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "450"
             endingLineNumber = "450"
-            landmarkName = "changeUsername(newUsername:completion:)"
+            landmarkName = "changeFirstName(newFirstName:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -224,7 +224,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "449"
             endingLineNumber = "449"
-            landmarkName = "changeUsername(newUsername:completion:)"
+            landmarkName = "changeFirstName(newFirstName:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -240,7 +240,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "451"
             endingLineNumber = "451"
-            landmarkName = "changeUsername(newUsername:completion:)"
+            landmarkName = "changeFirstName(newFirstName:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -288,7 +288,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "475"
             endingLineNumber = "475"
-            landmarkName = "changeFirstName(newFirstName:completion:)"
+            landmarkName = "changeLastName(newLastName:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -400,7 +400,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "499"
             endingLineNumber = "499"
-            landmarkName = "changeLastName(newLastName:completion:)"
+            landmarkName = "changeImage(newImage:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -416,7 +416,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "500"
             endingLineNumber = "500"
-            landmarkName = "changeLastName(newLastName:completion:)"
+            landmarkName = "changeImage(newImage:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -432,7 +432,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "515"
             endingLineNumber = "515"
-            landmarkName = "changeImage(newImage:completion:)"
+            landmarkName = "loadActivity(completion:)"
             landmarkType = "7">
             <Locations>
                <Location
@@ -480,7 +480,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "521"
             endingLineNumber = "521"
-            landmarkName = "changeImage(newImage:completion:)"
+            landmarkName = "loadActivity(completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -768,7 +768,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "518"
             endingLineNumber = "518"
-            landmarkName = "changeImage(newImage:completion:)"
+            landmarkName = "loadActivity(completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -784,7 +784,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "519"
             endingLineNumber = "519"
-            landmarkName = "changeImage(newImage:completion:)"
+            landmarkName = "loadActivity(completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -800,7 +800,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "523"
             endingLineNumber = "523"
-            landmarkName = "changeImage(newImage:completion:)"
+            landmarkName = "loadActivity(completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -880,6 +880,38 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "52"
             endingLineNumber = "52"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "531EF1F9-2964-4C92-977C-18BC03087F33"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Academatica/Lesson/LessonView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "93"
+            endingLineNumber = "93"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B21B7470-F781-4AB5-89BF-ADD17AAD3E2F"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Academatica/Lesson/LessonView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "98"
+            endingLineNumber = "98"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
