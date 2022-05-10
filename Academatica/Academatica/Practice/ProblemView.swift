@@ -176,7 +176,7 @@ struct ProblemView: View {
 
 struct ProblemView_Previews: PreviewProvider {
     static var previews: some View {
-        ProblemView(index: 1, problems_count: 10, viewModel: ProblemViewModel(cancel: {_ in }, model: ProblemModel(id: "ff1", classId: "fff", topicId: "fff", description: "Пример описания rgfgdfgrettreteterterghfghrthtrbrtbttnrtnrnrtrtnr", task: "пример задания", problemType: "pic", options: ["1", "2", "3", "4"], imageUrl: URL(string: "https://res.cloudinary.com/dk-find-out/image/upload/q_70,c_pad,w_1200,h_630,f_auto/Geometry2_hdxtr9.jpg"), correctAnswers: ["1"], expression: "", difficulty: 1)))
+        ProblemView(index: 1, problems_count: 10, viewModel: ProblemViewModel(cancel: {_ in }, model: ProblemModel(id: "ff1", classId: "fff", topicId: "fff", description: "Пример описания rgfgdfgrettreteterterghfghrthtrbrtbttnrtnrnrtrtn", task: "пример задания", problemType: "txt", options: ["1", "2", "3", "4"], imageUrl: URL(string: "https://res.cloudinary.com/dk-find-out/image/upload/q_70,c_pad,w_1200,h_630,f_auto/Geometry2_hdxtr9.jpg"), correctAnswers: ["1"], expression: "", difficulty: 1)))
             .background(
                 LinearGradient(
                     gradient: Gradient(
