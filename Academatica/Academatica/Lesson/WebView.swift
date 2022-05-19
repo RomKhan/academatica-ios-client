@@ -24,17 +24,6 @@ struct WebView: UIViewRepresentable {
         }
 
         func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-//            webView.evaluateJavaScript("document.readyState", completionHandler: { (complete, error) in
-//                if complete != nil {
-//                    webView.evaluateJavaScript("document.documentElement.scrollHeight", completionHandler: { (height, error) in
-//                        if height != nil {
-//                            DispatchQueue.main.async {
-//                                self.parent.dynamicHeight = height as! CGFloat + 15
-//                            }
-//                        }
-//                    })
-//                }
-//            })
             DispatchQueue.main.async {
                 self.parent.dynamicHeight = webView.scrollView.contentSize.height + 30
             }

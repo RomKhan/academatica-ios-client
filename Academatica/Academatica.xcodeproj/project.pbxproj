@@ -952,7 +952,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Academatica/Preview Content\"";
-				DEVELOPMENT_TEAM = 8V9GAWEA72;
+				DEVELOPMENT_TEAM = MFM5R3Q3DW;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Academatica/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -977,7 +977,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Academatica/Preview Content\"";
-				DEVELOPMENT_TEAM = 8V9GAWEA72;
+				DEVELOPMENT_TEAM = MFM5R3Q3DW;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Academatica/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;

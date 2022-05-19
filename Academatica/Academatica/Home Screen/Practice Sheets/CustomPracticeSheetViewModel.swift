@@ -8,9 +8,6 @@
 import SwiftUI
 import Combine
 
-struct CustomPracticeTupicModel {
-    
-}
 class CustomPracticeSheetViewModel: ObservableObject {
     @Published var tierCardModels: [TierModel] = []
     @Published var selectedTier: TierModel?

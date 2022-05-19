@@ -9,18 +9,6 @@ import Foundation
 import SwiftUI
 import Combine
 
-struct RuntimeError: Error {
-    let message: String
-
-    init(_ message: String) {
-        self.message = message
-    }
-
-    public var localizedDescription: String {
-        return message
-    }
-}
-
 class PracticeLoadViewModel: ObservableObject {
     @Published var serverState = ServerState.loading
     @Published var errorMessage: String = ""

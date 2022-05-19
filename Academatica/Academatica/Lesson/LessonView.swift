@@ -121,7 +121,6 @@ struct LessonView: View {
         )
         .fullScreenCover(isPresented: $practiceShow) {
             PracticeLoadView(viewModel: PracticeLoadViewModel(lessonID: viewModel.classId), showPractice: .constant(true))
-            //                .offset(y: practiceShow ? 0 : UIScreen.main.bounds.height * 1.5)
                 .animation(.spring(), value: practiceShow)
         }
     }

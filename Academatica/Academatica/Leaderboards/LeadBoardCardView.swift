@@ -9,8 +9,6 @@ import SwiftUI
 
 struct LeadBoardCardView: View {
     @StateObject var viewModel: LeadBoardCardViewModel
-    //    @State var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-    
     var cardHeight = UIScreen.main.bounds.height
     var body: some View {
         VStack(spacing: 0) {

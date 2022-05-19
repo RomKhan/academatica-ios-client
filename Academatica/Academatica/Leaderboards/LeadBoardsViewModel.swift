@@ -9,7 +9,7 @@ import SwiftUI
 import Combine
 
 struct LeadBoardUserModel: Identifiable, Decodable {
-    let id: String // id Юзера
+    let id: String
     let firstName: String
     let lastName: String
     let profilePic: URL?

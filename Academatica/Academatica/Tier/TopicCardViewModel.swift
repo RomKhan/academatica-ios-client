@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  TopicCardViewModel.swift
 //  SmartMath
 //
 //  Created by Roman on 10.01.2022.

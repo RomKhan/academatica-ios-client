@@ -21,7 +21,6 @@ struct AccountSettingsView: View {
             let blurEffectView = UIVisualEffectView(effect: blurEffect)
             UITableView.appearance().backgroundView = blurEffectView
             
-            //if you want translucent vibrant table view separator lines
             UITableView.appearance().separatorEffect = UIVibrancyEffect(blurEffect: blurEffect)
             UITableView.appearance().frame = UITableView.appearance().frame.inset(by: UIEdgeInsets(top: 800, left: 8, bottom: 8, right: 8))
         }

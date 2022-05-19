@@ -180,7 +180,6 @@ struct TopicView: View {
             LessonView(viewModel: LessonViewModel(
                         topicName: viewModel.topicModel.name),
                     showSheet: $showSheet)
-//                .offset(y: showSheet ? 0 : UIScreen.main.bounds.height * 1.5)
                 .animation(.spring(), value: showSheet)
         }
         .matchedGeometryEffect(id: viewModel.topicModel.id, in: namespace)
