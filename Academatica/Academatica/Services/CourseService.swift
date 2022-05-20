@@ -146,7 +146,7 @@ final class CourseService: ObservableObject {
     @Published var choicedCustomPracticeTopics: [ChoicedTopicModel] = []
     @Published var upcomingClassesLoaded = false
     
-    private let host = "https://news-platform.ru"
+    private let host = "http://acme.com"
     static let shared = CourseService()
     
     private init() {}

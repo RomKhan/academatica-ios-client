@@ -86,7 +86,7 @@ final class UserService: ObservableObject {
     @Published var authorizationNotification: String = ""
     var isAuthorized = CurrentValueSubject<Bool, Never>(false)
     let keychainHelper: KeychainService = KeychainService.shared
-    private let host = "https://news-platform.ru"
+    private let host = "http://acme.com"
     public static let shared = UserService()
     private var userSetupInProgress: Bool = false
     
