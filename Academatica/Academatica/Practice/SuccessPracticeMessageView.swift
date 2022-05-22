@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SuccessPracticeMessageView: View {
     @StateObject var viewModel: SuccessPracticeMessageViewModel
+    var tagIndexSubstruct: Int
     var body: some View {
         VStack {
             Text("Практика завершена".uppercased())
@@ -89,14 +90,16 @@ struct SuccessPracticeMessageView: View {
         .transition(.opacity)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .onAppear() {
-            viewModel.finish()
+            if (tagIndexSubstruct == 0) {
+                viewModel.finish()
+            }
         }
     }
 }
 
 struct SuccessPracticeMessageView_Previews: PreviewProvider {
     static var previews: some View {
-        SuccessPracticeMessageView(viewModel: SuccessPracticeMessageViewModel(exit: {}, cancelFunc: {_ in }, classId: nil, topicId: nil, practiceType: .completedLessons, dismiss: {}))
+        SuccessPracticeMessageView(viewModel: SuccessPracticeMessageViewModel(exit: {}, cancelFunc: {_ in }, classId: nil, topicId: nil, practiceType: .completedLessons, dismiss: {}), tagIndexSubstruct: 0)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(
                 LinearGradient(

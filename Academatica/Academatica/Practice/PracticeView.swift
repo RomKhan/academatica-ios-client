@@ -26,7 +26,7 @@ struct PracticeView: View {
                         .simultaneousGesture(DragGesture())
                 }
                 
-                SuccessPracticeMessageView(viewModel: SuccessPracticeMessageViewModel(exit: viewModel.cancel, cancelFunc: viewModel.finishPractice, classId: viewModel.classId, topicId: viewModel.topicId, practiceType: viewModel.practiceType, dismiss: viewModel.cancel))
+                SuccessPracticeMessageView(viewModel: SuccessPracticeMessageViewModel(exit: viewModel.cancel, cancelFunc: viewModel.finishPractice, classId: viewModel.classId, topicId: viewModel.topicId, practiceType: viewModel.practiceType, dismiss: viewModel.cancel), tagIndexSubstruct: viewModel.problems.count - viewModel.selected + CourseService.shared.lastMistakeCount)
                     .tag(viewModel.problems.count)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .contentShape(Rectangle())
