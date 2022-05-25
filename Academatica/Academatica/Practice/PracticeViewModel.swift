@@ -18,11 +18,13 @@ class PracticeViewModel: ObservableObject {
     @Published var badAnswerShowState: ServerState = .none
     @Published var classId: String?
     @Published var topicId: String?
+    @Published var tagIndexSubstract: Int
     var cancel: (() -> ())
     var expReward: Int
     var practiceType: PracticeType
     
     init(type: PracticeType, problems: [ProblemModel], cancel: @escaping (() -> ()), expReward: Int, classId: String?, topicId: String?) {
+        self.tagIndexSubstract = 0
         self.problems = problems
         self.cancel = cancel
         self.expReward = expReward
@@ -36,8 +38,6 @@ class PracticeViewModel: ObservableObject {
             cancel()
         } else if (isCorrect == true && selected < problems.count + 2 &&
                    (UserStateService.shared.userState?.buoysLeft ?? 0 > 0 || practiceType != .lesson)) {
-            var g = problems
-            var f = selected
             selected += 1
         } else if (isCorrect == false && selected < problems.count && (UserStateService.shared.userState?.buoysLeft ?? 1 > 1 || practiceType != .lesson)) {
             let currentProblem = problems[selected]
@@ -66,6 +66,7 @@ class PracticeViewModel: ObservableObject {
                 badExitShow = true
             }
         }
+        tagIndexSubstract = problems.count - selected + CourseService.shared.lastMistakeCount
     }
     
     func finishPractice(achievements: [AchievementModel]) {

@@ -23,7 +23,7 @@ struct ProfileView: View {
                         ]),
                     startPoint: .topLeading,
                     endPoint: .bottomTrailing))
-                .offset(y: -contentOffset + (isOtherAccount ? -UIScreen.main.bounds.height / 22 : 0))
+                .offset(y: -contentOffset + (isOtherAccount ? -UIScreen.main.bounds.height / 15 : 0))
                 .ignoresSafeArea()
             if (!isOtherAccount) {
                 ProfileViewShapeMiddle()

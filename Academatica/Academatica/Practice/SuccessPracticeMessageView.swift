@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SuccessPracticeMessageView: View {
     @StateObject var viewModel: SuccessPracticeMessageViewModel
-    var tagIndexSubstruct: Int
+    @Binding var tagIndexSubstruct: Int
     var body: some View {
         VStack {
             Text("Практика завершена".uppercased())
@@ -89,17 +89,17 @@ struct SuccessPracticeMessageView: View {
         .animation(.easeOut, value: viewModel.serverState)
         .transition(.opacity)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-        .onAppear() {
+        .onChange(of: tagIndexSubstruct, perform: { value in
             if (tagIndexSubstruct == 0) {
                 viewModel.finish()
             }
-        }
+        })
     }
 }
 
 struct SuccessPracticeMessageView_Previews: PreviewProvider {
     static var previews: some View {
-        SuccessPracticeMessageView(viewModel: SuccessPracticeMessageViewModel(exit: {}, cancelFunc: {_ in }, classId: nil, topicId: nil, practiceType: .completedLessons, dismiss: {}), tagIndexSubstruct: 0)
+        SuccessPracticeMessageView(viewModel: SuccessPracticeMessageViewModel(exit: {}, cancelFunc: {_ in }, classId: nil, topicId: nil, practiceType: .completedLessons, dismiss: {}), tagIndexSubstruct: .constant(0))
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(
                 LinearGradient(
