@@ -9,18 +9,6 @@ import Foundation
 import SwiftUI
 import Combine
 
-struct RuntimeError: Error {
-    let message: String
-
-    init(_ message: String) {
-        self.message = message
-    }
-
-    public var localizedDescription: String {
-        return message
-    }
-}
-
 class PracticeLoadViewModel: ObservableObject {
     @Published var serverState = ServerState.loading
     @Published var errorMessage: String = ""
@@ -56,22 +44,16 @@ class PracticeLoadViewModel: ObservableObject {
     // Для практики по завершенным и рекомендованной.
     init(mode: PracticeType, topicId: String?) {
         practiceType = mode
+        CourseService.shared.lastMistakeCount = 0
         switch mode {
             case .recomended:
                 recommendedPracticeLoad(topicId: topicId!)
             case .completedLessons:
                 completedTopicsPracticeLoad()
+            case .custom:
+                customPracticeLoad()
             default: break
         }
-        
-        CourseService.shared.$practiceLoaded.sink { [weak self] newValue in
-            self?.problemsSet = newValue
-        }.store(in: &cancellables)
-    }
-    
-    // Для кастомной практики
-    init(models: [CustomPracticeTupicModel]) {
-        practiceType = .custom
         
         CourseService.shared.$practiceLoaded.sink { [weak self] newValue in
             self?.problemsSet = newValue
@@ -81,13 +63,14 @@ class PracticeLoadViewModel: ObservableObject {
     // Для практики по уроку
     init(lessonID: String) {
         practiceType = .lesson
-        
+        CourseService.shared.lastMistakeCount = 0
         CourseService.shared.$practiceLoaded.sink { [weak self] newValue in
             self?.problemsSet = newValue
         }.store(in: &cancellables)
         
         CourseService.shared.$currentClass.sink { [weak self] newValue in
             self?.classId = newValue?.id
+            self?.expReward = newValue?.expReward ?? 100
         }.store(in: &cancellables)
         
         lessonPracticeLoad(id: lessonID)
@@ -122,28 +105,22 @@ class PracticeLoadViewModel: ObservableObject {
         }
     }
     
-//    func customPracticeLoad(models: [CustomPracticeTupicModel]) {
-//        guard let buoysCount = UserStateService.shared.userState?.buoysLeft else {
-//            serverState = .error
-//            return
-//        }
-//        
-//        guard buoysCount > 0 else {
-//            serverState = .error
-//            return
-//        }
-//        
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
-//            if (Bool.random() == true) {
-//                self?.practiceProblems = self?.staticProblems
-//                self?.serverState = .success
-//            } else {
-//                self?.serverState = .error
-//            }
-//        }
-//    }
+    func customPracticeLoad() {
+        CourseService.shared.getProblemsForCustomPractice() { [weak self] success, problems in
+            if success {
+                self?.practiceProblems = problems
+                self?.serverState = .success
+                self?.expReward = 50
+                CourseService.shared.practiceLoaded = true
+            } else {
+                self?.serverState = .error
+                CourseService.shared.practiceLoaded = false
+            }
+        }
+    }
     
     func lessonPracticeLoad(id: String) {
+        if practiceType != .lesson {return}
         guard let buoysCount = UserStateService.shared.userState?.buoysLeft else {
             serverState = .error
             return
@@ -160,7 +137,6 @@ class PracticeLoadViewModel: ObservableObject {
                 self?.practiceProblems = problems
                 self?.classId = id
                 self?.serverState = .success
-                self?.expReward = 100
                 CourseService.shared.practiceLoaded = true
             } else {
                 self?.serverState = .error

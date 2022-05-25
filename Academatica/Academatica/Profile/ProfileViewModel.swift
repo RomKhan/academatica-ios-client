@@ -57,6 +57,10 @@ class ProfileViewModel : ObservableObject {
         UserService.shared.$userModel.sink { [weak self] newValue in
             if let newValue = newValue {
                 self?.userModel = newValue
+                self?.userModel?.profilePicUrl = nil
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+                    self?.userModel?.profilePicUrl = newValue.profilePicUrl
+                }
             }
         }.store(in: &cancellables)
         
@@ -108,7 +112,7 @@ class ProfileViewModel : ObservableObject {
         if !otherUser {
             UserStateService.shared.loadUserAchievements()
         } else {
-            UserStateService.shared.loadOtherUserLeaderboardState(userId: userId)
+            UserStateService.shared.loadOtherUserAchievements(userId: userId)
         }
     }
 }

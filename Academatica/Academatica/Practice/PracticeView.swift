@@ -15,8 +15,8 @@ struct PracticeView: View {
             TabView(selection: $viewModel.selected) {
                 ForEach ((0..<viewModel.problems.count), id: \.self) { index in
                     ProblemView(
-                        index: viewModel.selected - viewModel.errorsCount,
-                        problems_count: viewModel.problems.count - viewModel.errorsCount,
+                        index: viewModel.selected - CourseService.shared.lastMistakeCount,
+                        problems_count: viewModel.problems.count - CourseService.shared.lastMistakeCount,
                         viewModel: ProblemViewModel(
                             cancel: viewModel.next,
                             model: viewModel.problems[index]))
@@ -26,7 +26,7 @@ struct PracticeView: View {
                         .simultaneousGesture(DragGesture())
                 }
                 
-                SuccessPracticeMessageView(viewModel: SuccessPracticeMessageViewModel(exit: viewModel.cancel, cancelFunc: viewModel.finishPractice, classId: viewModel.classId, topicId: viewModel.topicId, mistakeCount: viewModel.errorsCount, practiceType: viewModel.practiceType, dismiss: viewModel.cancel))
+                SuccessPracticeMessageView(viewModel: SuccessPracticeMessageViewModel(exit: viewModel.cancel, cancelFunc: viewModel.finishPractice, classId: viewModel.classId, topicId: viewModel.topicId, practiceType: viewModel.practiceType, dismiss: viewModel.cancel), tagIndexSubstruct: $viewModel.tagIndexSubstract)
                     .tag(viewModel.problems.count)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .contentShape(Rectangle())
@@ -105,8 +105,8 @@ struct PracticeView: View {
 struct PracticeView_Previews: PreviewProvider {
     static var previews: some View {
         PracticeView(viewModel: PracticeViewModel(type: .lesson, problems: [
-            ProblemModel(id: "ff1", classId: "fff", topicId: "fff", description: "Пример описания", task: "пример задания", problemType: "gap", options: ["1", "2", "3", "4"], imageUrl: URL(string: "https://res.cloudinary.com/dk-find-out/image/upload/q_70,c_pad,w_1200,h_630,f_auto/Geometry2_hdxtr9.jpg"), correctAnswers: ["1"], expression: "1+_GAP_=2", difficulty: 1),
             ProblemModel(id: "ff1", classId: "fff", topicId: "fff", description: "Пример описания", task: "пример задания", problemType: "pic", options: ["1", "2", "3", "4"], imageUrl: URL(string: "https://res.cloudinary.com/dk-find-out/image/upload/q_70,c_pad,w_1200,h_630,f_auto/Geometry2_hdxtr9.jpg"), correctAnswers: ["1"], expression: "", difficulty: 1),
+            ProblemModel(id: "ff1", classId: "fff", topicId: "fff", description: "Пример описания", task: "пример задания", problemType: "gap", options: ["1", "2", "3", "4"], imageUrl: URL(string: "https://res.cloudinary.com/dk-find-out/image/upload/q_70,c_pad,w_1200,h_630,f_auto/Geometry2_hdxtr9.jpg"), correctAnswers: ["1"], expression: "1+_GAP_=2", difficulty: 1),
             ProblemModel(id: "ff1", classId: "fff", topicId: "fff", description: "Пример описания!!!", task: "пример задания", problemType: "sc", options: ["1", "2", "3", "4"], imageUrl: nil, correctAnswers: ["1"], expression: "", difficulty: 1),
             ProblemModel(id: "ff1", classId: "fff", topicId: "fff", description: "Пример описания", task: "пример задания", problemType: "mc", options: ["1", "2", "3", "4"], imageUrl: nil, correctAnswers: ["1", "3"], expression: "", difficulty: 1),
             ProblemModel(id: "ff1", classId: "fff", topicId: "fff", description: "Пример описания", task: "dgfgdfgfdgdfgdbfg fgnyrtg erfewcefbgfbvcvdfv fddgfdsxsacd fgnyrtger fewcefbgfbvcvdfvf ddgfdsxsacd fgnyrtgerfewc efbgfbvcvdf vfddgfdsxsacd", problemType: "txt", options: ["1", "2", "3", "4"], imageUrl: nil, correctAnswers: ["1"], expression: "", difficulty: 1),

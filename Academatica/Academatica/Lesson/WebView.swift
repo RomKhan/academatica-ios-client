@@ -11,31 +11,22 @@ enum URLType {
     case local, `public`
 }
 
-struct Webview: UIViewRepresentable {
+struct WebView: UIViewRepresentable {
     var type: URLType
     var url: String?
     @Binding var dynamicHeight: CGFloat
-    var webview: WKWebView = WKWebView()
 
     class Coordinator: NSObject, WKNavigationDelegate {
-        var parent: Webview
+        var parent: WebView
 
-        init(_ parent: Webview) {
+        init(_ parent: WebView) {
             self.parent = parent
         }
 
         func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-            webView.evaluateJavaScript("document.readyState", completionHandler: { (complete, error) in
-                if complete != nil {
-                    webView.evaluateJavaScript("document.documentElement.scrollHeight", completionHandler: { (height, error) in
-                        if height != nil {
-                            DispatchQueue.main.async {
-                                self.parent.dynamicHeight = height as! CGFloat
-                            }
-                        }
-                    })
-                }
-            })
+            DispatchQueue.main.async {
+                self.parent.dynamicHeight = webView.scrollView.contentSize.height + 30
+            }
         }
         
         func webView(_ webView: WKWebView, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
@@ -49,6 +40,13 @@ struct Webview: UIViewRepresentable {
                 completionHandler(.useCredential, credential)
             }
         }
+        
+        func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+            if (error as NSError).code == -999 {
+                return
+            }
+            print(error)
+        }
     }
 
     func makeCoordinator() -> Coordinator {
@@ -56,6 +54,7 @@ struct Webview: UIViewRepresentable {
     }
 
     func makeUIView(context: Context) -> WKWebView  {
+        let webview = WKWebView()
         webview.scrollView.bounces = false
         webview.navigationDelegate = context.coordinator
         webview.allowsBackForwardNavigationGestures = true

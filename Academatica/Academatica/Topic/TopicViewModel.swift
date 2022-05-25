@@ -39,7 +39,7 @@ enum ClassesColors : Int {
 class TopicViewModel: ObservableObject {
     @Published var topicModel: TopicModel = TopicModel(id: "0", name: "sample", description: "desc", isAlgebraTopic: true, imageUrl: nil, isComplete: false, isUnlocked: true, completionRate: 0, classCount: 1)
     @Published var classes: [ClassModel] = []
-    @Published var selectedClass: ClassModel = ClassModel(id: "0", name: "classname", description: "desc", expReward: 100, imageUrl: nil, theoryUrl: URL(string: "https://google.com")!, problemNum: 10, topicName: "topicname", isComplete: false, isUnlocked: true)
+    @Published var selectedClass: ClassModel = ClassModel(id: "0", name: "classname", description: "desc", expReward: -1, imageUrl: nil, theoryUrl: URL(string: "https://google.com")!, problemNum: 10, topicName: "topicname", isComplete: false, isUnlocked: true)
     
     private var cancellables = Set<AnyCancellable>();
     

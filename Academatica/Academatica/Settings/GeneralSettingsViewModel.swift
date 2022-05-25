@@ -6,9 +6,10 @@
 //
 
 import SwiftUI
+import Combine
 
 enum UserDefaultsKeys: String {
-    case notifications
+    case sound
 }
 
 class GeneralSettingsViewModel: ObservableObject {
@@ -22,18 +23,37 @@ class GeneralSettingsViewModel: ObservableObject {
     
     @Published var toggle: Bool! {
         didSet {
-            let defaults = UserDefaults.standard
-            let key = UserDefaultsKeys.notifications.rawValue
-            defaults.set(toggle, forKey: key)
+            UserDefaults.standard.set(toggle, forKey: UserDefaultsKeys.sound.rawValue)
         }
     }
     
+    @Published var userModel: UserModel?
+    
+    private var cancellables = Set<AnyCancellable>()
+    
     init() {
-        toggle = UserDefaults.standard.bool(forKey: UserDefaultsKeys.notifications.rawValue)
+        toggle = UserDefaults.standard.bool(forKey: UserDefaultsKeys.sound.rawValue)
+        
+        UserService.shared.$userModel.sink { [weak self] newValue in
+            if let newValue = newValue {
+                self?.userModel = newValue
+                self?.userModel?.profilePicUrl = nil
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+                    self?.userModel?.profilePicUrl = newValue.profilePicUrl
+                }
+            }
+        }.store(in: &cancellables)
     }
     
     func logOut() {
         UserService.shared.logOff()
+    }
+    
+    func updatePicture() {
+        userModel?.profilePicUrl = nil
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) { [weak self] in
+            self?.userModel?.profilePicUrl = UserService.shared.userModel?.profilePicUrl
+        }
     }
     
 }

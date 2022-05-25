@@ -43,11 +43,11 @@ struct TierView: View {
                     }
                     Spacer()
                     Circle().fill(isAlgebra == 0 ? Color(uiColor: UIColor.systemGray) :
-                                  Color(uiColor: UIColor.systemGray4))
+                                    Color(uiColor: UIColor.systemGray4))
                         .frame(width: 7, height: 7)
                         .animation(.spring(), value: isAlgebra)
                     Circle().fill(isAlgebra != 0 ? Color(uiColor: UIColor.systemGray) :
-                                  Color(uiColor: UIColor.systemGray4))
+                                    Color(uiColor: UIColor.systemGray4))
                         .frame(width: 7, height: 7)
                         .animation(.spring(), value: isAlgebra)
                 }
@@ -72,7 +72,7 @@ struct TierView: View {
                         .padding(.bottom, 6)
                         TabView(selection: $viewModel.selectedTierIndex) {
                             ForEach((0..<viewModel.tierCardModels.count), id: \.self) { index in
-                                TierCardView(viewModel: TierCardViewModel(model: viewModel.tierCardModels[index]))
+                                TierCardView(viewModel: TierCardViewModel(tierId: viewModel.tierCardModels[index].id))
                                     .padding(.horizontal, 20)
                                     .tag(index)
                             }
@@ -89,6 +89,7 @@ struct TierView: View {
                             case .loading:
                                 ProgressView()
                                     .progressViewStyle(CircularProgressViewStyle(tint: Color.black))
+                                    .padding(.top, UIScreen.main.bounds.height / 2)
                             case .error:
                                 Text("Попробуйте еще раз")
                                     .foregroundColor(.red)
@@ -105,7 +106,7 @@ struct TierView: View {
                                 VStack(spacing: 20) {
                                     ForEach(viewModel.topicModels) { topicModel in
                                         if (topicModel.isAlgebraTopic) {
-                                            TopicCardView(viewModel: TopicCardViewModel(topicModel: topicModel), show: $show, namespace: namespace)
+                                            TopicCardView(viewModel: TopicCardViewModel(topicId: topicModel.id), show: $show, namespace: namespace)
                                                 .frame(height: reader.size.height / 3.2)
                                                 .padding(.horizontal, 20)
                                         }
@@ -119,7 +120,7 @@ struct TierView: View {
                                 VStack(spacing: 20) {
                                     ForEach(viewModel.topicModels) { topicModel in
                                         if (!topicModel.isAlgebraTopic) {
-                                            TopicCardView(viewModel: TopicCardViewModel(topicModel: topicModel), show: $show, namespace: namespace)
+                                            TopicCardView(viewModel: TopicCardViewModel(topicId: topicModel.id), show: $show, namespace: namespace)
                                                 .frame(height: reader.size.height / 3.2)
                                                 .padding(.horizontal, 20)
                                         }
@@ -142,6 +143,8 @@ struct TierView: View {
                         .id(0)
                     }
                 }
+                .animation(.spring(), value: viewModel.serverState)
+                .transition(.opacity)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         }.onAppear() {

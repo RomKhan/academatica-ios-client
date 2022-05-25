@@ -23,21 +23,23 @@ struct ProfileView: View {
                         ]),
                     startPoint: .topLeading,
                     endPoint: .bottomTrailing))
-                .offset(y: -contentOffset)
+                .offset(y: -contentOffset + (isOtherAccount ? -UIScreen.main.bounds.height / 15 : 0))
                 .ignoresSafeArea()
-            ProfileViewShapeMiddle()
-                .offset(y: -contentOffset)
-                .fill(LinearGradient(
-                    gradient: Gradient(
-                        stops: [
-                            .init(color: Color(uiColor: UIColor(red: 187 / 255.0, green: 134 / 255.0, blue: 255 / 255.0, alpha: 1)), location: 0),
-                            .init(color: Color(uiColor: UIColor(red: 122 / 255.0, green: 53 / 255.0, blue: 210 / 255.0, alpha: 1)), location: 0.4)
-                        ]),
-                    startPoint: .top,
-                    endPoint: .bottom))
-                .ignoresSafeArea()
-                .offset(y: max(UIScreen.main.bounds.height / 3.5, 240))
-                .shadow(color: Color(uiColor: UIColor(red: 180 / 255.0, green: 125 / 255.0, blue: 250 / 255.0, alpha: 0.7)), radius: 25, x: 0, y: -10)
+            if (!isOtherAccount) {
+                ProfileViewShapeMiddle()
+                    .offset(y: -contentOffset)
+                    .fill(LinearGradient(
+                        gradient: Gradient(
+                            stops: [
+                                .init(color: Color(uiColor: UIColor(red: 187 / 255.0, green: 134 / 255.0, blue: 255 / 255.0, alpha: 1)), location: 0),
+                                .init(color: Color(uiColor: UIColor(red: 122 / 255.0, green: 53 / 255.0, blue: 210 / 255.0, alpha: 1)), location: 0.4)
+                            ]),
+                        startPoint: .top,
+                        endPoint: .bottom))
+                    .ignoresSafeArea()
+                    .offset(y: max(UIScreen.main.bounds.height / 3.5, 240))
+                    .shadow(color: Color(uiColor: UIColor(red: 180 / 255.0, green: 125 / 255.0, blue: 250 / 255.0, alpha: 0.7)), radius: 25, x: 0, y: -10)
+            }
             TrackableScrollView(.vertical, showIndicators: false, contentOffset: $contentOffset) {
                 ZStack {
                     if (isOtherAccount) {
@@ -68,7 +70,7 @@ struct ProfileView: View {
                 .padding(.horizontal, 20)
                 HStack(spacing: 0) {
                     AsyncImage(
-                        url: UserService.shared.userModel?.profilePicUrl,
+                        url: viewModel.userModel?.profilePicUrl,
                         transaction: Transaction(animation: .spring()))
                     { phase in
                         switch phase {
@@ -111,21 +113,21 @@ struct ProfileView: View {
                     .shadow(color: .black.opacity(0.25), radius: 10, x: 0, y: 0)
                     .blendMode(.overlay)
                     VStack(alignment: .leading, spacing: 5) {
-                        if (UserService.shared.userModel?.firstName == nil || UserService.shared.userModel?.lastName == nil) {
+                        if (viewModel.userModel?.firstName == nil || viewModel.userModel?.lastName == nil) {
                             RoundedRectangle(cornerRadius: 10).fill(.black.opacity(0.5))
                                 .blendMode(.overlay)
                                 .frame(width: UIScreen.main.bounds.size.width / 2.7, height: 20)
                         } else {
-                            Text("\(UserService.shared.userModel!.firstName) \(UserService.shared.userModel!.lastName)")
+                            Text("\(viewModel.userModel!.firstName) \(viewModel.userModel!.lastName)")
                                 .font(.system(size: 18, weight: .heavy))
                         }
                         
-                        if (UserService.shared.userModel?.username == nil) {
+                        if (viewModel.userModel?.username == nil) {
                             RoundedRectangle(cornerRadius: 10).fill(.black.opacity(0.5))
                                 .blendMode(.overlay)
                                 .frame(width: UIScreen.main.bounds.size.width / 3.5, height: 16)
                         } else {
-                            Text("@\(UserService.shared.userModel!.username)")
+                            Text("@\(viewModel.userModel!.username)")
                                 .font(.system(size: 14, weight: .thin))
                         }
                     }
@@ -171,32 +173,32 @@ struct ProfileView: View {
                 
                 HStack {
                     VStack(alignment: .leading, spacing: 3) {
-                        if (UserService.shared.userModel?.level == nil || UserService.shared.userModel?.levelName == nil) {
+                        if (viewModel.userModel?.level == nil || viewModel.userModel?.levelName == nil) {
                             RoundedRectangle(cornerRadius: 10).fill(.black.opacity(0.5))
                                 .blendMode(.overlay)
                                 .frame(maxWidth: UIScreen.main.bounds.size.width / 2, maxHeight: 22)
                         } else {
-                            Text("**Уровень \(UserService.shared.userModel!.level)** - \(UserService.shared.userModel!.getLevelName())")
+                            Text("**Уровень \(viewModel.userModel!.level)** - \(viewModel.userModel!.getLevelName())")
                                 .font(.system(size: 18))
                                 .lineLimit(1)
                                 .padding(.bottom, 8)
                         }
-                        if (UserService.shared.userModel?.exp == nil || UserService.shared.userModel?.expLevelCap == nil) {
+                        if (viewModel.userModel?.exp == nil || viewModel.userModel?.expLevelCap == nil) {
                             RoundedRectangle(cornerRadius: 10).fill(.black.opacity(0.5))
                                 .blendMode(.overlay)
                                 .frame(maxWidth: UIScreen.main.bounds.size.width / 3.5, maxHeight: 16)
                         } else {
-                            Text("EXP " + String(UserService.shared.userModel!.exp) + "/\(UserService.shared.userModel!.expLevelCap)")
+                            Text("EXP " + String(viewModel.userModel!.exp) + "/\(viewModel.userModel!.expLevelCap)")
                                 .font(.system(size: 14))
                                 .foregroundColor(Color(uiColor: UIColor(red: 0, green: 1, blue: 72 / 255.0, alpha: 1)))
                         }
                         
-                        if (UserService.shared.userModel?.expThisWeek == nil) {
+                        if (viewModel.userModel?.expThisWeek == nil) {
                             RoundedRectangle(cornerRadius: 10).fill(.black.opacity(0.5))
                                 .blendMode(.overlay)
                                 .frame(maxWidth: UIScreen.main.bounds.size.width / 3.5, maxHeight: 16)
                         } else {
-                            Text("+ \(UserService.shared.userModel!.expThisWeek) EXP THIS WEEK")
+                            Text("+ \(viewModel.userModel!.expThisWeek) EXP THIS WEEK")
                                 .font(.system(size: 14))
                                 .foregroundColor(Color(uiColor: UIColor(red: 0, green: 1, blue: 72 / 255.0, alpha: 1)))
                         }
@@ -205,13 +207,13 @@ struct ProfileView: View {
                     .padding(.horizontal, 12)
                     Spacer()
                     Group {
-                        if (UserService.shared.userModel?.exp == nil ||
-                            UserService.shared.userModel?.expLevelCap == nil) {
+                        if (viewModel.userModel?.exp == nil ||
+                            viewModel.userModel?.expLevelCap == nil) {
                             Circle().fill(.black.opacity(0.5))
                                 .blendMode(.overlay)
                                 .frame(maxWidth: 98, maxHeight: 98, alignment: .trailing)
                         } else {
-                            CircleProgressBar(progress: Float(UserService.shared.userModel!.exp) / Float(UserService.shared.userModel!.expLevelCap))
+                            CircleProgressBar(progress: Float(viewModel.userModel!.exp) / Float(viewModel.userModel!.expLevelCap))
                                 .frame(maxWidth: 98, maxHeight: 98, alignment: .trailing)
                         }
                     }.padding(10)

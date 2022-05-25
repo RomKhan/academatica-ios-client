@@ -28,7 +28,7 @@ struct PracticeCardView: View {
                 
                 VStack(alignment: .leading, spacing: 5) {
                     Text(viewModel.model.title).font(.system(size: 18, weight: .heavy)).foregroundColor(.white)
-                    Text("\(viewModel.model.countOfTasks) задач").font(.system(size: 12, weight: .semibold)).textCase(.uppercase).foregroundColor(.white.opacity(0.6))
+                    Text(viewModel.model.countOfTasks != nil ? "\(viewModel.model.countOfTasks!) задач" : "Любое количество задач").font(.system(size: 12, weight: .semibold)).textCase(.uppercase).foregroundColor(.white.opacity(0.6))
                 }
                 Spacer()
             }.frame(height: 100, alignment: .leading)

@@ -60,6 +60,15 @@ struct UserProfileModel: Decodable {
     let maxLevelReached: Bool
 }
 
+struct LogInErrorModel: Decodable {
+    let error: String
+    let errorDescription: String
+    
+    private enum CodingKeys: String, CodingKey {
+        case error, errorDescription = "error_description"
+    }
+}
+
 struct CodeCheckResponseModel: Decodable {
     let success: Bool
 }
@@ -77,7 +86,7 @@ final class UserService: ObservableObject {
     @Published var authorizationNotification: String = ""
     var isAuthorized = CurrentValueSubject<Bool, Never>(false)
     let keychainHelper: KeychainService = KeychainService.shared
-    private let host = "http://acme.com"
+    private let host = "https://news-platform.ru"
     public static let shared = UserService()
     private var userSetupInProgress: Bool = false
     
@@ -139,11 +148,18 @@ final class UserService: ObservableObject {
         
         AF.request(host + "/connect/token", method: .post, parameters: parameters, encoder: URLEncodedFormParameterEncoder.default, headers: headers, interceptor: APIRequestInterceptor.shared).responseDecodable(of: TokenModel.self) { [weak self] response in
             guard let result = response.value else {
-                if let error = response.error {
-                    completion(false, error.failureReason)
+                if let errorJSON = response.data {
+                    let error = try! JSONDecoder().decode(LogInErrorModel.self, from: errorJSON)
+                    
+                    if (error.errorDescription == "invalid_username_or_password") {
+                        completion(false, "Неверный адрес электронной почты или пароль")
+                    } else {
+                        completion(false, error.errorDescription)
+                    }
+                } else {
+                    completion(false, "Неизвестная ошибка")
                 }
                 
-                completion(false, "Неизвестная ошибка")
                 self?.logOff()
                 return
             }
@@ -183,7 +199,6 @@ final class UserService: ObservableObject {
     }
     
     func logOff() {
-        print(Thread.callStackSymbols)
         isAuthorized.value = false
         accessToken = nil
         refreshToken = nil
@@ -247,10 +262,6 @@ final class UserService: ObservableObject {
                 expLevelCap: result.expLevelCap,
                 maxLevelReached: result.maxLevelReached
             )
-        }.responseString { response in
-            if let value = response.value {
-                print(value)
-            }
         }
     }
     
@@ -372,7 +383,7 @@ final class UserService: ObservableObject {
                 completion(false, nil)
                 return
             }
-            
+
             completion(result.success, result.error)
         }
     }
@@ -399,15 +410,11 @@ final class UserService: ObservableObject {
                 if let error = response.error {
                     print(String(describing: error))
                 }
-                completion(false, nil)
+                completion(false, response.data.map { String(decoding: $0, as: UTF8.self) })
                 return
             }
             
             completion(result.success, result.error)
-        }.responseString { response in
-            if let value = response.value {
-                print(value)
-            }
         }
     }
     
@@ -426,13 +433,12 @@ final class UserService: ObservableObject {
             "username": newUsername
         ]
         
-        AF.request(host + "/api/users/" + userId + "/username", method: .patch, parameters: parameters, encoding: JSONEncoding.default, headers: headersInfo, interceptor: APIRequestInterceptor.shared).response { [weak self] response in
+        AF.request(host + "/api/users/" + userId + "/username", method: .patch, parameters: parameters, encoding: JSONEncoding.default, headers: headersInfo, interceptor: APIRequestInterceptor.shared).response { response in
             if let error = response.error {
                 print(String(describing: error))
                 completion(false)
             } else {
                 completion(true)
-                self?.userSetup()
             }
         }
     }
@@ -484,6 +490,24 @@ final class UserService: ObservableObject {
             } else {
                 completion(true)
             }
+        }
+    }
+    
+    func changeImage(newImage: UIImage?, completion: @escaping (Bool, String?) -> Void) {
+        guard let userId = userId else {
+            completion(false, "")
+            return
+        }
+        AF.upload(multipartFormData: { multipartFormData in
+            if let profilePic = newImage {
+                multipartFormData.append(profilePic.jpegData(compressionQuality: 0.8)!, withName: "picture", fileName: "img.jpg", mimeType: "image/jpg")
+            }
+        }, to: host + "/api/users/" + userId + "/image", method: .patch, interceptor: APIRequestInterceptor.shared).responseString { [weak self] response in
+            print(response.response?.statusCode ?? "200")
+            let success: Bool = response.response?.statusCode == 200
+            let message: String? = success ? nil : response.value
+            self?.userSetup()
+            completion(success, message)
         }
     }
     

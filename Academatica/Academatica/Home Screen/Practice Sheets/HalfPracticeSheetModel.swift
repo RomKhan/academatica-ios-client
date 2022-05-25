@@ -90,7 +90,7 @@ class HalfPracticeSheetModel: ObservableObject {
         case .recomended:
             return "Рекомендованная практика"
         case .custom:
-            return "Пользователская практика"
+            return "Своя практика"
         case .lesson:
             return ""
         }
@@ -99,11 +99,11 @@ class HalfPracticeSheetModel: ObservableObject {
     func getDescription(type: PracticeType) -> String {
         switch type {
         case .completedLessons:
-            return "Состоит из случайных задач по пройденным темам."
+            return "Состоит из случайных задач по пройденным темам.\n\nДаёт возможность получить один спасательный круг."
         case .recomended:
-            return "Состоит из тем, ошибок в которых было допущено больше всего."
+            return "Состоит из тем, ошибок в которых было допущено больше всего.\n\nДаёт возможность получить один спасательный круг."
         case .custom:
-            return "Состоит из тем, выбранных в конструкторе."
+            return "Состоит из тем, выбранных в конструкторе.\n\nНе даёт возможность получить спасательный круг."
         case .lesson:
             return ""
         }

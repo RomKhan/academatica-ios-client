@@ -38,6 +38,24 @@ class HomeViewModel: ObservableObject {
                                     green: 144 / 255.0,
                                     blue: 206 / 255.0,
                                     alpha: 1))
+                              ]),
+        PracticeCardViewModel(model: PracticeCardModel(title: "Своя практика", countOfTasks: nil, imageName: "support"),
+                              colors: [
+                                Color(uiColor: UIColor(
+                                    red: 236 / 255.0,
+                                    green: 140 / 255.0,
+                                    blue: 140 / 255.0,
+                                    alpha: 1)),
+                                Color(uiColor: UIColor(
+                                    red: 249 / 255.0,
+                                    green: 58 / 255.0,
+                                    blue: 58 / 255.0,
+                                    alpha: 1)),
+                                Color(uiColor: UIColor(
+                                    red: 245 / 255.0,
+                                    green: 133 / 255.0,
+                                    blue: 155 / 255.0,
+                                    alpha: 1))
                               ])
     ]
     
@@ -46,6 +64,9 @@ class HomeViewModel: ObservableObject {
     @Published var recommendedTopicId: String?
     @Published var completedTopicsCount: Int = 0
     @Published var practicesUnlocked: Bool = false
+    @Published var showPracticeNavigationLink: Bool = false
+    @Published var practiceShow: Bool = false
+    @Published var cardStackStateIsLoaded = false
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -53,6 +74,11 @@ class HomeViewModel: ObservableObject {
         UserService.shared.$userModel.sink { [weak self] newValue in
             self?.userModel = newValue
         }.store(in: &cancellables)
+        
+        CourseService.shared.$upcomingClassesLoaded.sink { [weak self] newValue in
+            self?.cardStackStateIsLoaded = newValue
+        }.store(in: &cancellables)
+    
         
         UserStateService.shared.$userState.sink { [weak self] newValue in
             self?.userState = newValue
@@ -82,5 +108,6 @@ class HomeViewModel: ObservableObject {
         UserStateService.shared.updateUserState()
         CourseService.shared.getRecommendedPracticeTopic()
         CourseService.shared.getCompletedTopicsCount()
+        CourseService.shared.getUpcomingLessons()
     }
 }

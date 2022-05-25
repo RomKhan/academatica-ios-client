@@ -37,12 +37,12 @@ struct AchievementCardView: View {
                             { phase in
                                 switch phase {
                                 case .empty:
-                                    Rectangle().fill(.white)
+                                    Rectangle().fill(.clear)
                                         .blendMode(.overlay)
                                 case .success(let image):
                                     image
                                         .resizable()
-                                        .scaledToFill()
+                                        .scaledToFit()
                                         .transition(.scale(scale: 0.1, anchor: .center))
                                 case .failure:
                                     Image(systemName: "wifi.slash")

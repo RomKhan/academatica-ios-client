@@ -38,13 +38,14 @@ class TierViewModel: ObservableObject {
     }
     
     func loadTopics() {
-        topicModels.removeAll()
         serverState = .loading
         
         if (selectedTierIndex >= tierCardModels.count) {
             return
         }
         
+        topicModels = []
+        CourseService.shared.currentTier = tierCardModels[selectedTierIndex]
         CourseService.shared.getTopics(tierId: tierCardModels[selectedTierIndex].id)
     }
 }

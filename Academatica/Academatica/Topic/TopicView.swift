@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import ResizableSheet
 
 struct TopicView: View {
     @StateObject var viewModel: TopicViewModel = TopicViewModel()
@@ -27,6 +26,27 @@ struct TopicView: View {
                             .init(color: viewModel.colors[2], location: 1)]),
                     startPoint: .topTrailing,
                     endPoint: .bottomLeading)
+                    .frame(maxWidth: .infinity, maxHeight: UIScreen.main.bounds.height / 2)
+                    .overlay(
+                        AsyncImage(
+                            url: viewModel.topicModel.imageUrl,
+                            transaction: Transaction(animation: .spring()))
+                        { phase in
+                            switch phase {
+                            case .empty:
+                                EmptyView()
+                            case .success(let image):
+                                image
+                                    .resizable()
+                                    .scaledToFill()
+                                    .transition(.opacity)
+                            case .failure:
+                                EmptyView()
+                            @unknown default:
+                                EmptyView()
+                            }
+                        }
+                    )
                     .offset(y: -UIScreen.main.bounds.height / 2)
                 TopViewBackgroundBack()
                     .fill(viewModel.colors[0])
@@ -154,14 +174,14 @@ struct TopicView: View {
                 Text("")
                     .frame(height: 30)
             }
-            LessonView(viewModel: LessonViewModel(
-                lesson: viewModel.selectedClass,
-                        topicName: viewModel.topicModel.name),
-                    showSheet: $showSheet)
-                .offset(y: showSheet ? 0 : UIScreen.main.bounds.height * 1.5)
-                .animation(.spring(), value: showSheet)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment:  .bottom)
+        .fullScreenCover(isPresented: $showSheet) {
+            LessonView(viewModel: LessonViewModel(
+                        topicName: viewModel.topicModel.name),
+                    showSheet: $showSheet)
+                .animation(.spring(), value: showSheet)
+        }
         .matchedGeometryEffect(id: viewModel.topicModel.id, in: namespace)
         .onAppear() {
             if let currentTopic = CourseService.shared.currentTopic {
@@ -215,8 +235,8 @@ struct TopViewBackgroundFront: Shape {
         path.addCurve(to: CGPoint(x: 0.93733*width, y: 0.0817*height), control1: CGPoint(x: 0.496*width, y: 0.00436*height), control2: CGPoint(x: 0.74933*width, y: 0.11656*height))
         path.addCurve(to: CGPoint(x: width, y: 0.07026*height), control1: CGPoint(x: 0.96078*width, y: 0.07735*height), control2: CGPoint(x: 0.98147*width, y: 0.0736*height))
         path.addLine(to: CGPoint(x: width, y: 0.27342*height))
-        path.addLine(to: CGPoint(x: width, y: 1.59913*height))
-        path.addLine(to: CGPoint(x: 0, y: 1.59913*height))
+        path.addLine(to: CGPoint(x: width, y: 2.59913*height))
+        path.addLine(to: CGPoint(x: 0, y: 2.59913*height))
         path.addLine(to: CGPoint(x: 0, y: 0.13508*height))
         path.addLine(to: CGPoint(x: 0, y: 0.08932*height))
         path.closeSubpath()

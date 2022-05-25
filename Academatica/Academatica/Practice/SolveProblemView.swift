@@ -16,7 +16,8 @@ struct SolveProblemView: View {
         VStack(spacing: 25) {
             Text(viewModel.model.text)
             .foregroundColor(.white)
-            .frame(alignment: .leading)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .multilineTextAlignment(.leading)
             
             
             HStack {

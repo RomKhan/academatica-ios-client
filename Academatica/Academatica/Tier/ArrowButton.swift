@@ -9,12 +9,8 @@ import SwiftUI
 
 struct ArrowButton: View {
     var body: some View {
-//        Button {
-//
-//        } label: {
             NextArrow()
                 .foregroundColor(.black)
-//        }
     }
 }
 

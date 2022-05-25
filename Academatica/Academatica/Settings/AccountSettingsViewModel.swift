@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 struct DisclosureRow: Identifiable {
     let id: Int
@@ -22,10 +23,25 @@ struct DataSettingsRow: Identifiable {
 }
 
 class AccountSettingsViewModel: ObservableObject {
+    var animationStart = false
+    @Published var serverStatus = ServerState.none {
+        didSet {
+            if (serverStatus != .loading && !animationStart) {
+                animationStart = true
+                    withAnimation(.easeOut(duration: 2)) {
+                        serverStatus = .none
+                    }
+                animationStart = false
+            }
+        }
+    }
+    @Published var serverMessgae: String = ""
     var colors: [Color] = [
         Color(uiColor: UIColor(red: 92 / 255.0, green: 0 / 255.0, blue: 149 / 255.0, alpha: 1)),
         Color(uiColor: UIColor(red: 81 / 255.0, green: 132 / 255.0, blue: 209 / 255.0, alpha: 1))
     ]
+    
+    @Published var userModel: UserModel?
     
     let disclosureRows = [
         DisclosureRow(id: 0, title: "Персональные данные", icon: "person.fill", subRows: [
@@ -39,8 +55,32 @@ class AccountSettingsViewModel: ObservableObject {
         ])
     ]
     
-    // Метод запроса с сервера apiUsersIdImagePatch
+    private var cancellables = Set<AnyCancellable>()
+    var counter = 0
+    init() {
+        UserService.shared.$userModel.sink { [weak self] newValue in
+            if let newValue = newValue {
+                self?.userModel = newValue
+                self?.userModel?.profilePicUrl = nil
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+                    self?.userModel?.profilePicUrl = newValue.profilePicUrl
+                }
+            }
+        }.store(in: &cancellables)
+    }
+    
     func patchPicture(image: UIImage) {
-        UserService.shared.userModel?.profilePicUrl = URL(string: "https://static01.nyt.com/images/2017/11/08/well/family/well-fam-damour/well-fam-damour-articleLarge.jpg?quality=75&auto=webp&disable=upscale")!
+        serverStatus = .loading
+        UserService.shared.changeImage(newImage: image) { [weak self] state, message in
+            if let message = message {
+                self?.serverMessgae = message
+            }
+            
+            if state {
+                self?.serverStatus = .success
+            } else {
+                self?.serverStatus = .error
+            }
+        }
     }
 }

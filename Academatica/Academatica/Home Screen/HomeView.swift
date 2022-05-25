@@ -7,7 +7,6 @@
 
 import SwiftUI
 import Combine
-import ResizableSheet
 
 enum practiceType {
     case completedPractive
@@ -19,7 +18,6 @@ struct HomeView: View {
     @State private var heightOfset: CGFloat = 0
     @State var selectedDetentIdentifier: UISheetPresentationController.Detent.Identifier? = .medium
     @State var state: Bool = false
-    @State var practiceShow: Bool = false
     @State var practiceType: PracticeType = .completedLessons
     @State private var showConstructor = false
     @Binding var showClass: Bool
@@ -36,6 +34,10 @@ struct HomeView: View {
                             .init(color: Color(#colorLiteral(red: 0.8598107696, green: 0, blue: 0.999384582, alpha: 1)), location: 0.6)]),
                     startPoint: .topTrailing,
                     endPoint: .bottomLeading)).ignoresSafeArea()
+            Image(uiImage: UIImage(named: "HomeBackground")!)
+                .resizable()
+                .scaledToFit()
+                .offset(y: -heightOfset)
             TrackableScrollView(showIndicators: false, contentOffset: $heightOfset) {
                 HStack(alignment: .top) {
                     BuoysLeftCounter()
@@ -108,15 +110,46 @@ struct HomeView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .animation(.easeOut, value: viewModel.userModel?.firstName)
                 .transition(.opacity)
-                    
+                
                 Text("Предстоящие занятия")
                     .bold()
                     .padding(.top, UIScreen.main.bounds.size.height / 25)
                     .padding(.horizontal, 20)
                     .font(.system(size: 13))
                     .textCase(.uppercase).foregroundColor(.white)
-                CardStackView(showClass: $showClass).padding(.horizontal, 20).frame(maxWidth: .infinity).frame(height: 160).onAppear {
-                    CourseService.shared.getUpcomingLessons()
+                if (viewModel.cardStackStateIsLoaded && CourseService.shared.upcomingClasses.isEmpty) {
+                    HStack(spacing: 20) {
+                        Image("sad-face-in-rounded-square")
+                            .resizable()
+                            .scaledToFit()
+                            .padding(.vertical, UIScreen.main.bounds.height / 20)
+                            .padding(.leading, UIScreen.main.bounds.height / 20)
+                            .blendMode(.overlay)
+                        Text("Больше нет доступных уроков 🤷")
+                            .font(.system(size: UIScreen.main.bounds.height / 60))
+                            .multilineTextAlignment(.center)
+                            .blendMode(.overlay)
+                            .padding(.trailing, UIScreen.main.bounds.height / 20)
+                    }
+                    .transition(AnyTransition.opacity.animation(.easeIn(duration: 0.3)))
+                    .background(
+                        LinearGradient(
+                            gradient: ColorService.gradients[3],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing)
+                            .opacity(0.4)
+                    )
+                    .background(.ultraThinMaterial)
+                    .cornerRadius(UIScreen.main.bounds.height / 30)
+                    .padding(.horizontal, 20)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 180)
+                    .shadow(color: .black.opacity(0.3), radius: 20, x: 0, y: 0)
+                    .padding(.bottom, -20)
+                    .offset(y: 10)
+                } else if (!CourseService.shared.practiceLoaded) {
+                    HomeCardStackView(showClass: $showClass).padding(.horizontal, 20).frame(maxWidth: .infinity).frame(height: 160)
+                        .transition(AnyTransition.opacity.animation(.easeInOut(duration: 0.3)))
                 }
                 Text("Практика")
                     .textCase(.uppercase)
@@ -126,7 +159,7 @@ struct HomeView: View {
                     .textCase(.uppercase)
                     .frame(maxWidth: .infinity, alignment: .leading).zIndex(1)
                 VStack(spacing: 16) {
-                    ForEach(0...1, id: \.self) {index in
+                    ForEach(0...2, id: \.self) {index in
                         Button {
                             switch index {
                             case 0:
@@ -161,14 +194,14 @@ struct HomeView: View {
             }
             
             if practiceType == .recomended {
-                NavigationLink(isActive: $practiceShow) {
+                NavigationLink(isActive: $viewModel.practiceShow) {
                     PracticeLoadView(viewModel: PracticeLoadViewModel(mode: practiceType, topicId: viewModel.recommendedTopicId), showPractice: .constant(true))
                         .navigationBarHidden(true)
                 } label: {
                     EmptyView()
                 }
-            } else if practiceType == .completedLessons {
-                NavigationLink(isActive: $practiceShow) {
+            } else if practiceType == .completedLessons || practiceType == .custom {
+                NavigationLink(isActive: $viewModel.practiceShow) {
                     PracticeLoadView(viewModel: PracticeLoadViewModel(mode: practiceType, topicId: nil), showPractice: .constant(true))
                         .navigationBarHidden(true)
                         .overlay(Color.black.opacity(viewModel.completedTopicsCount != 0 ? 0 : 0.5))
@@ -184,14 +217,17 @@ struct HomeView: View {
             }
         }
         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
-            .navigationBarHidden(true)
-            .detentSheet(isPresented: $state, preferredCornerRadius: 40, detents: practiceType == .custom ? [.medium(), .large()] : [.medium()], allowsDismissalGesture: true) {
-                HalfPracticeSheet(viewModel: HalfPracticeSheetModel(), practiceShow: $practiceShow, sheetMode: $state, mode: $practiceType, showConstructor: $showConstructor)
-            }
-            .ignoresSafeArea()
-            .onAppear {
-                viewModel.updateData()
-            }
+        .navigationBarHidden(true)
+        .detentSheet(isPresented: $state, preferredCornerRadius: 40, detents: practiceType == .custom ? [.medium(), .large()] : [.medium()], allowsDismissalGesture: true) {
+            HalfPracticeSheet(viewModel: HalfPracticeSheetModel(), practiceShow: $viewModel.practiceShow, sheetMode: $state, mode: $practiceType, showConstructor: $showConstructor)
+        }
+        .sheet(isPresented: $showConstructor) {
+            CustomPracticeSheetView(showConstructor: $showConstructor, practiceShow: $viewModel.practiceShow)
+        }
+        .ignoresSafeArea()
+        .onAppear {
+            viewModel.updateData()
+        }
     }
 }
 

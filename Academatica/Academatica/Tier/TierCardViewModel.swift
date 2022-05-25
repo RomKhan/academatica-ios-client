@@ -6,16 +6,18 @@
 //
 
 import SwiftUI
+import Combine
 
 class TierCardViewModel: ObservableObject {
-    var model: TierModel = TierModel(
-        id: "0",
-        name: "1",
-        description: "ewqe",
-        completionRate: 56,
-        isComplete: false,
-        isUnlocked: true)
-    init(model: TierModel) {
-        self.model = model
+    @Published var model: TierModel?
+    
+    private var cancellables = Set<AnyCancellable>();
+    
+    init(tierId: String) {
+        CourseService.shared.$tiers.sink { [weak self] newValue in
+            self?.model = newValue.first(where: { value in
+                value.id == tierId
+            })
+        }.store(in: &cancellables)
     }
 }

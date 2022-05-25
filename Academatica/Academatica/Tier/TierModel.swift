@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  TierModel.swift
 //  SmartMath
 //
 //  Created by Roman on 09.01.2022.

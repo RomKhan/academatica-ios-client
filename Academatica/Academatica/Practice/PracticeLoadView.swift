@@ -12,6 +12,7 @@ struct PracticeLoadView: View {
     @Binding var showPractice: Bool
     @State private var heightOfset: CGFloat = 0
     @Environment(\.dismiss) var dismiss
+    
     var body: some View {
         ZStack {
             if viewModel.serverState == .success {
@@ -46,7 +47,16 @@ struct PracticeLoadView: View {
                     }
                 }
             }
-            .background(.white)
+            .background(
+                LinearGradient(
+                    gradient: Gradient(
+                        stops: [
+                            .init(color: Color(uiColor: UIColor(red: 0 / 255.0, green: 59 / 255.0, blue: 149 / 255.0, alpha: 1)), location: 0),
+                            .init(color: Color(uiColor: UIColor(red: 132 / 255.0, green: 163 / 255.0, blue: 185 / 255.0, alpha: 1)), location: 1.1)
+                        ]),
+                    startPoint: .topTrailing,
+                    endPoint: .bottomLeading)
+            )
             .opacity(viewModel.serverState == .success ? 0 : 1)
             .animation(.easeIn(duration: 0.2).delay(1), value: viewModel.serverState)
         }.onAppear() {

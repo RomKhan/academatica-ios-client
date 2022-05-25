@@ -9,10 +9,10 @@ import SwiftUI
 import Combine
 
 struct LeadBoardUserModel: Identifiable, Decodable {
-    let id: String // id Юзера
+    let id: String
     let firstName: String
     let lastName: String
-    let profilePic: URL
+    let profilePic: URL?
     let username: String
     let expThisWeek: Int
     let rank: Int
@@ -53,7 +53,7 @@ class LeadBoardsViewModel: ObservableObject {
                             return user.id
                         }
                         
-                        if !ids!.contains(entry.id) {
+                        if !(ids?.contains(entry.id) ?? true) {
                             self?.leadboardUsers.append(entry)
                         }
                     }
