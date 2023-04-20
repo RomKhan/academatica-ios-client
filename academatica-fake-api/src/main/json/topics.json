@@ -1,0 +1,26 @@
+[
+    {
+        "id": "1-0:1",
+        "tierId": "1",
+        "name": "Введение в натуральные числа",
+        "description": "Обозначение натуральных чисел, их сравнение.",
+        "imageUrl": "https://i.imgur.com/PwYl4nI.jpg",
+        "isAlgebraTopic": true,
+        "tier": null,
+        "isComplete": false,
+        "isUnlocked": true,
+        "completionRate": 50
+    },
+    {
+        "id": "1-1:1",
+        "tierId": "1",
+        "name": "Введение в геометрию",
+        "description": "Единицы измерения, отрезок, луч, треугольник.",
+        "imageUrl": "https://i.imgur.com/PwYl4nI.jpg",
+        "isAlgebraTopic": false,
+        "tier": null,
+        "isComplete": false,
+        "isUnlocked": true,
+        "completionRate": 50
+    }
+]

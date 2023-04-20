@@ -1,0 +1,15 @@
+{
+  "name": "academatica-fake-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/main/js/server.js",
+  "scripts": {
+    "start": "node src/main/js/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "V. Pendishchuk",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

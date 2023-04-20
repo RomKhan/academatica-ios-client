@@ -1,0 +1,445 @@
+[
+    {
+        "id": "0",
+        "classId": "1-0:1-1",
+        "topicId": "1-0:1",
+        "description": "Какие числа применяют для счёта предметов?",
+        "task": "",
+        "problemType": "sc",
+        "options": [
+            "Натуральные",
+            "Никакие",
+            "Любые",
+            "Вымышленные"
+        ],
+        "imageUrl": null,
+        "correctAnswers": [
+            "Натуральные"
+        ],
+        "expression": null,
+        "difficulty": 1
+    },
+    {
+        "id": "1",
+        "classId": "1-0:1-1",
+        "topicId": "1-0:1",
+        "description": "Напишите число",
+        "task": "Запишите в форму ниже число, в котором 9 сотен, 0 десятков и 3 единицы.",
+        "problemType": "txt",
+        "options": [],
+        "imageUrl": null,
+        "correctAnswers": [
+            "903"
+        ],
+        "expression": null,
+        "difficulty": 1
+    },
+    {
+        "id": "2",
+        "classId": "1-0:1-1",
+        "topicId": "1-0:1",
+        "description": "Запишите цифрами",
+        "task": "Запишите в форму ниже чифрами число восемьсот девять",
+        "problemType": "txt",
+        "options": [],
+        "imageUrl": null,
+        "correctAnswers": [
+            "809"
+        ],
+        "expression": null,
+        "difficulty": 1
+    },
+    {
+        "id": "3",
+        "classId": "1-0:1-1",
+        "topicId": "1-0:1",
+        "description": "Сколько десятков в сотне?",
+        "task": "",
+        "problemType": "sc",
+        "options": [
+            "10",
+            "100",
+            "1",
+            "0"
+        ],
+        "imageUrl": null,
+        "correctAnswers": [
+            "10"
+        ],
+        "expression": null,
+        "difficulty": 1
+    },
+    {
+        "id": "4",
+        "classId": "1-0:1-1",
+        "topicId": "1-0:1",
+        "description": "Какаие двухзначные числа можно составить из цифр 1 и 2?",
+        "task": "",
+        "problemType": "mc",
+        "options": [
+            "21",
+            "22",
+            "12",
+            "11"
+        ],
+        "imageUrl": null,
+        "correctAnswers": [
+            "21",
+            "22",
+            "12",
+            "11"
+        ],
+        "expression": null,
+        "difficulty": 1
+    },
+    {
+        "id": "5",
+        "classId": "1-0:1-1",
+        "topicId": "1-0:1",
+        "description": "Сколько цифр?",
+        "task": "Запишите в форму ниже сколько цифр использованно для записи числа 640046? Сколько из них различных? Ответ следует записывать в формате: ответ1, ответ2.",
+        "problemType": "txt",
+        "options": [],
+        "imageUrl": null,
+        "correctAnswers": [
+            "6, 3"
+        ],
+        "expression": null,
+        "difficulty": 1
+    },
+    {
+        "id": "6",
+        "classId": "1-0:1-1",
+        "topicId": "1-0:1",
+        "description": "Запишите цифрами",
+        "task": "Запишите в форму ниже чифрами число 11 млн.",
+        "problemType": "txt",
+        "options": [],
+        "imageUrl": null,
+        "correctAnswers": [
+            "11000000"
+        ],
+        "expression": null,
+        "difficulty": 1
+    },
+    {
+        "id": "7",
+        "classId": "1-0:1-1",
+        "topicId": "1-0:1",
+        "description": "Какое число следющее?",
+        "task": "Запишите в форму ниже число, следующее за числом 99",
+        "problemType": "txt",
+        "options": [],
+        "imageUrl": null,
+        "correctAnswers": [
+            "100"
+        ],
+        "expression": null,
+        "difficulty": 1
+    },
+    {
+        "id": "8",
+        "classId": "1-0:1-2",
+        "topicId": "1-0:1",
+        "description": "Какое из чисел меньше 10?",
+        "task": "",
+        "problemType": "mc",
+        "options": [
+            "9",
+            "10",
+            "103",
+            "4"
+        ],
+        "imageUrl": null,
+        "correctAnswers": [
+            "9",
+            "4"
+        ],
+        "expression": null,
+        "difficulty": 1
+    },
+    {
+        "id": "9",
+        "classId": "1-0:1-2",
+        "topicId": "1-0:1",
+        "description": "Какое из чисел меньше 1?",
+        "task": "",
+        "problemType": "mc",
+        "options": [
+            "12",
+            "1",
+            "103",
+            "Никакое"
+        ],
+        "imageUrl": null,
+        "correctAnswers": [
+            "Никакое"
+        ],
+        "expression": null,
+        "difficulty": 1
+    },
+    {
+        "id": "10",
+        "classId": "1-0:1-2",
+        "topicId": "1-0:1",
+        "description": "Какое число?",
+        "task": "Запишите в форму ниже единственное натуральное число, меньшее 2",
+        "problemType": "txt",
+        "options": [],
+        "imageUrl": null,
+        "correctAnswers": [
+            "1"
+        ],
+        "expression": null,
+        "difficulty": 1
+    },
+    {
+        "id": "11",
+        "classId": "1-0:1-2",
+        "topicId": "1-0:1",
+        "description": "Заполните пропуски",
+        "task": "",
+        "problemType": "gap",
+        "options": [],
+        "imageUrl": null,
+        "correctAnswers": [
+            "<"
+        ],
+        "expression": "1_GAP_2",
+        "difficulty": 1
+    },
+    {
+        "id": "12",
+        "classId": "1-0:1-2",
+        "topicId": "1-0:1",
+        "description": "Заполните пропуски",
+        "task": "",
+        "problemType": "gap",
+        "options": [],
+        "imageUrl": null,
+        "correctAnswers": [
+            ">"
+        ],
+        "expression": "302_GAP_299",
+        "difficulty": 1
+    },
+    {
+        "id": "13",
+        "classId": "1-0:1-2",
+        "topicId": "1-0:1",
+        "description": "Заполните пропуски",
+        "task": "",
+        "problemType": "gap",
+        "options": [],
+        "imageUrl": null,
+        "correctAnswers": [
+            "<",
+            "<"
+        ],
+        "expression": "8_GAP_9_GAP_12",
+        "difficulty": 1
+    },
+    {
+        "id": "14",
+        "classId": "1-0:1-2",
+        "topicId": "1-0:1",
+        "description": "Существует ли число, которое больше миллиарда миллиардов?",
+        "task": "",
+        "problemType": "sc",
+        "options": [
+            "Да",
+            "Нет"
+        ],
+        "imageUrl": null,
+        "correctAnswers": [
+            "Дан"
+        ],
+        "expression": null,
+        "difficulty": 1
+    },
+    {
+        "id": "15",
+        "classId": "1-0:1-2",
+        "topicId": "1-0:1",
+        "description": "Напишите в виде двойного неравенства",
+        "task": "Запишите в форму ниже в виде двойного неравенства: число 10 больше, чем 5, и меньше, чем 15. Ответ следует писать без пробелов.",
+        "problemType": "txt",
+        "options": [],
+        "imageUrl": null,
+        "correctAnswers": [
+            "5<10<15"
+        ],
+        "expression": null,
+        "difficulty": 1
+    },
+    {
+        "id": "16",
+        "classId": "1-1:1-1",
+        "topicId": "1-1:1",
+        "description": "Сколькими отрезками можно соединить точки M и P?",
+        "task": "",
+        "problemType": "mc",
+        "options": [
+            "Одним",
+            "Любым количеством",
+            "Их соединить нельзя"
+        ],
+        "imageUrl": null,
+        "correctAnswers": [
+            "Одним"
+        ],
+        "expression": null,
+        "difficulty": 1
+    },
+    {
+        "id": "17",
+        "classId": "1-1:1-1",
+        "topicId": "1-1:1",
+        "description": "Как можно записать отрезок, соединяющий С и D?",
+        "task": "",
+        "problemType": "mc",
+        "options": [
+            "CD",
+            "DC",
+            "Как угодно",
+            "DD"
+        ],
+        "imageUrl": null,
+        "correctAnswers": [
+            "CD",
+            "DC"
+        ],
+        "expression": null,
+        "difficulty": 1
+    },
+    {
+        "id": "18",
+        "classId": "1-1:1-1",
+        "topicId": "1-1:1",
+        "description": "Какие из точек лежат на отрезке CD? Ответ в формате ABC (алфавитный порядок)",
+        "task": "",
+        "problemType": "pic",
+        "options": [],
+        "imageUrl": "https://i.ibb.co/rcgvsgf/2022-03-15-13-38-02.png",
+        "correctAnswers": [
+            "FK"
+        ],
+        "expression": null,
+        "difficulty": 1
+    },
+    {
+        "id": "19",
+        "classId": "1-1:1-1",
+        "topicId": "1-1:1",
+        "description": "Какие из точек НЕ лежат на отрезке CD? Ответ в формате ABC (алфавитный порядок",
+        "task": "",
+        "problemType": "pic",
+        "options": [],
+        "imageUrl": "https://i.ibb.co/rcgvsgf/2022-03-15-13-38-02.png",
+        "correctAnswers": [
+            "ABF"
+        ],
+        "expression": null,
+        "difficulty": 1
+    },
+    {
+        "id": "20",
+        "classId": "1-1:1-1",
+        "topicId": "1-1:1",
+        "description": "Решите задачу",
+        "task": "На отрезке АD отмечены точки С и В так, что С лежит между точками А и В. Найдите длину отрезка АD, если длина отрезка АС равна 15 см, длина отрезка СВ на 8 см больше длины отрезка АС, а длина отрезка BD в 2 раза больше длины отрезка АВ.",
+        "problemType": "txt",
+        "options": [],
+        "imageUrl": null,
+        "correctAnswers": [
+            "114"
+        ],
+        "expression": null,
+        "difficulty": 1
+    },
+    {
+        "id": "21",
+        "classId": "1-1:1-2",
+        "topicId": "1-1:1",
+        "description": "Сколькими сантиметров в метре?",
+        "task": "",
+        "problemType": "sc",
+        "options": [
+            "100",
+            "10",
+            "1",
+            "1000"
+        ],
+        "imageUrl": null,
+        "correctAnswers": [
+            "100"
+        ],
+        "expression": null,
+        "difficulty": 1
+    },
+    {
+        "id": "22",
+        "classId": "1-1:1-2",
+        "topicId": "1-1:1",
+        "description": "Сколькими миллиметров в сантиметре?",
+        "task": "",
+        "problemType": "sc",
+        "options": [
+            "100",
+            "10",
+            "1",
+            "1000"
+        ],
+        "imageUrl": null,
+        "correctAnswers": [
+            "10"
+        ],
+        "expression": null,
+        "difficulty": 1
+    },
+    {
+        "id": "23",
+        "classId": "1-1:1-2",
+        "topicId": "1-1:1",
+        "description": "Напишите ответ",
+        "task": "Назовите единицу длины, в 1000 раз больше метра",
+        "problemType": "txt",
+        "options": [],
+        "imageUrl": null,
+        "correctAnswers": [
+            "километр"
+        ],
+        "expression": null,
+        "difficulty": 1
+    },
+    {
+        "id": "24",
+        "classId": "1-1:1-2",
+        "topicId": "1-1:1",
+        "description": "Выразите в сантиметрах",
+        "task": "Выразите в сантиметрах 9 дм 6 см. Ответом является число.",
+        "problemType": "txt",
+        "options": [],
+        "imageUrl": null,
+        "correctAnswers": [
+            "96"
+        ],
+        "expression": null,
+        "difficulty": 1
+    },
+    {
+        "id": "25",
+        "classId": "1-1:1-2",
+        "topicId": "1-1:1",
+        "description": "Выразите в миллиметрах",
+        "task": "Выразите в сантиметрах 3 см 6 мм. Ответом является число.",
+        "problemType": "txt",
+        "options": [],
+        "imageUrl": null,
+        "correctAnswers": [
+            "36"
+        ],
+        "expression": null,
+        "difficulty": 1
+    }
+]
