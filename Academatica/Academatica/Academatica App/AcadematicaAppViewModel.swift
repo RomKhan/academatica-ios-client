@@ -20,7 +20,5 @@ class AcadematicaAppViewModel: ObservableObject {
                 self.isAuthorized = values
             }
             .store(in: &cancellables)
-        
-        print(AppConfiguration.environment.apiURL)
     }
 }
