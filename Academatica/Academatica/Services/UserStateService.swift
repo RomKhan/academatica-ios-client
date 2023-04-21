@@ -102,6 +102,7 @@ final class UserStateService: ObservableObject {
             "Accept": "application/json"
         ]
         
+        print("Отправлен запрос : " + host + "/api/users/" + userId + "/state")
         AF.request(host + "/api/users/" + userId + "/state", method: .get, headers: headers, interceptor: APIRequestInterceptor.shared).responseDecodable(of: UserStateModel.self) { [weak self] response in
             guard let result = response.value else {
                 if let error = response.error {
@@ -125,6 +126,7 @@ final class UserStateService: ObservableObject {
             "Accept": "application/json"
         ]
         
+        print("Отправлен запрос : " + host + "/api/leaderboard/" + userId)
         AF.request(host + "/api/leaderboard/" + userId, method: .get, headers: headers, interceptor: APIRequestInterceptor.shared).responseDecodable(of: LeaderboardStateModel.self) { [weak self] response in
             guard let result = response.value else {
                 if let responseCode = response.error?.responseCode {
@@ -144,6 +146,7 @@ final class UserStateService: ObservableObject {
             "Accept": "application/json"
         ]
         
+        print("Отправлен запрос : " + host + "/api/leaderboard/" + userId)
         AF.request(host + "/api/leaderboard/" + userId, method: .get, headers: headers, interceptor: APIRequestInterceptor.shared).responseDecodable(of: LeaderboardStateModel.self) { [weak self] response in
             guard let result = response.value else {
                 if let responseCode = response.error?.responseCode {
@@ -167,6 +170,7 @@ final class UserStateService: ObservableObject {
             "Accept": "application/json"
         ]
         
+        print("Отправлен запрос : " + host + "/api/users/" + userId + "/achievements")
         AF.request(host + "/api/users/" + userId + "/achievements", method: .get, headers: headers, interceptor: APIRequestInterceptor.shared).responseDecodable(of: AchievementsListModel.self) { [weak self] response in
             guard let result = response.value else {
                 if let responseCode = response.error?.responseCode {
@@ -186,6 +190,7 @@ final class UserStateService: ObservableObject {
             "Accept": "application/json"
         ]
         
+        print("Отправлен запрос : " + host + "/api/users/" + userId + "/achievements")
         AF.request(host + "/api/users/" + userId + "/achievements", method: .get, headers: headers, interceptor: APIRequestInterceptor.shared).responseDecodable(of: AchievementsListModel.self) { [weak self] response in
             guard let result = response.value else {
                 if let responseCode = response.error?.responseCode {
@@ -209,6 +214,7 @@ final class UserStateService: ObservableObject {
             "Accept": "application/json"
         ]
         
+        print("Отправлен запрос : " + host + "/api/users/" + userId + "/buoys")
         AF.request(host + "/api/users/" + userId + "/buoys", method: .patch, headers: headers, interceptor: APIRequestInterceptor.shared).responseString { [weak self] response in
             if let error = response.error {
                 completion(false)
@@ -230,6 +236,7 @@ final class UserStateService: ObservableObject {
             "Accept": "application/json"
         ]
         
+        print("Отправлен запрос : " + host + "/api/leaderboard/" + league.rawValue + "?page=" + String(page))
         AF.request(host + "/api/leaderboard/" + league.rawValue + "?page=" + String(page), method: .get, headers: headers, interceptor: APIRequestInterceptor.shared).responseDecodable(of: LeaderboardPageModel.self) { response in
             guard let result = response.value else {
                 if let error = response.error {

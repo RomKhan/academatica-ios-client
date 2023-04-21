@@ -56,7 +56,7 @@ final class APIRequestInterceptor: RequestInterceptor, RequestRetrier {
                     // After updating the token we can safely retry the original request.
                     completion(.retry)
                 case .failure(let error):
-                    print(error.localizedDescription)
+                    // print(error.localizedDescription)
                     self.userService.logOff()
                 }
             }

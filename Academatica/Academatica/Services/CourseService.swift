@@ -156,6 +156,7 @@ final class CourseService: ObservableObject {
             "Accept": "application/json"
         ]
         upcomingClassesLoaded = false
+        print("Отправлен запрос : " + host + "/api/course/classes/upcoming")
         AF.request(host + "/api/course/classes/upcoming", method: .get, headers: headers, interceptor: APIRequestInterceptor.shared).responseDecodable(of: UpcomingClassListModel.self) { [weak self] response in
             guard let result = response.value else {
                 return
@@ -172,6 +173,7 @@ final class CourseService: ObservableObject {
             "Accept": "application/json"
         ]
         
+        print("Отправлен запрос : " + host + "/api/course/tiers")
         AF.request(host + "/api/course/tiers", method: .get, headers: headers, interceptor: APIRequestInterceptor.shared).responseDecodable(of: TiersListModel.self) { [weak self] response in
             guard let result = response.value else {
                 return
@@ -187,6 +189,7 @@ final class CourseService: ObservableObject {
             "Accept": "application/json"
         ]
         
+        print("Отправлен запрос : " + host + "/api/course/tiers/" + tierId)
         AF.request(host + "/api/course/tiers/" + tierId, method: .get, headers: headers, interceptor: APIRequestInterceptor.shared).responseDecodable(of: TopicListModel.self) { [weak self] response in
             guard let result = response.value else {
                 return
@@ -205,10 +208,11 @@ final class CourseService: ObservableObject {
             "Accept": "application/json"
         ]
         
+        print("Отправлен запрос : " + host + "/api/course/topics/" + topicId)
         AF.request(host + "/api/course/topics/" + topicId, method: .get, headers: headers, interceptor: APIRequestInterceptor.shared).responseDecodable(of: ClassListModel.self) { [weak self] response in
             guard let result = response.value else {
                 if let error = response.error {
-                    print(error.localizedDescription)
+                    // print(error.localizedDescription)
                 }
                 return
             }
@@ -223,10 +227,11 @@ final class CourseService: ObservableObject {
             "Accept": "application/json"
         ]
         
+        print("Отправлен запрос : " + host + "/api/course/topics/completed")
         AF.request(host + "/api/course/topics/completed", method: .get, headers: headers, interceptor: APIRequestInterceptor.shared).responseDecodable(of: CompletedTopicListModel.self) { [weak self] response in
             guard let result = response.value else {
                 if let error = response.error {
-                    print(error.localizedDescription)
+                    // print(error.localizedDescription)
                 }
                 return
             }
@@ -240,6 +245,7 @@ final class CourseService: ObservableObject {
             "Accept": "application/json"
         ]
         
+        print("Отправлен запрос : " + host + "/api/course/practice/recommended")
         AF.request(host + "/api/course/practice/recommended", method: .get, headers: headers, interceptor: APIRequestInterceptor.shared).responseDecodable(of: RecommendedTopicResponseModel.self) { [weak self] response in
             self?.recommendedTopic = response.value?.recommendedTopic
         }
@@ -250,6 +256,7 @@ final class CourseService: ObservableObject {
             "Accept": "application/json"
         ]
         
+        print("Отправлен запрос : " + host + "/api/course/classes/" + classId + "/problems")
         AF.request(host + "/api/course/classes/" + classId + "/problems", method: .get, headers: headers, interceptor: APIRequestInterceptor.shared).responseDecodable(of: ProblemListModel.self) { response in
             guard let result = response.value else {
                 if let error = response.error {
@@ -268,6 +275,7 @@ final class CourseService: ObservableObject {
             "Accept": "application/json"
         ]
         
+        print("Отправлен запрос : " + host + "/api/course/practice/topic/problems?topicId=" + topicId)
         AF.request(host + "/api/course/practice/topic/problems?topicId=" + topicId, method: .get, headers: headers, interceptor: APIRequestInterceptor.shared).responseDecodable(of: ProblemListModel.self) { response in
             guard let result = response.value else {
                 if let error = response.error {
@@ -287,6 +295,7 @@ final class CourseService: ObservableObject {
             "Accept": "application/json"
         ]
         
+        print("Отправлен запрос : " + host + "/api/course/practice/completed/problems")
         AF.request(host + "/api/course/practice/completed/problems", method: .get, headers: headers, interceptor: APIRequestInterceptor.shared).responseDecodable(of: ProblemListModel.self) { response in
             guard let result = response.value else {
                 if let error = response.error {
@@ -310,6 +319,7 @@ final class CourseService: ObservableObject {
             "mistakeCount": mistakeCount
         ]
         
+        print("Отправлен запрос : " + host + "/api/course/classes/" + classId + "/finish")
         AF.request(host + "/api/course/classes/" + classId + "/finish", method: .post, parameters: parameters,  encoding: JSONEncoding.default, headers: headers, interceptor: APIRequestInterceptor.shared).responseDecodable(of: ClassPracticeResultModel.self) { [weak self] response in
             guard let result = response.value else {
                 if let error = response.error {
@@ -352,6 +362,7 @@ final class CourseService: ObservableObject {
             "topicId": topicId
         ]
         
+        print("Отправлен запрос : " + host + "/api/course/practice/finish")
         AF.request(host + "/api/course/practice/finish", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers, interceptor: APIRequestInterceptor.shared).responseDecodable(of: PracticeResultModel.self) { [weak self] response in
             guard let result = response.value else {
                 if let error = response.error {
@@ -380,6 +391,7 @@ final class CourseService: ObservableObject {
             "isCustomPractice": false
         ]
         
+        print("Отправлен запрос : " + host + "/api/course/practice/finish")
         AF.request(host + "/api/course/practice/finish", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers, interceptor: APIRequestInterceptor.shared).responseDecodable(of: PracticeResultModel.self) { [weak self] response in
             guard let result = response.value else {
                 if let error = response.error {
@@ -407,6 +419,7 @@ final class CourseService: ObservableObject {
             "isCustomPractice": true
         ]
         
+        print("Отправлен запрос : " + host + "/api/course/practice/finish")
         AF.request(host + "/api/course/practice/finish", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers, interceptor: APIRequestInterceptor.shared).responseDecodable(of: PracticeResultModel.self) { [weak self] response in
             guard let result = response.value else {
                 if let error = response.error {
@@ -477,6 +490,7 @@ final class CourseService: ObservableObject {
             "Accept": "application/json"
         ]
         
+        print("Отправлен запрос : " + host + "/api/course/tiers")
         AF.request(host + "/api/course/tiers", method: .get, headers: headers, interceptor: APIRequestInterceptor.shared).responseDecodable(of: TiersListModel.self) { [weak self] response in
             guard let result = response.value else {
                 return
@@ -493,6 +507,7 @@ final class CourseService: ObservableObject {
             "Accept": "application/json"
         ]
         
+        print("Отправлен запрос : " + host + "/api/course/topics/completed")
         AF.request(host + "/api/course/topics/completed", method: .get, headers: headers, interceptor: APIRequestInterceptor.shared).responseDecodable(of: CustomPracticeTopicListModel.self) { [weak self] response in
             guard let result = response.value else {
                 completion(false)
@@ -524,6 +539,7 @@ final class CourseService: ObservableObject {
             "topicData": getTopicProblemsDataDto()
         ]
         
+        print("Отправлен запрос : " + host +  "/api/course/practice/custom/problems")
         AF.request(host +  "/api/course/practice/custom/problems", method: .post, parameters: parameters,  encoding: JSONEncoding.default, headers: headers, interceptor: APIRequestInterceptor.shared).responseDecodable(of: ProblemListModel.self) { response in
             guard let result = response.value else {
                 if let error = response.error {

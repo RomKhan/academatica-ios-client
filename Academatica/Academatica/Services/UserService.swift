@@ -146,6 +146,7 @@ final class UserService: ObservableObject {
             "scope": "Academatica.Api offline_access openid"
         ];
         
+        print("Отправлен запрос : " + host + "/connect/token")
         AF.request(host + "/connect/token", method: .post, parameters: parameters, encoder: URLEncodedFormParameterEncoder.default, headers: headers, interceptor: APIRequestInterceptor.shared).responseDecodable(of: TokenModel.self) { [weak self] response in
             guard let result = response.value else {
                 if let errorJSON = response.data {
@@ -183,6 +184,7 @@ final class UserService: ObservableObject {
             "Authorization": "Bearer " + accessToken!
         ]
         
+        print("Отправлен запрос : " + host + "/connect/userinfo")
         AF.request(host + "/connect/userinfo", method: .get, headers: headersInfo, interceptor: APIRequestInterceptor.shared).responseDecodable(of: OpenIDModel.self) { [weak self] response in
             guard let result = response.value else {
                 if let error = response.error {
@@ -216,6 +218,7 @@ final class UserService: ObservableObject {
             "lastName": lastName
         ];
         
+        print("Отправлен запрос : " + host + "/connect/register")
         AF.upload(multipartFormData: { multipartFormData in
             if let profilePic = profilePic {
                 multipartFormData.append(profilePic.jpegData(compressionQuality: 0.8)!, withName: "profilePicture", fileName: "img.jpg", mimeType: "image/jpg")
@@ -240,6 +243,7 @@ final class UserService: ObservableObject {
         
         let url = host + "/api/users/" + userId
         
+        print("Отправлен запрос : " + url)
         AF.request(url, method: .get, interceptor: APIRequestInterceptor.shared).responseDecodable(of: UserProfileModel.self) { [weak self] response in
             guard let result = response.value else {
                 if let error = response.error {
@@ -268,6 +272,7 @@ final class UserService: ObservableObject {
     func otherUserSetup(userId: String) {
         let url = host + "/api/users/" + userId
         
+        print("Отправлен запрос : " + url)
         AF.request(url, method: .get, interceptor: APIRequestInterceptor.shared).responseDecodable(of: UserProfileModel.self) { [weak self] response in
             guard let result = response.value else {
                 if response.error != nil {
@@ -299,6 +304,7 @@ final class UserService: ObservableObject {
             return
         }
         
+        print("Отправлен запрос : " + host + "/api/users/" + userId + "/email/confirmation-code")
         AF.request(host + "/api/users/" + userId + "/email/confirmation-code", method: .post, interceptor: APIRequestInterceptor.shared).responseString { response in
             if let value = response.value {
                 print(value)
@@ -312,6 +318,7 @@ final class UserService: ObservableObject {
             return
         }
         
+        print("Отправлен запрос : " + host + "/api/users/" + userId + "/password/confirmation-code")
         AF.request(host + "/api/users/" + userId + "/password/confirmation-code", method: .post, interceptor: APIRequestInterceptor.shared).responseString { response in
             if let value = response.value {
                 print(value)
@@ -329,6 +336,7 @@ final class UserService: ObservableObject {
             "Accept": "application/json"
         ]
         
+        print("Отправлен запрос : " + host + "/api/users/" + userId + "/email/confirmation-code?code=" + confirmationCode)
         AF.request(host + "/api/users/" + userId + "/email/confirmation-code?code=" + confirmationCode, method: .get, headers: headersInfo, interceptor: APIRequestInterceptor.shared).responseDecodable(of: CodeCheckResponseModel.self) { response in
             guard let result = response.value else {
                 completion(false)
@@ -349,6 +357,7 @@ final class UserService: ObservableObject {
             "Accept": "application/json"
         ]
         
+        print("Отправлен запрос : " + host + "/api/users/" + userId + "/password/confirmation-code?code=" + confirmationCode)
         AF.request(host + "/api/users/" + userId + "/password/confirmation-code?code=" + confirmationCode, method: .get, headers: headersInfo, interceptor: APIRequestInterceptor.shared).responseDecodable(of: CodeCheckResponseModel.self) { response in
             guard let result = response.value else {
                 completion(false)
@@ -375,6 +384,7 @@ final class UserService: ObservableObject {
             "ConfirmationCode": confirmationCode
         ]
         
+        print("Отправлен запрос : " + host + "/api/users/" + userId + "/email")
         AF.request(host + "/api/users/" + userId + "/email", method: .patch, parameters: parameters, encoding: JSONEncoding.default, headers: headersInfo, interceptor: APIRequestInterceptor.shared).responseDecodable(of: CredentialsChangeResponseModel.self) { response in
             guard let result = response.value else {
                 if let error = response.error {
@@ -405,6 +415,7 @@ final class UserService: ObservableObject {
             "ConfirmNewPassword": newPasswordConfirm
         ]
         
+        print("Отправлен запрос : " + host + "/api/users/" + userId + "/password")
         AF.request(host + "/api/users/" + userId + "/password", method: .patch, parameters: parameters, encoding: JSONEncoding.default, headers: headersInfo, interceptor: APIRequestInterceptor.shared).responseDecodable(of: CredentialsChangeResponseModel.self) { response in
             guard let result = response.value else {
                 if let error = response.error {
@@ -433,6 +444,7 @@ final class UserService: ObservableObject {
             "username": newUsername
         ]
         
+        print("Отправлен запрос : " + host + "/api/users/" + userId + "/username")
         AF.request(host + "/api/users/" + userId + "/username", method: .patch, parameters: parameters, encoding: JSONEncoding.default, headers: headersInfo, interceptor: APIRequestInterceptor.shared).response { response in
             if let error = response.error {
                 print(String(describing: error))
@@ -458,6 +470,7 @@ final class UserService: ObservableObject {
             "firstName": newFirstName
         ]
         
+        print("Отправлен запрос : " + host + "/api/users/" + userId + "/firstname")
         AF.request(host + "/api/users/" + userId + "/firstname", method: .patch, parameters: parameters, encoding: JSONEncoding.default, headers: headersInfo, interceptor: APIRequestInterceptor.shared).response { response in
             if let error = response.error {
                 print(String(describing: error))
@@ -483,6 +496,7 @@ final class UserService: ObservableObject {
             "lastName": newLastName
         ]
         
+        print("Отправлен запрос : " + host + "/api/users/" + userId + "/lastname")
         AF.request(host + "/api/users/" + userId + "/lastname", method: .patch, parameters: parameters, encoding: JSONEncoding.default, headers: headersInfo, interceptor: APIRequestInterceptor.shared).response { response in
             if let error = response.error {
                 print(String(describing: error))
@@ -498,6 +512,7 @@ final class UserService: ObservableObject {
             completion(false, "")
             return
         }
+        print("Отправлен запрос : " + host + "/api/users/" + userId + "/image")
         AF.upload(multipartFormData: { multipartFormData in
             if let profilePic = newImage {
                 multipartFormData.append(profilePic.jpegData(compressionQuality: 0.8)!, withName: "picture", fileName: "img.jpg", mimeType: "image/jpg")
@@ -516,6 +531,7 @@ final class UserService: ObservableObject {
             "Accept": "application/json"
         ]
         
+        print("Отправлен запрос : " + host + "/api/course/activity")
         AF.request(host + "/api/course/activity", method: .get, headers: headersInfo, interceptor: APIRequestInterceptor.shared).responseDecodable(of: UserActivityModel.self) { response in
             guard let result = response.value else {
                 if let error = response.error {
