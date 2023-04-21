@@ -11,7 +11,7 @@ router.get('/bronze', (req, res) => {
                 "username": "Test",
                 "expThisWeek": 100,
                 "profilePic": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Unknown_person.jpg/925px-Unknown_person.jpg",
-                "userId": 0
+                "userId": "0"
             }
         ]
     });
