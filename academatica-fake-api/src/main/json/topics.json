@@ -9,6 +9,7 @@
         "tier": null,
         "isComplete": false,
         "isUnlocked": true,
+        "classCount": 2,
         "completionRate": 50
     },
     {
@@ -21,6 +22,7 @@
         "tier": null,
         "isComplete": false,
         "isUnlocked": true,
+        "classCount": 2,
         "completionRate": 50
     }
 ]

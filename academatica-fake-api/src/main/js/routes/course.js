@@ -28,7 +28,9 @@ router.get('/classes/upcoming', (req, res) => {
         topicClassCount: item.topicClassCount
     }));
 
-    res.status(200).send(upcomingClasses);
+    res.status(200).send({
+        upcomingClasses: upcomingClasses
+    });
 });
 
 router.get('/topics/completed', (req, res) => {
