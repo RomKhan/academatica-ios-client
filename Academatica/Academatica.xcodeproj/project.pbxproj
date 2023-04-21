@@ -116,6 +116,8 @@
 		86A6541427DE3A9900304FC6 /* AchievementCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A6540D27DE3A9900304FC6 /* AchievementCardView.swift */; };
 		86A6541527DE3A9900304FC6 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A6540E27DE3A9900304FC6 /* ProfileViewModel.swift */; };
 		86A6541627DE3A9900304FC6 /* CircleProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A6540F27DE3A9900304FC6 /* CircleProgressBar.swift */; };
+		86BDDC2729F2A03100F8AA6E /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86BDDC2629F2A03100F8AA6E /* AppEnvironment.swift */; };
+		86BDDC2929F2A0C900F8AA6E /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86BDDC2829F2A0C900F8AA6E /* AppConfiguration.swift */; };
 		86E3DD122824608B00CCAB3B /* loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 86E3DD112824608B00CCAB3B /* loading.json */; };
 		86E3DD162825ABCB00CCAB3B /* correct.wav in Resources */ = {isa = PBXBuildFile; fileRef = 86E3DD142825ABCB00CCAB3B /* correct.wav */; };
 		86E3DD172825ABCB00CCAB3B /* incorrect.wav in Resources */ = {isa = PBXBuildFile; fileRef = 86E3DD152825ABCB00CCAB3B /* incorrect.wav */; };
@@ -173,6 +175,8 @@
 		15ED317F27D6D85D00BB1402 /* LogoScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoScreen.swift; sourceTree = "<group>"; };
 		15EFD7CD27D109C300C941DA /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		50AC74060409C2D2EBF0FF22 /* Pods-SmartMath.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartMath.release.xcconfig"; path = "Target Support Files/Pods-SmartMath/Pods-SmartMath.release.xcconfig"; sourceTree = "<group>"; };
+		5E4D27E60E6CCFD9C53CD079 /* Pods-Academatica.debug (staging).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Academatica.debug (staging).xcconfig"; path = "Target Support Files/Pods-Academatica/Pods-Academatica.debug (staging).xcconfig"; sourceTree = "<group>"; };
+		84AB514E59F14176AC3DBF6A /* Pods-Academatica.debug (production).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Academatica.debug (production).xcconfig"; path = "Target Support Files/Pods-Academatica/Pods-Academatica.debug (production).xcconfig"; sourceTree = "<group>"; };
 		863A109627DEC47400023E99 /* DataChangeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataChangeView.swift; sourceTree = "<group>"; };
 		863A109727DEC47400023E99 /* AccountSettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountSettingsViewModel.swift; sourceTree = "<group>"; };
 		863A109827DEC47400023E99 /* AccountSettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountSettingsView.swift; sourceTree = "<group>"; };
@@ -236,6 +240,8 @@
 		86A6540D27DE3A9900304FC6 /* AchievementCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AchievementCardView.swift; sourceTree = "<group>"; };
 		86A6540E27DE3A9900304FC6 /* ProfileViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		86A6540F27DE3A9900304FC6 /* CircleProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleProgressBar.swift; sourceTree = "<group>"; };
+		86BDDC2629F2A03100F8AA6E /* AppEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironment.swift; sourceTree = "<group>"; };
+		86BDDC2829F2A0C900F8AA6E /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 		86E3DD112824608B00CCAB3B /* loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loading.json; sourceTree = "<group>"; };
 		86E3DD142825ABCB00CCAB3B /* correct.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = correct.wav; sourceTree = "<group>"; };
 		86E3DD152825ABCB00CCAB3B /* incorrect.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = incorrect.wav; sourceTree = "<group>"; };
@@ -369,6 +375,7 @@
 		15982B8B2784361600440AEB /* Academatica */ = {
 			isa = PBXGroup;
 			children = (
+				86BDDC2529F2A01900F8AA6E /* Configuration */,
 				86E3DD132825AB3F00CCAB3B /* Audio */,
 				863A10A527DFCB6000023E99 /* Views */,
 				863A10A427DFCB3C00023E99 /* Academatica App */,
@@ -571,6 +578,15 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
+		86BDDC2529F2A01900F8AA6E /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				86BDDC2629F2A03100F8AA6E /* AppEnvironment.swift */,
+				86BDDC2829F2A0C900F8AA6E /* AppConfiguration.swift */,
+			);
+			path = Configuration;
+			sourceTree = "<group>";
+		};
 		86E3DD132825AB3F00CCAB3B /* Audio */ = {
 			isa = PBXGroup;
 			children = (
@@ -588,6 +604,8 @@
 				50AC74060409C2D2EBF0FF22 /* Pods-SmartMath.release.xcconfig */,
 				9994F375D5C4B4D3B4042640 /* Pods-Academatica.debug.xcconfig */,
 				8826F6CBBFD33EDE33F4EF19 /* Pods-Academatica.release.xcconfig */,
+				5E4D27E60E6CCFD9C53CD079 /* Pods-Academatica.debug (staging).xcconfig */,
+				84AB514E59F14176AC3DBF6A /* Pods-Academatica.debug (production).xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -610,8 +628,6 @@
 			dependencies = (
 			);
 			name = Academatica;
-			packageProductDependencies = (
-			);
 			productName = SmartMath;
 			productReference = 15982B892784361600440AEB /* Academatica.app */;
 			productType = "com.apple.product-type.application";
@@ -639,8 +655,6 @@
 				Base,
 			);
 			mainGroup = 15982B802784361600440AEB;
-			packageReferences = (
-			);
 			productRefGroup = 15982B8A2784361600440AEB /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -766,6 +780,7 @@
 				863A109D27DEC47400023E99 /* AccountSettingsViewModel.swift in Sources */,
 				15728BA327BF279E00A3905D /* SheetExtention.swift in Sources */,
 				86A653DC27DD860A00304FC6 /* ProblemModel.swift in Sources */,
+				86BDDC2929F2A0C900F8AA6E /* AppConfiguration.swift in Sources */,
 				8648AABA281F315B009F8F77 /* HomeCardStackView.swift in Sources */,
 				863A10B027DFD4CC00023E99 /* LeadBoardCardViewModel.swift in Sources */,
 				154872DA27BD7805005F4B22 /* LessonView.swift in Sources */,
@@ -786,6 +801,7 @@
 				15982BA427844BD900440AEB /* TabBarViewModel.swift in Sources */,
 				86A6541327DE3A9900304FC6 /* HeatmapCalendarView.swift in Sources */,
 				155C073E27D65DB30027EC2D /* UserService.swift in Sources */,
+				86BDDC2729F2A03100F8AA6E /* AppEnvironment.swift in Sources */,
 				86A653E427DD860A00304FC6 /* GapProblemView.swift in Sources */,
 				154872DE27BD7C59005F4B22 /* LessonCardView.swift in Sources */,
 				86A653E227DD860A00304FC6 /* ProblemWithImageViewModel.swift in Sources */,
@@ -826,7 +842,7 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		15982B962784361700440AEB /* Debug */ = {
+		15982B962784361700440AEB /* Debug (Staging) */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -886,7 +902,7 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
-			name = Debug;
+			name = "Debug (Staging)";
 		};
 		15982B972784361700440AEB /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -943,9 +959,9 @@
 			};
 			name = Release;
 		};
-		15982B992784361700440AEB /* Debug */ = {
+		15982B992784361700440AEB /* Debug (Staging) */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9994F375D5C4B4D3B4042640 /* Pods-Academatica.debug.xcconfig */;
+			baseConfigurationReference = 5E4D27E60E6CCFD9C53CD079 /* Pods-Academatica.debug (staging).xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -966,7 +982,7 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
-			name = Debug;
+			name = "Debug (Staging)";
 		};
 		15982B9A2784361700440AEB /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -993,13 +1009,101 @@
 			};
 			name = Release;
 		};
+		86BDDC2329F29E8E00F8AA6E /* Debug (Production) */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				"LD_MAP_FILE_PATH[arch=*]" = "$(TARGET_TEMP_DIR)/$(PRODUCT_NAME)-LinkMap-$(CURRENT_VARIANT)-$(CURRENT_ARCH).txt";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = "Debug (Production)";
+		};
+		86BDDC2429F29E8E00F8AA6E /* Debug (Production) */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 84AB514E59F14176AC3DBF6A /* Pods-Academatica.debug (production).xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"Academatica/Preview Content\"";
+				DEVELOPMENT_TEAM = MFM5R3Q3DW;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = Academatica/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = ru.hse.edu.Academatica;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = "Debug (Production)";
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
 		15982B842784361600440AEB /* Build configuration list for PBXProject "Academatica" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				15982B962784361700440AEB /* Debug */,
+				15982B962784361700440AEB /* Debug (Staging) */,
+				86BDDC2329F29E8E00F8AA6E /* Debug (Production) */,
 				15982B972784361700440AEB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -1008,7 +1112,8 @@
 		15982B982784361700440AEB /* Build configuration list for PBXNativeTarget "Academatica" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				15982B992784361700440AEB /* Debug */,
+				15982B992784361700440AEB /* Debug (Staging) */,
+				86BDDC2429F29E8E00F8AA6E /* Debug (Production) */,
 				15982B9A2784361700440AEB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;

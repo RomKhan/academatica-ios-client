@@ -24,10 +24,11 @@ struct OpenIDModel: Decodable {
 
 final class APIRequestInterceptor: RequestInterceptor, RequestRetrier {
     private let userService: UserService = UserService.shared
+    private let apiURL = AppConfiguration.environment.apiURL
     public static let shared: APIRequestInterceptor = APIRequestInterceptor()
 
     func adapt(_ urlRequest: URLRequest, for session: Session, completion: @escaping (Result<URLRequest, Error>) -> Void) {
-        guard urlRequest.url?.absoluteString.hasPrefix("https://news-platform.ru/connect") == false else {
+        guard urlRequest.url?.absoluteString.hasPrefix(apiURL + "/connect") == false else {
             return completion(.success(urlRequest))
         }
         var urlRequest = urlRequest
@@ -74,7 +75,7 @@ final class APIRequestInterceptor: RequestInterceptor, RequestRetrier {
             "refresh_token": refreshToken
         ];
         
-        AF.request("https://news-platform.ru/connect/token", method: .post, parameters: parameters, encoder: URLEncodedFormParameterEncoder.default, headers: headers, interceptor: self).responseDecodable(of: TokenModel.self) { response in
+        AF.request(apiURL + "/connect/token", method: .post, parameters: parameters, encoder: URLEncodedFormParameterEncoder.default, headers: headers, interceptor: self).responseDecodable(of: TokenModel.self) { response in
             guard let result = response.value else {
                 if let error = response.error {
                     completion(.failure(error))
