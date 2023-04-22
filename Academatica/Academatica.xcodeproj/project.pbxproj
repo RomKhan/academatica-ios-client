@@ -23,6 +23,7 @@
 		1548E4FB27D7BE24009762B3 /* BuoysLeftCounterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1548E4FA27D7BE24009762B3 /* BuoysLeftCounterViewModel.swift */; };
 		1548E4FD27D7C027009762B3 /* CourseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1548E4FC27D7C027009762B3 /* CourseService.swift */; };
 		154B0B49278DBEB800A7C12A /* TopicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154B0B48278DBEB800A7C12A /* TopicView.swift */; };
+		1556200D29F325EF00C7A680 /* CacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1556200C29F325EF00C7A680 /* CacheService.swift */; };
 		15583E1527BC763F00F96B65 /* AuthorizationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15583E1427BC763F00F96B65 /* AuthorizationView.swift */; };
 		15583E1727BC764900F96B65 /* AuthorizationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15583E1627BC764900F96B65 /* AuthorizationViewModel.swift */; };
 		15583E1927BC79B400F96B65 /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15583E1827BC79B400F96B65 /* Background.swift */; };
@@ -142,6 +143,7 @@
 		1548E4FA27D7BE24009762B3 /* BuoysLeftCounterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuoysLeftCounterViewModel.swift; sourceTree = "<group>"; };
 		1548E4FC27D7C027009762B3 /* CourseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseService.swift; sourceTree = "<group>"; };
 		154B0B48278DBEB800A7C12A /* TopicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicView.swift; sourceTree = "<group>"; };
+		1556200C29F325EF00C7A680 /* CacheService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheService.swift; sourceTree = "<group>"; };
 		15583E1427BC763F00F96B65 /* AuthorizationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationView.swift; sourceTree = "<group>"; };
 		15583E1627BC764900F96B65 /* AuthorizationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationViewModel.swift; sourceTree = "<group>"; };
 		15583E1827BC79B400F96B65 /* Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Background.swift; sourceTree = "<group>"; };
@@ -495,6 +497,7 @@
 				866E249927DB992E00EFDB23 /* UserStateService.swift */,
 				1548E4FC27D7C027009762B3 /* CourseService.swift */,
 				155C073F27D690660027EC2D /* ColorService.swift */,
+				1556200C29F325EF00C7A680 /* CacheService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -823,6 +826,7 @@
 				86A653EE27DD860A00304FC6 /* ProblemViewModel.swift in Sources */,
 				15026FAD27985AC400D8A6A8 /* TopicViewModel.swift in Sources */,
 				15026FAF27985B1A00D8A6A8 /* ClassModel.swift in Sources */,
+				1556200D29F325EF00C7A680 /* CacheService.swift in Sources */,
 				863A10A027DEC47400023E99 /* GeneralSettingsViewModel.swift in Sources */,
 				86A653EC27DD860A00304FC6 /* ChoiceView.swift in Sources */,
 				86A653DE27DD860A00304FC6 /* SolveProblemViewModel.swift in Sources */,
