@@ -17,7 +17,9 @@ class BuoysLeftCounterViewModel : ObservableObject {
         counterUpdate()
         
         UserStateService.shared.$userState.sink { [weak self] newValue in
-            self?.amount = newValue?.buoysLeft
+            if newValue?.buoysLeft != self?.amount {
+                self?.amount = newValue?.buoysLeft
+            }
         }.store(in: &cancellables)
     }
     

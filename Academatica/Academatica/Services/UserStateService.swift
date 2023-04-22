@@ -83,6 +83,7 @@ enum League: String, Decodable {
 final class UserStateService: ObservableObject {
     public static let shared = UserStateService()
     private var userService = UserService.shared
+    private var cacheHelper = CacheService.shared
     private let host = AppConfiguration.environment.apiURL
     
     @Published var userState: UserStateModel?
@@ -95,6 +96,11 @@ final class UserStateService: ObservableObject {
     
     func updateUserState() {
         guard let userId = userService.userId else {
+            return
+        }
+        
+        if let cache = cacheHelper.cachedUserState {
+            self.userState = cache
             return
         }
         
@@ -114,11 +120,17 @@ final class UserStateService: ObservableObject {
             }
             
             self?.userState = result
+            self?.cacheHelper.cachedUserState = self?.userState
         }
     }
     
     func updateUserLeaderboardState() {
         guard let userId = userService.userId else {
+            return
+        }
+        
+        if let cache = cacheHelper.cachedUserLeaderboardState {
+            self.userLeaderboardState = cache
             return
         }
         
@@ -138,10 +150,16 @@ final class UserStateService: ObservableObject {
             }
             
             self?.userLeaderboardState = result
+            self?.cacheHelper.cachedUserLeaderboardState = self?.userLeaderboardState
         }
     }
     
     func loadOtherUserLeaderboardState(userId: String) {
+        if let cache = cacheHelper.cachedOtherUserLeaderboardState {
+            self.otherUserLeaderboardState = cache
+            return
+        }
+        
         let headers: HTTPHeaders = [
             "Accept": "application/json"
         ]
@@ -158,11 +176,17 @@ final class UserStateService: ObservableObject {
             }
             
             self?.otherUserLeaderboardState = result
+            self?.cacheHelper.cachedOtherUserLeaderboardState = self?.otherUserLeaderboardState
         }
     }
     
     func loadUserAchievements() {
         guard let userId = userService.userId else {
+            return
+        }
+        
+        if let cache = cacheHelper.cachedUserAchievements {
+            self.userAchievements = cache
             return
         }
         
@@ -182,10 +206,16 @@ final class UserStateService: ObservableObject {
             }
             
             self?.userAchievements = result.achievements
+            self?.cacheHelper.cachedUserAchievements = self?.userAchievements
         }
     }
     
     func loadOtherUserAchievements(userId: String) {
+        if let cache = cacheHelper.cachedOtherUserAchievements {
+            self.otherUserAchievements = cache
+            return
+        }
+        
         let headers: HTTPHeaders = [
             "Accept": "application/json"
         ]
@@ -202,6 +232,7 @@ final class UserStateService: ObservableObject {
             }
             
             self?.otherUserAchievements = result.achievements
+            self?.cacheHelper.cachedOtherUserAchievements = result.achievements
         }
     }
     
@@ -222,6 +253,7 @@ final class UserStateService: ObservableObject {
             }
             
             completion(true)
+            self?.cacheHelper.clearUserState()
             self?.updateUserState()
         }
     }

@@ -148,10 +148,18 @@ final class CourseService: ObservableObject {
     
     private let host = AppConfiguration.environment.apiURL
     static let shared = CourseService()
+    private var cacheHelper = CacheService.shared
     
     private init() {}
     
     func getUpcomingLessons() {
+        if let cache = cacheHelper.cachedUpcomingClasses {
+            self.upcomingClasses.removeAll()
+            self.upcomingClasses.append(contentsOf: cache)
+            self.upcomingClassesLoaded = true
+            return
+        }
+        
         let headers: HTTPHeaders = [
             "Accept": "application/json"
         ]
@@ -165,10 +173,17 @@ final class CourseService: ObservableObject {
             self?.upcomingClasses.removeAll()
             self?.upcomingClasses.append(contentsOf: result.upcomingClasses)
             self?.upcomingClassesLoaded = true
+            self?.cacheHelper.cachedUpcomingClasses = result.upcomingClasses
         }
     }
     
     func getTiers() {
+        if let cache = cacheHelper.cachedTiers {
+            self.tiers.removeAll()
+            self.tiers.append(contentsOf: cache)
+            return
+        }
+        
         let headers: HTTPHeaders = [
             "Accept": "application/json"
         ]
@@ -181,10 +196,23 @@ final class CourseService: ObservableObject {
             
             self?.tiers.removeAll()
             self?.tiers.append(contentsOf: result.tiers)
+            self?.cacheHelper.cachedTiers = result.tiers
         }
     }
     
     func getTopics(tierId: String) {
+        if let cache = cacheHelper.cachedTopics {
+            if currentTier?.id == tierId {
+                self.topics.removeAll()
+                self.topics.append(contentsOf: cache)
+                self.currentTopic = self.topics.first(where: { topic in
+                    topic.id == self.currentTopic?.id
+                })
+                return
+            }
+            cacheHelper.clearTopics()
+        }
+        
         let headers: HTTPHeaders = [
             "Accept": "application/json"
         ]
@@ -200,10 +228,20 @@ final class CourseService: ObservableObject {
             self?.currentTopic = self?.topics.first(where: { topic in
                 topic.id == self?.currentTopic?.id
             })
+            self?.cacheHelper.cachedTopics = result.topics
         }
     }
     
     func getClasses(topicId: String) {
+        if let cache = cacheHelper.cachedClasses {
+            if currentTopic?.id == topicId {
+                self.classes.removeAll()
+                self.classes.append(contentsOf: cache)
+                return
+            }
+            cacheHelper.clearClasses()
+        }
+        
         let headers: HTTPHeaders = [
             "Accept": "application/json"
         ]
@@ -219,10 +257,14 @@ final class CourseService: ObservableObject {
             
             self?.classes.removeAll()
             self?.classes.append(contentsOf: result.classes)
+            self?.cacheHelper.cachedClasses = result.classes
         }
     }
     
     func getCompletedTopicsCount() {
+        if let cache = cacheHelper.cachedCompletedTopicCount {
+            completedTopicCount = cache
+        }
         let headers: HTTPHeaders = [
             "Accept": "application/json"
         ]
@@ -237,6 +279,7 @@ final class CourseService: ObservableObject {
             }
             
             self?.completedTopicCount = result.topics.count
+            self?.cacheHelper.cachedCompletedTopicCount = result.topics.count
         }
     }
     
@@ -331,6 +374,7 @@ final class CourseService: ObservableObject {
                 return
             }
             
+            self?.cacheHelper.clearCourseInfo()
             self?.lastExpReward = result.exp
             self?.lastAchievements = result.achievements.map { value in
                 return AchievementModel(name: value.name, description: value.description, imageUrl: value.imageUrl, achievedAmount: 1)
@@ -374,6 +418,7 @@ final class CourseService: ObservableObject {
                 return
             }
             
+            self?.cacheHelper.clearCourseInfo()
             self?.lastExpReward = result.exp
             self?.lastBuoysAdded = result.buoyAdded
             completion(true)
@@ -403,6 +448,7 @@ final class CourseService: ObservableObject {
                 return
             }
             
+            self?.cacheHelper.clearCourseInfo()
             self?.lastExpReward = result.exp
             self?.lastBuoysAdded = result.buoyAdded
             completion(true)
@@ -431,6 +477,7 @@ final class CourseService: ObservableObject {
                 return
             }
             
+            self?.cacheHelper.clearCourseInfo()
             self?.lastExpReward = result.exp
             self?.lastBuoysAdded = result.buoyAdded
             completion(true)
@@ -486,6 +533,12 @@ final class CourseService: ObservableObject {
     }
     
     func getCustomPracticeTiers(completion: @escaping (Bool) -> Void) {
+        if let cache = cacheHelper.cachedTiers {
+            self.tiers.removeAll()
+            self.tiers.append(contentsOf: cache)
+            return
+        }
+        
         let headers: HTTPHeaders = [
             "Accept": "application/json"
         ]
@@ -498,11 +551,28 @@ final class CourseService: ObservableObject {
             
             self?.tiers.removeAll()
             self?.tiers.append(contentsOf: result.tiers)
+            self?.cacheHelper.cachedTiers = result.tiers
             self?.getCompletedTopics(completion: completion)
         }
     }
     
     func getCompletedTopics(completion: @escaping (Bool) -> Void) {
+        if let cache = cacheHelper.cachedCompletedTopics {
+            self.customPracticeTopics.removeAll()
+            self.customPracticeTiers.removeAll()
+            for topic in cache {
+                if self.customPracticeTopics[topic.tierId] == nil {
+                    self.customPracticeTopics[topic.tierId] = []
+                    if let tier = self.tiers.first(where: { value in value.id == topic.tierId}) {
+                        self.customPracticeTiers.append(tier)
+                    }
+                }
+                self.customPracticeTopics[topic.tierId]?.append(topic)
+            }
+            completion(true)
+            return
+        }
+        
         let headers: HTTPHeaders = [
             "Accept": "application/json"
         ]
@@ -514,6 +584,7 @@ final class CourseService: ObservableObject {
                 return
             }
             
+            self?.cacheHelper.cachedCompletedTopics = result.topics
             self?.customPracticeTopics.removeAll()
             self?.customPracticeTiers.removeAll()
             for topic in result.topics {
@@ -539,7 +610,7 @@ final class CourseService: ObservableObject {
             "topicData": getTopicProblemsDataDto()
         ]
         
-        print("Отправлен запрос : " + host +  "/api/course/practice/custom/problems")
+        print("Отправлен запрос : " + host + "/api/course/topics/completed")
         AF.request(host +  "/api/course/practice/custom/problems", method: .post, parameters: parameters,  encoding: JSONEncoding.default, headers: headers, interceptor: APIRequestInterceptor.shared).responseDecodable(of: ProblemListModel.self) { response in
             guard let result = response.value else {
                 if let error = response.error {

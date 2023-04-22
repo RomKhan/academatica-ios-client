@@ -86,6 +86,7 @@ final class UserService: ObservableObject {
     @Published var authorizationNotification: String = ""
     var isAuthorized = CurrentValueSubject<Bool, Never>(false)
     let keychainHelper: KeychainService = KeychainService.shared
+    private var cacheHelper = CacheService.shared
     private let host = AppConfiguration.environment.apiURL
     public static let shared = UserService()
     private var userSetupInProgress: Bool = false
@@ -168,6 +169,7 @@ final class UserService: ObservableObject {
             self?.accessToken = result.accessToken
             self?.refreshToken = result.refreshToken
             
+            self?.cacheHelper.clearChache()
             self?.loadUserInfo(completion: completion)
         }
     }
@@ -206,6 +208,7 @@ final class UserService: ObservableObject {
         refreshToken = nil
         userId = nil
         userModel = nil
+        cacheHelper.clearChache()
     }
     
     func signUp(firstName: String?, lastName: String?, userName: String?, email: String?, password: String?, confirmPassword: String?, profilePic: UIImage?, completion: @escaping (Bool, String?) -> Void) {
@@ -241,6 +244,11 @@ final class UserService: ObservableObject {
             return
         }
         
+        if let cache = cacheHelper.cachedUserModel {
+            self.userModel = cache
+            return
+        }
+        
         let url = host + "/api/users/" + userId
         
         print("Отправлен запрос : " + url)
@@ -266,10 +274,20 @@ final class UserService: ObservableObject {
                 expLevelCap: result.expLevelCap,
                 maxLevelReached: result.maxLevelReached
             )
+            
+            self?.cacheHelper.cachedUserModel = self?.userModel
         }
     }
     
     func otherUserSetup(userId: String) {
+        if let cache = cacheHelper.cachedOtherUserModel {
+            if cache.id == userId {
+                self.otherUserModel = cache
+                return
+            }
+            cacheHelper.clearOtherUserModel()
+        }
+            
         let url = host + "/api/users/" + userId
         
         print("Отправлен запрос : " + url)
@@ -295,6 +313,9 @@ final class UserService: ObservableObject {
                 expLevelCap: result.expLevelCap,
                 maxLevelReached: result.maxLevelReached
             )
+            
+            
+            self?.cacheHelper.cachedOtherUserModel = self?.otherUserModel
         }
     }
     
@@ -343,6 +364,7 @@ final class UserService: ObservableObject {
                 return
             }
             
+            
             completion(result.success)
         }
     }
@@ -385,7 +407,7 @@ final class UserService: ObservableObject {
         ]
         
         print("Отправлен запрос : " + host + "/api/users/" + userId + "/email")
-        AF.request(host + "/api/users/" + userId + "/email", method: .patch, parameters: parameters, encoding: JSONEncoding.default, headers: headersInfo, interceptor: APIRequestInterceptor.shared).responseDecodable(of: CredentialsChangeResponseModel.self) { response in
+        AF.request(host + "/api/users/" + userId + "/email", method: .patch, parameters: parameters, encoding: JSONEncoding.default, headers: headersInfo, interceptor: APIRequestInterceptor.shared).responseDecodable(of: CredentialsChangeResponseModel.self) { [weak self] response in
             guard let result = response.value else {
                 if let error = response.error {
                     print(String(describing: error))
@@ -394,6 +416,7 @@ final class UserService: ObservableObject {
                 return
             }
 
+            self?.cacheHelper.clearUserModel()
             completion(result.success, result.error)
         }
     }
@@ -416,7 +439,7 @@ final class UserService: ObservableObject {
         ]
         
         print("Отправлен запрос : " + host + "/api/users/" + userId + "/password")
-        AF.request(host + "/api/users/" + userId + "/password", method: .patch, parameters: parameters, encoding: JSONEncoding.default, headers: headersInfo, interceptor: APIRequestInterceptor.shared).responseDecodable(of: CredentialsChangeResponseModel.self) { response in
+        AF.request(host + "/api/users/" + userId + "/password", method: .patch, parameters: parameters, encoding: JSONEncoding.default, headers: headersInfo, interceptor: APIRequestInterceptor.shared).responseDecodable(of: CredentialsChangeResponseModel.self) { [weak self] response in
             guard let result = response.value else {
                 if let error = response.error {
                     print(String(describing: error))
@@ -425,6 +448,7 @@ final class UserService: ObservableObject {
                 return
             }
             
+            self?.cacheHelper.clearUserModel()
             completion(result.success, result.error)
         }
     }
@@ -445,11 +469,12 @@ final class UserService: ObservableObject {
         ]
         
         print("Отправлен запрос : " + host + "/api/users/" + userId + "/username")
-        AF.request(host + "/api/users/" + userId + "/username", method: .patch, parameters: parameters, encoding: JSONEncoding.default, headers: headersInfo, interceptor: APIRequestInterceptor.shared).response { response in
+        AF.request(host + "/api/users/" + userId + "/username", method: .patch, parameters: parameters, encoding: JSONEncoding.default, headers: headersInfo, interceptor: APIRequestInterceptor.shared).response { [weak self] response in
             if let error = response.error {
                 print(String(describing: error))
                 completion(false)
             } else {
+                self?.cacheHelper.clearUserModel()
                 completion(true)
             }
         }
@@ -471,11 +496,12 @@ final class UserService: ObservableObject {
         ]
         
         print("Отправлен запрос : " + host + "/api/users/" + userId + "/firstname")
-        AF.request(host + "/api/users/" + userId + "/firstname", method: .patch, parameters: parameters, encoding: JSONEncoding.default, headers: headersInfo, interceptor: APIRequestInterceptor.shared).response { response in
+        AF.request(host + "/api/users/" + userId + "/firstname", method: .patch, parameters: parameters, encoding: JSONEncoding.default, headers: headersInfo, interceptor: APIRequestInterceptor.shared).response { [weak self] response in
             if let error = response.error {
                 print(String(describing: error))
                 completion(false)
             } else {
+                self?.cacheHelper.clearUserModel()
                 completion(true)
             }
         }
@@ -497,11 +523,12 @@ final class UserService: ObservableObject {
         ]
         
         print("Отправлен запрос : " + host + "/api/users/" + userId + "/lastname")
-        AF.request(host + "/api/users/" + userId + "/lastname", method: .patch, parameters: parameters, encoding: JSONEncoding.default, headers: headersInfo, interceptor: APIRequestInterceptor.shared).response { response in
+        AF.request(host + "/api/users/" + userId + "/lastname", method: .patch, parameters: parameters, encoding: JSONEncoding.default, headers: headersInfo, interceptor: APIRequestInterceptor.shared).response { [weak self] response in
             if let error = response.error {
                 print(String(describing: error))
                 completion(false)
             } else {
+                self?.cacheHelper.clearUserModel()
                 completion(true)
             }
         }
@@ -521,18 +548,24 @@ final class UserService: ObservableObject {
             print(response.response?.statusCode ?? "200")
             let success: Bool = response.response?.statusCode == 200
             let message: String? = success ? nil : response.value
+            self?.cacheHelper.clearUserModel()
             self?.userSetup()
             completion(success, message)
         }
     }
     
     func loadActivity(completion: @escaping ([String: Int]?) -> Void) {
+        if let cache = cacheHelper.cachedActivityMatrix {
+            completion(cache)
+            return
+        }
+        
         let headersInfo: HTTPHeaders = [
             "Accept": "application/json"
         ]
         
-        print("Отправлен запрос : " + host + "/api/course/activity")
-        AF.request(host + "/api/course/activity", method: .get, headers: headersInfo, interceptor: APIRequestInterceptor.shared).responseDecodable(of: UserActivityModel.self) { response in
+        Swift.print("Отправлен запрос : " + host + "/api/course/activity")
+        AF.request(host + "/api/course/activity", method: .get, headers: headersInfo, interceptor: APIRequestInterceptor.shared).responseDecodable(of: UserActivityModel.self) { [weak self] response in
             guard let result = response.value else {
                 if let error = response.error {
                     print(String(describing: error))
@@ -541,6 +574,7 @@ final class UserService: ObservableObject {
                 return
             }
             
+            self?.cacheHelper.cachedActivityMatrix = result.activityMatrix
             completion(result.activityMatrix)
         }
     }
